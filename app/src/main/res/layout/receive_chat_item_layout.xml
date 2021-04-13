@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ustda" />
+
+        <ImageView
+            android:id="@+id/online"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_alignEnd="@id/icon"
+            android:layout_alignBottom="@id/icon"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/chat_background"
+            android:backgroundTint="#1BC12E" />
+
+        <RelativeLayout
+            android:id="@+id/inputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/icon"
+            android:layout_marginEnd="80dp"
+            android:layout_toEndOf="@id/icon">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_alignBottom="@id/message"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/chat_background"
+                android:backgroundTint="#F3F3F8" />
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/montserrat_regular"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:textColor="@color/blue4"
+                android:textSize="12sp"
+                tools:text="Ravi de faire votre connaissance." />
+
+        </RelativeLayout>
+
+<!--        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="10dp"
+            android:src="@drawable/shape_bleu"
+            android:layout_marginEnd="-20dp"
+            android:layout_toStartOf="@id/inputLayout"
+            android:layout_alignBottom="@id/inputLayout"
+            app:tint="#F3F3F8" />-->
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.dashboard.search.SearchFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/addProfilePictureBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/unselected_country_background"
+                android:elevation="8dp"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/add_profile_btn_label"
+                    android:textColor="@color/blue4" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_image" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="&#9679; Profil"
+                    android:textColor="@color/blue4"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/presentation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/ic_secteur"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="@string/presentation_hint"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/blue4"
+                    android:textColorHint="@color/grey2"
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme" />
+
+                <EditText
+                    android:id="@+id/topics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/ic_topics"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="@string/topics_hint"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/blue4"
+                    android:textColorHint="@color/grey2"
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/enterprise_title"
+                    android:textColor="@color/blue4"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/sector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/ic_secteur"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="@string/activity_hint"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/blue4"
+                    android:textColorHint="@color/grey2"
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme" />
+
+                <EditText
+                    android:id="@+id/headquarters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/ic_entreprise"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="@string/headquarters_hint"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/blue4"
+                    android:textColorHint="@color/grey2"
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme" />
+
+                <EditText
+                    android:id="@+id/squad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/ic_effectife"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="@string/squad_hint"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/blue4"
+                    android:textColorHint="@color/grey2"
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme" />
+
+                <EditText
+                    android:id="@+id/products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/ic_effectife"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="@string/product"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/blue4"
+                    android:textColorHint="@color/grey2"
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme" />
+
+                <EditText
+                    android:id="@+id/turnover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@drawable/ic_invest"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="@string/turnover_hint"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/blue4"
+                    android:textColorHint="@color/grey2"
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/nextBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/selector_button_background"
+                    android:enabled="false"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/next_btn_label"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:cornerRadius="7dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
