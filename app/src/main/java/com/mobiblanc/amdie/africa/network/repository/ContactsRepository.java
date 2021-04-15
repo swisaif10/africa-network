@@ -13,12 +13,12 @@ public class ContactsRepository {
                               String lang,
                               String canal,
                               String presentation,
-                              int siege,
-                              int secteur,
-                              int chiffredaffaire,
-                              int effectif,
-                              int topics,
-                              int experiences,
+                              String siege,
+                              String secteur,
+                              String chiffredaffaire,
+                              String effectif,
+                              String topics,
+                              String experiences,
                               MutableLiveData<Resource<UpdateProfileData>> mutableLiveData) {
         new ApiManager().updateMentore( token, pictureProfil, pictureEntreprise, lang, canal,   presentation,   siege,    secteur,  chiffredaffaire,
          effectif,     topics,  experiences,  mutableLiveData);}
