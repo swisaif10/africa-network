@@ -28,6 +28,7 @@ public class SearchViewModel extends AndroidViewModel {
     }
 
     public void updateMentore(String token,
+                              
                               String pictureProfil,
                               String pictureEntreprise,
                               String lang,
