@@ -51,4 +51,7 @@
     <string name="turnover_hint">Chiffre d\'affaires</string>
     <string name="share_btn_label">Paratger</string>
     <string name="email_error_label">Le format de votre adresse email n\'est pas valide</string>
+
+    <string name="add_photo_profile">Ajouter \n photo de \n profil</string>
+    <string name="add_photo_entreprise">Ajouter \n photo de \n l’entreprise</string>
 </resources>

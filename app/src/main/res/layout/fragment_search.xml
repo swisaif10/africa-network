@@ -5,7 +5,7 @@
     tools:context=".views.dashboard.search.SearchFragment">
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:overScrollMode="never"
@@ -15,30 +15,98 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/addProfilePictureBtn"
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="100"
+            android:orientation="horizontal">
+            <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                android:id="@+id/btn_photo_profile"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="42"
+                android:layout_height="122dp"
+                android:background="@color/white"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                android:layout_marginStart="20dp"
+                >
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:background="@drawable/unselected_country_background"
-                android:elevation="8dp"
-                android:padding="15dp">
-
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_image"
+                    android:layout_width="30dp"
+                    android:layout_height="24dp"/>
                 <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_semibold"
-                    android:text="@string/add_profile_btn_label"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:text="@string/add_photo_profile"
                     android:textColor="@color/blue4" />
-
+            </LinearLayout>
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_image" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:id="@+id/img_profil"/>
+            </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"/>
+            <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                android:id="@+id/btn_photo_entreprise"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="42"
+                android:layout_height="122dp"
+                android:background="@color/white"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+               >
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_image"
+                        android:layout_width="30dp"
+                        android:layout_height="24dp"/>
+                    <TextView
+                        android:layout_marginTop="8dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:text="@string/add_photo_entreprise"
+                        android:textColor="@color/blue4" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:id="@+id/img_entreprise"/>
+            </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
-            </RelativeLayout>
+        </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,7 +121,7 @@
                     android:fontFamily="@font/montserrat_semibold"
                     android:text="&#9679; Profil"
                     android:textColor="@color/blue4"
-                    android:textSize="16sp" />
+                    android:textSize="19sp" />
 
                 <EditText
                     android:id="@+id/presentation"
@@ -67,7 +135,7 @@
                     android:paddingBottom="20dp"
                     android:textColor="@color/blue4"
                     android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:theme="@style/editTextTheme" />
 
                 <EditText
@@ -82,7 +150,7 @@
                     android:paddingBottom="20dp"
                     android:textColor="@color/blue4"
                     android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:theme="@style/editTextTheme" />
 
                 <TextView
@@ -92,7 +160,7 @@
                     android:fontFamily="@font/montserrat_semibold"
                     android:text="@string/enterprise_title"
                     android:textColor="@color/blue4"
-                    android:textSize="16sp" />
+                    android:textSize="19sp" />
 
                 <EditText
                     android:id="@+id/sector"
@@ -106,7 +174,7 @@
                     android:paddingBottom="20dp"
                     android:textColor="@color/blue4"
                     android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:theme="@style/editTextTheme" />
 
                 <EditText
@@ -121,7 +189,7 @@
                     android:paddingBottom="20dp"
                     android:textColor="@color/blue4"
                     android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:theme="@style/editTextTheme" />
 
                 <EditText
@@ -136,7 +204,7 @@
                     android:paddingBottom="20dp"
                     android:textColor="@color/blue4"
                     android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:theme="@style/editTextTheme" />
 
                 <EditText
@@ -151,7 +219,7 @@
                     android:paddingBottom="20dp"
                     android:textColor="@color/blue4"
                     android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:theme="@style/editTextTheme" />
 
                 <EditText
@@ -166,7 +234,7 @@
                     android:paddingBottom="20dp"
                     android:textColor="@color/blue4"
                     android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:theme="@style/editTextTheme" />
 
                 <com.google.android.material.button.MaterialButton

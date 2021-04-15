@@ -160,25 +160,22 @@ public class DashboardActivity extends BaseActivity {
         toolbar.setNavigationIcon(R.drawable.menu);
 
         Menu menu = navigationView.getMenu();
-        menu.add(0, 0, 0, "Feed").setIcon(R.drawable.ic_news);
-        menu.add(0, 1, 1, "Critères de recherche").setIcon(R.drawable.ic_crit_res);
-        menu.add(0, 2, 2, "Mise en relation").setIcon(R.drawable.ic_relation);
-        menu.add(0, 3, 3, "Messages").setIcon(R.drawable.ic_messages);
-        menu.add(0, 4, 4, "Partager application").setIcon(R.drawable.ic_share_1);
-        menu.add(0, 5, 5, "Se déconnecter").setIcon(R.drawable.ic_logout);
+        menu.add(0, 0, 0, "Paramètres").setIcon(R.drawable.ic_parametre);
+        menu.add(0, 1, 1, "Condition générale").setIcon(R.drawable.ic_docs);
+        menu.add(0, 2, 2, "Messages").setIcon(R.drawable.ic_messages);
+        menu.add(0, 3, 3, "Partager application").setIcon(R.drawable.ic_share_1);
+        menu.add(0, 4, 4, "Se déconnecter").setIcon(R.drawable.ic_logout);
 
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case 0:
+                case 0:        drawer.closeDrawer(GravityCompat.START);
+                    startActivity(new Intent(DashboardActivity.this, SettingsActivity.class));break;
                 case 1:
-                case 2:
-                case 3:
-                    activityBinding.tabLayout.selectTab(activityBinding.tabLayout.getTabAt(item.getItemId()));
+                case 2:      activityBinding.tabLayout.selectTab(activityBinding.tabLayout.getTabAt(item.getItemId()));
                     activityBinding.title.setText(item.getTitle());
                     break;
+                case 3:
                 case 4:
-                    break;
-                case 5:
                     startActivity(new Intent(DashboardActivity.this, AuthenticationActivity.class));
                     finish();
                     break;
@@ -188,10 +185,6 @@ public class DashboardActivity extends BaseActivity {
         });
 
         View header = navigationView.getHeaderView(0);
-        ImageView settingsBtn = header.findViewById(R.id.settingsBtn);
-        settingsBtn.setOnClickListener(v -> {
-            drawer.closeDrawer(GravityCompat.START);
-            startActivity(new Intent(DashboardActivity.this, SettingsActivity.class));
-        });
+
     }
 }

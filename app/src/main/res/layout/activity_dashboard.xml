@@ -35,7 +35,7 @@
                         android:fontFamily="@font/montserrat_semibold"
                         android:text="Feed"
                         android:textColor="@color/blue4"
-                        android:textSize="18sp" />
+                        android:textSize="22sp" />
 
                 </androidx.appcompat.widget.Toolbar>
 
@@ -52,7 +52,7 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="90dp"
                 android:elevation="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:tabBackground="@drawable/selector_tab_background"

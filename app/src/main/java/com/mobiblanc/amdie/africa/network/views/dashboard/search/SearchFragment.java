@@ -1,21 +1,51 @@
 package com.mobiblanc.amdie.africa.network.views.dashboard.search;
 
+import android.Manifest;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentSearchBinding;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.bundle.PickSetup;
+import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.enums.EPickType;
+import com.vansuita.pickimage.listeners.IPickResult;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Objects;
+
+import static android.app.Activity.RESULT_OK;
 
 public class SearchFragment extends Fragment {
-
+    private File file = null;
+    private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};
+    private static final int CAMERA_REQUEST_CODE = 10;
+    private  static final int REQUEST_IMAGE_CAPTURE=20;
+    private  static final int REQUEST_IMAGE_CAPTURE_PROFILE=1;
+    private  static final int REQUEST_IMAGE_CAPTURE_ENTRPRISE=2;
     private FragmentSearchBinding fragmentBinding;
 
     public SearchFragment() {
@@ -68,7 +98,45 @@ public class SearchFragment extends Fragment {
         fragmentBinding.squad.addTextChangedListener(textWatcher);
         fragmentBinding.turnover.addTextChangedListener(textWatcher);
         fragmentBinding.products.addTextChangedListener(textWatcher);
+
+        fragmentBinding.btnPhotoEntreprise.setOnClickListener(v -> dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE_ENTRPRISE));
+        fragmentBinding.btnPhotoProfile.setOnClickListener(v ->dispatchTakePictureIntent(REQUEST_IMAGE_CAPTURE_PROFILE));
+
     }
+
+    private void dispatchTakePictureIntent( int i) {
+        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            try {
+                startActivityForResult(takePictureIntent, i);
+            } catch (ActivityNotFoundException e) {
+                // display error state to the user
+            }
+        } else {
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), CAMERA_PERMISSION, CAMERA_REQUEST_CODE);
+        }
+
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE_ENTRPRISE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+         fragmentBinding.imgEntreprise.setImageBitmap(imageBitmap);
+        }
+        if (requestCode == REQUEST_IMAGE_CAPTURE_PROFILE&& resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            fragmentBinding.imgProfil.setImageBitmap(imageBitmap);
+        }
+    }
+
+
+
+
 
     private Boolean checkForm() {
         return !Utilities.isEmpty(fragmentBinding.presentation) &&
@@ -79,4 +147,6 @@ public class SearchFragment extends Fragment {
                 !Utilities.isEmpty(fragmentBinding.turnover) &&
                 !Utilities.isEmpty(fragmentBinding.products);
     }
+
+
 }

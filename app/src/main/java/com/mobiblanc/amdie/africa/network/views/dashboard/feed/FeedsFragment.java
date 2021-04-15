@@ -58,9 +58,11 @@ public class FeedsFragment extends Fragment {
     }
 
     private void init(List<Feed> feeds) {
+        if (fragmentBinding!=null){
         fragmentBinding.feedsRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         fragmentBinding.feedsRecycler.setAdapter(new FeedsAdapter(requireContext(), feeds));
         fragmentBinding.feedsRecycler.setNestedScrollingEnabled(false);
+    }
     }
 
     private void getFeeds(String sectors, String type, String date) {
