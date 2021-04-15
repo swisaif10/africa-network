@@ -20,6 +20,7 @@ import java.net.UnknownHostException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Field;
 
 public class ApiManager {
 
@@ -160,4 +161,38 @@ public class ApiManager {
             }
         });
     }
+
+
+    public void updateMentore(String token,
+                              String pictureProfil,
+                              String pictureEntreprise,
+                              String lang,
+                              String canal,
+                              String presentation,
+                              String siege,
+                              String secteur,
+                              String chiffredaffaire,
+                              String effectif,
+                              String topics,
+                              String experiences,
+                              MutableLiveData<Resource<UpdateProfileData>> mutableLiveData) {
+        Call<UpdateProfileData> call = RetrofitClient.getInstance().endpoint().updatemMentore(token,  pictureProfil,
+                pictureEntreprise, lang, canal, presentation, siege, secteur, chiffredaffaire, effectif,topics, experiences);
+        call.enqueue(new Callback<UpdateProfileData>() {
+            @Override
+            public void onResponse(@NonNull Call<UpdateProfileData> call, @NonNull Response<UpdateProfileData> response) {
+                assert response.body() != null;
+                if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                    mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                else
+                    mutableLiveData.setValue(Resource.success(response.body()));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UpdateProfileData> call, @NonNull Throwable t) {
+                HandleThrowableException(t, mutableLiveData);
+            }
+        });
+    }
+
 }

@@ -7,4 +7,6 @@ public interface ApiEndpoints {
     String UPDATE_PROFILE_URL = "api-be/api/update/profile";
     String GET_FEEDS_URL = "api-be/api/get/feed";
     String GET_MENU_URL = "api-be/api/menu";
+
+    String UPDATE_MENTORE_URL = "api/update/mentore";
 }

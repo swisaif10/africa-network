@@ -4,6 +4,7 @@
     package="com.mobiblanc.amdie.africa.network">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".AfricaNetwork"

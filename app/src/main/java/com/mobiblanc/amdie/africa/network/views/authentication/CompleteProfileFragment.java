@@ -1,10 +1,12 @@
 package com.mobiblanc.amdie.africa.network.views.authentication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,11 +87,12 @@ public class CompleteProfileFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                fragmentBinding.nextBtn.setEnabled(checkForm());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                fragmentBinding.nextBtn.setEnabled(checkForm());
+
             }
         };
 
@@ -100,6 +103,7 @@ public class CompleteProfileFragment extends Fragment {
         fragmentBinding.job.addTextChangedListener(textWatcher);
         fragmentBinding.company.addTextChangedListener(textWatcher);
         fragmentBinding.phoneNumber.addTextChangedListener(textWatcher);
+        fragmentBinding.email.addTextChangedListener(textWatcher);
 
         fragmentBinding.email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -125,6 +129,7 @@ public class CompleteProfileFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.custom_dropdown_item_layout, data.getCountriesNames());
         fragmentBinding.country.setAdapter(adapter);
         fragmentBinding.country.setOnTouchListener((v, event) -> {
+            Utilities.hideSoftKeyboard(requireContext(), requireView());
             fragmentBinding.country.showDropDown();
             return false;
         });
@@ -136,10 +141,12 @@ public class CompleteProfileFragment extends Fragment {
             fragmentBinding.city.setText("");
             fragmentBinding.city.setAdapter(citiesAdapter);
             fragmentBinding.city.setOnTouchListener((v, event) -> {
+                Utilities.hideSoftKeyboard(requireContext(), requireView());
                 fragmentBinding.city.showDropDown();
                 return false;
             });
         });
+
 
         fragmentBinding.city.setOnItemClickListener((parent, view, position, id) -> city = country.getCities().get(position));
 

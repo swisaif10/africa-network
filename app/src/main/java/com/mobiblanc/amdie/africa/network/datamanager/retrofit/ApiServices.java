@@ -57,4 +57,20 @@ public interface ApiServices {
     Call<MenuData> getMenu(@Field("token") String token,
                            @Field("canal") String canal,
                            @Field("lang") String lang);
+
+
+    @FormUrlEncoded
+    @POST(ApiEndpoints.UPDATE_MENTORE_URL)
+    Call<UpdateProfileData> updatemMentore(@Field("token") String token,
+                                          @Field("pictureProfil") String pictureProfil,
+                                          @Field("pictureEntreprise") String pictureEntreprise,
+                                          @Field("lang") String lang,
+                                          @Field("canal") String canal,
+                                          @Field("presentation") String presentation,
+                                          @Field("siege") String siege,
+                                          @Field("secteur") String secteur,
+                                          @Field("chiffredaffaire") String chiffredaffaire,
+                                          @Field("effectif") String effectif,
+                                          @Field("topics") String topics,
+                                          @Field("experiences") String experiences);
 }

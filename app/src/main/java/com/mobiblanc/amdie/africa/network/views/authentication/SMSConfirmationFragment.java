@@ -97,10 +97,11 @@ public class SMSConfirmationFragment extends Fragment {
     }
 
     private void handleCheckSMSData(Resource<CheckSMSData> responseData) {
+
         switch (responseData.status) {
             case SUCCESS:
+                preferenceManager.putValue(Constants.TOKEN, responseData.data.getResults().getToken());
                 if (responseData.data.getResults().getSearch() == 0) {
-                    preferenceManager.putValue(Constants.TOKEN, responseData.data.getResults().getToken());
                     startActivity(new Intent(requireActivity(), DashboardActivity.class));
                     requireActivity().finish();
                 } else
