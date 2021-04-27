@@ -5,12 +5,23 @@ import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.CheckSM
 import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
 import com.mobiblanc.amdie.africa.network.models.checkversion.CheckVersionData;
 import com.mobiblanc.amdie.africa.network.models.feed.GetFeedData;
+import com.mobiblanc.amdie.africa.network.models.like.LikeModel;
 import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
+import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
+import com.mobiblanc.amdie.africa.network.models.search.profile.Profile;
+import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
 
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 public interface ApiServices {
 
@@ -59,18 +70,38 @@ public interface ApiServices {
                            @Field("lang") String lang);
 
 
-    @FormUrlEncoded
+    @Multipart
     @POST(ApiEndpoints.UPDATE_MENTORE_URL)
-    Call<UpdateProfileData> updatemMentore(@Field("token") String token,
-                                          @Field("pictureProfil") String pictureProfil,
-                                          @Field("pictureEntreprise") String pictureEntreprise,
-                                          @Field("lang") String lang,
-                                          @Field("canal") String canal,
-                                          @Field("presentation") String presentation,
-                                          @Field("siege") String siege,
-                                          @Field("secteur") String secteur,
-                                          @Field("chiffredaffaire") String chiffredaffaire,
-                                          @Field("effectif") String effectif,
-                                          @Field("topics") String topics,
-                                          @Field("experiences") String experiences);
+    Call<UpdateMentoreData> updatemMentore(@Part("token") RequestBody token,
+                                           @Part MultipartBody.Part pictureProfil,
+                                           @Part MultipartBody.Part pictureEntreprise,
+                                           @Part("lang") RequestBody lang,
+                                           @Part("canal") RequestBody canal,
+                                           @Part("presentation") RequestBody presentation,
+                                           @Part("siege") RequestBody siege,
+                                           @Part("secteur") RequestBody secteur,
+                                           @Part("chiffredaffaire") RequestBody chiffredaffaire,
+                                           @Part("effectif") RequestBody effectif,
+                                           @Part("topics") RequestBody topics,
+
+                                           @Part("devise") RequestBody devise,
+                                           @Part("produits") RequestBody produit);
+
+
+    @FormUrlEncoded
+    @POST(ApiEndpoints.GET_INIT_MONTORING_URL)
+    Call<InitMontoringData> getInit_Montoring(@Field("token") String token,
+                                              @Field("canal") String canal,
+                                              @Field("lang") String lang);
+
+    @FormUrlEncoded
+    @POST(ApiEndpoints.SET_LIKE_URL)
+    Call<LikeModel> setLikeFeed(@Field("token") String token,
+                                @Field("id") int id);
+
+    @FormUrlEncoded
+    @POST(ApiEndpoints.GET_PROFILE)
+    Call<Profile> getProfile(@Field("token") String token,
+                             @Field("canal") String canal,
+                             @Field("lang") String lang);
 }

@@ -62,12 +62,21 @@ public class PreferenceManager {
         return sharedPreferences.getString(key, defaultValue);
     }
 
+    public Boolean getValueB(String key, boolean defaultValue) {
+        try {
+            return sharedPreferences.getBoolean(key, defaultValue);
+        }catch (Exception e){}
+        return defaultValue;
+    }
     public Boolean getValue(String key, boolean defaultValue) {
         return sharedPreferences.getBoolean(key, defaultValue);
     }
 
     public int getValue(String key, int defaultValue) {
         return sharedPreferences.getInt(key, defaultValue);
+    }
+    public String getValueS(String key, String defaultValue) {
+        return sharedPreferences.getString(key, defaultValue);
     }
 
     public float getValue(String key, float defaultValue) {

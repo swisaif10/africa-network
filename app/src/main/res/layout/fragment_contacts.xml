@@ -5,6 +5,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="51dp"
         android:fillViewport="true"
         android:overScrollMode="never"
         android:scrollbars="none">
@@ -57,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="22dp"
                 android:background="@drawable/contact_background"
                 android:drawableEnd="@drawable/ic_search"
                 android:padding="10dp" />
@@ -66,7 +67,7 @@
                 android:id="@+id/contactsRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="26dp"
                 tools:listitem="@layout/contact_item_layout" />
 
             <LinearLayout

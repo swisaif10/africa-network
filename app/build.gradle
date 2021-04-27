@@ -12,6 +12,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+
     }
 
     buildFeatures {
@@ -58,4 +59,14 @@ dependencies {
     implementation 'com.github.mutasemhajhasan:PhoneInput:1.0.1'
     //Image Picker
     implementation 'com.github.jrvansuita:PickImage:2.2.4'
+    //dexter permissions
+    implementation "com.karumi:dexter:5.0.0"
+    implementation 'com.github.yalantis:ucrop:2.2.2'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.android:flexbox:2.0.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
+
+
+
 }

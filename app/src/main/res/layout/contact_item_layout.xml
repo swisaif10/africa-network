@@ -8,6 +8,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="7dp"
         android:background="@drawable/unselected_country_background"
+        android:outlineAmbientShadowColor="@color/black"
         android:elevation="8dp"
         android:padding="15dp">
 
@@ -84,20 +85,27 @@
                 android:src="@drawable/ic_supp" />
 
         </LinearLayout>
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent">
+           <ImageView
+               android:id="@+id/favBtn"
+               android:layout_width="14dp"
+               android:layout_height="14dp"
+               android:background="@drawable/favoris"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/msgBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/blue4"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="Message"
-            android:textAllCaps="false"
-            android:textSize="10sp"
-            app:cornerRadius="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+           <ImageView
+               android:id="@+id/msgBtn"
+               android:layout_width="20dp"
+               android:layout_height="14dp"
+               android:layout_marginStart="10dp"
+               android:background="@drawable/email" />
+       </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

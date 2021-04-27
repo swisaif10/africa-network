@@ -49,4 +49,11 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20dp</item>
     </style>
+    <style name="WhiteCheck">
+        <item name="colorAccent">@color/transparent</item>
+    </style>
+    <style name="textTheme" parent="Widget.AppCompat.TextView">
+        <item name="colorControlNormal">#550C0366</item>
+        <item name="colorControlActivated">#0C0366</item>
+    </style>
 </resources>

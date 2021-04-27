@@ -8,5 +8,8 @@ public interface ApiEndpoints {
     String GET_FEEDS_URL = "api-be/api/get/feed";
     String GET_MENU_URL = "api-be/api/menu";
 
-    String UPDATE_MENTORE_URL = "api/update/mentore";
+    String UPDATE_MENTORE_URL = "api-be/api/update/mentore";
+    String GET_INIT_MONTORING_URL = "api-be/api/init/montoring ";
+    String SET_LIKE_URL ="api-be/api/page/like";
+    String GET_PROFILE="api-be/api/get/profile";
 }

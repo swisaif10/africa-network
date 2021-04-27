@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".AfricaNetwork"
@@ -14,6 +16,8 @@
         android:networkSecurityConfig="@xml/network_traffic_config"
         android:supportsRtl="true"
         android:theme="@style/Theme.AfricaNetwork"
+        android:requestLegacyExternalStorage="true"
+
         tools:targetApi="n">
         <activity android:name=".views.chat.ChatActivity"></activity>
         <activity android:name=".views.settings.SettingsActivity" />
@@ -32,6 +36,25 @@
         <activity
             android:name=".views.authentication.AuthenticationActivity"
             android:windowSoftInputMode="adjustResize" />
+
+
+        <!-- uCrop cropping activity -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Splash" />
+
+        <!-- cache directory file provider paths -->
+        <provider
+            android:name=".views.dashboard.search.MyFileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
     </application>
 
 </manifest>
