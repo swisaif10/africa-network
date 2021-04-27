@@ -34,6 +34,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -50,8 +51,22 @@
     <string name="turnover_hint">Chiffre d\'affaires</string>
     <string name="share_btn_label">Paratger</string>
     <string name="email_error_label">Le format de votre adresse email n\'est pas valide</string>
+    <string name="devise">Devise</string>
     <string name="add_photo_profile">Ajouter \n photo de \n profil</string>
     <string name="add_photo_entreprise">Ajouter \n photo de \n l’entreprise</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <string name="lbl_set_profile_photo">Ajouter photo de profil</string>
+    <string name="lbl_take_camera_picture">Prendre une photo</string>
+    <string name="lbl_choose_from_gallery">Choisir une photo</string>
+    <string name="toast_image_intent_null">Image picker option is missing!</string>
+    <string name="fr">Francais</string>
+    <string name="ang">Anglais</string>
+
+
     <string name="cgu_text"><![CDATA[<font color="#000000">J’accepte </font><font color="#0C0366"><u>les conditions générales</u></font>]]></string>
     <string name="input_hint">Écrire</string>
     <string name="send_btn_label">Envoyer</string>

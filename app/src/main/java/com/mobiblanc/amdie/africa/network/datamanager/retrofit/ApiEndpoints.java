@@ -20,5 +20,8 @@ public interface ApiEndpoints {
     String GET_FAVOURITES_LIST_URL = "api-be/api/list/demande";
     String GET_SUGGESTIONS_LIST_URL = "api-be/api/search/top-monitoring";
 
-    String UPDATE_MENTORE_URL = "api/update/mentore";
+    String UPDATE_MENTORE_URL = "api-be/api/update/mentore";
+    String GET_INIT_MONTORING_URL = "api-be/api/init/montoring ";
+    String SET_LIKE_URL ="api-be/api/page/like";
+    String GET_PROFILE="api-be/api/get/profile";
 }

@@ -14,7 +14,7 @@ public class Results implements Serializable {
     private int town;
     @SerializedName("notif_push")
     private boolean notifPush;
-    @Expose
+    @SerializedName("monitoring")
     private int monitoring;
     @SerializedName("nom")
     private String lastName;

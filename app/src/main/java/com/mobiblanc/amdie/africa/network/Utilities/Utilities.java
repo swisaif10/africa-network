@@ -111,7 +111,29 @@ public interface Utilities {
         dialog.setContentView(view);
         dialog.show();
     }
+    static void showPhotoDialog(Context context, OnDialogButtonsClickListener onDialogButtonsClickListener) {
 
+        if (context == null) {
+            return;
+        }
+
+        final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_photo, null, false);
+        TextView update = view.findViewById(R.id.photolBtn);
+        TextView cancel = view.findViewById(R.id.galerieBtn);
+
+        update.setOnClickListener(v -> {
+            dialog.dismiss();
+            onDialogButtonsClickListener.firstChoice();
+        });
+        cancel.setOnClickListener(v -> {
+            dialog.dismiss();
+            onDialogButtonsClickListener.secondChoice();
+        });
+        dialog.setContentView(view);
+        dialog.show();
+    }
     static String getUID(Context context) {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }

@@ -7,5 +7,6 @@ public interface Constants {
     String COUNTRY =  "COUNTRY";
     String PICTURE =  "PICTURE";
     String NOTIFICATION =  "NOTIFICATION";
+    String LANGUAGE =  "LANGUAGE";
     String FIREBASE_TOKEN =  "FIREBASE_TOKEN";
 }

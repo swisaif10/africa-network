@@ -48,6 +48,12 @@ public class SMSConfirmationFragment extends Fragment {
         if ((getArguments() != null))
             msisdn = getArguments().getString("msisdn");
 
+        ((AuthenticationActivity) requireActivity()).getViewModel().getCheckSMSLiveData().observe(requireActivity(), this::handleCheckSMSData);
+
+        preferenceManager = new PreferenceManager.Builder(requireContext(), Context.MODE_PRIVATE)
+                .name(BuildConfig.APPLICATION_ID)
+                .build();
+
     }
 
     @Override

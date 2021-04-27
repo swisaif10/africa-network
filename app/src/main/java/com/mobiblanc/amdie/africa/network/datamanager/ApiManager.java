@@ -17,6 +17,9 @@ import com.mobiblanc.amdie.africa.network.models.feed.GetFeedData;
 import com.mobiblanc.amdie.africa.network.models.like.LikeFeedData;
 import com.mobiblanc.amdie.africa.network.models.logout.LogoutData;
 import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
+import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
+import com.mobiblanc.amdie.africa.network.models.search.profile.Profile;
+import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
 import com.mobiblanc.amdie.africa.network.models.messaging.discussions.DiscussionsListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.MessagesListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.sending.SendMessageData;
@@ -26,9 +29,12 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Field;
 
 public class ApiManager {
 
@@ -494,6 +500,52 @@ public class ApiManager {
         });
     }
 
+    public void updateMentore(RequestBody token,
+                              MultipartBody.Part pictureProfil,
+                              MultipartBody.Part pictureEntreprise,
+                              RequestBody lang,
+                              RequestBody canal,
+                              RequestBody presentation,
+                              RequestBody siege,
+                              RequestBody secteur,
+                              RequestBody chiffredaffaire,
+                              RequestBody effectif,
+                              RequestBody topics,
+                              RequestBody devise,
+                              RequestBody produit,
+                              MutableLiveData<Resource<UpdateMentoreData>> mutableLiveData) {
+        Call<UpdateMentoreData> call = RetrofitClient.getInstance().endpoint().updatemMentore(token,  pictureProfil,
+                pictureEntreprise, lang, canal, presentation, siege, secteur, chiffredaffaire, effectif,topics,devise, produit);
+        call.enqueue(new Callback<UpdateMentoreData>() {
+            @Override
+            public void onResponse(@NonNull Call<UpdateMentoreData> call, @NonNull Response<UpdateMentoreData> response) {
+                assert response.body() != null;
+                if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                    mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                else
+                    mutableLiveData.setValue(Resource.success(response.body()));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UpdateMentoreData> call, @NonNull Throwable t) {
+                HandleThrowableException(t, mutableLiveData);
+            }
+        });
+    }
+
+    public void getInitMontoring(String token, String lang,
+                        MutableLiveData<Resource<InitMontoringData>> mutableLiveData) {
+        Call<InitMontoringData> call = RetrofitClient.getInstance().endpoint().getInit_Montoring(token, "mobile", lang);
+        call.enqueue(new Callback<InitMontoringData>() {
+            @Override
+            public void onResponse(@NonNull Call<InitMontoringData> call, @NonNull Response<InitMontoringData> response) {
+                assert response.body() != null;
+                if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                    mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                else
+                    mutableLiveData.setValue(Resource.success(response.body()));
+            }
+
     public void updateMentore(String token,
                               String pictureProfil,
                               String pictureEntreprise,
@@ -511,6 +563,22 @@ public class ApiManager {
                 pictureEntreprise, lang, canal, presentation, siege, secteur, chiffredaffaire, effectif, topics, experiences);
         call.enqueue(new Callback<UpdateProfileData>() {
             @Override
+            public void onFailure(@NonNull Call<InitMontoringData> call, @NonNull Throwable t) {
+                HandleThrowableException(t, mutableLiveData);
+            }
+        });
+    }
+    public void getProfile(String token, String lang,
+                                 MutableLiveData<Resource<Profile>> mutableLiveData) {
+        Call<Profile> call = RetrofitClient.getInstance().endpoint().getProfile(token, "mobile", lang);
+        call.enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(@NonNull Call<Profile> call, @NonNull Response<Profile> response) {
+                assert response.body() != null;
+                if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                    mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                else
+                    mutableLiveData.setValue(Resource.success(response.body()));
             public void onResponse(@NonNull Call<UpdateProfileData> call, @NonNull Response<UpdateProfileData> response) {
                 if (response.body() != null)
                     if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
@@ -524,7 +592,7 @@ public class ApiManager {
             }
 
             @Override
-            public void onFailure(@NonNull Call<UpdateProfileData> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Profile> call, @NonNull Throwable t) {
                 HandleThrowableException(t, mutableLiveData);
             }
         });
