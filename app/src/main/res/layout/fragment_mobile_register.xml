@@ -43,23 +43,43 @@
                 android:textColor="@color/blue2"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/phoneNumber"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:drawableStart="@drawable/flag"
-                android:drawableEnd="@drawable/ic_uncheck"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:hint="@string/phone_number_hint"
-                android:maxLength="10"
-                android:paddingBottom="20dp"
-                android:textSize="14sp"
-                android:text="0610101010"
-                android:theme="@style/editTextTheme" />
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp">
 
+                <EditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/ic_uncheck"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/phone_number_hint"
+                    android:paddingStart="60dp"
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme" />
 
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:completionThreshold="0"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/arrow"
+                    android:drawablePadding="5dp"
+                    android:dropDownWidth="230dp"
+                    android:dropDownHeight="300dp"
+                    android:focusableInTouchMode="false"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:overScrollMode="never"
+                    android:paddingStart="10dp"
+                    android:text="+212"
+                    android:textSize="14sp" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -100,6 +120,19 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </LinearLayout>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/loader"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/loader"
+            android:tint="@color/blue4"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

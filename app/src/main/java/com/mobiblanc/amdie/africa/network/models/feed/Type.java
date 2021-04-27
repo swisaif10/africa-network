@@ -7,6 +7,7 @@ public class Type {
     private String id;
     @Expose
     private String value;
+    private Boolean checked = false;
 
     public String getId() {
         return id;
@@ -22,5 +23,13 @@ public class Type {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 }

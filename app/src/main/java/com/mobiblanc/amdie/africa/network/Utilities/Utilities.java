@@ -37,7 +37,6 @@ public interface Utilities {
         return editText.getText().toString().equalsIgnoreCase("");
     }
 
-
     static void showErrorPopup(Context context, String message) {
 
         if (context == null) {
@@ -54,6 +53,30 @@ public interface Utilities {
         msg.setText(message);
 
         ok.setOnClickListener(v -> dialog.dismiss());
+        container.setOnClickListener(v -> dialog.dismiss());
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
+    static void showErrorPopupWithCLick(Context context, String message, View.OnClickListener onClickListener) {
+
+        if (context == null) {
+            return;
+        }
+
+        final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.server_error_dialog, null, false);
+        Button ok = view.findViewById(R.id.okBtn);
+        TextView msg = view.findViewById(R.id.message);
+        ConstraintLayout container = view.findViewById(R.id.container);
+
+        msg.setText(message);
+
+        ok.setOnClickListener(v -> {
+            dialog.dismiss();
+            onClickListener.onClick(v);
+        });
         container.setOnClickListener(v -> dialog.dismiss());
         dialog.setContentView(view);
         dialog.show();

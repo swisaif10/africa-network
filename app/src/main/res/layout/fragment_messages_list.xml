@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="30dp"
         tools:context=".views.dashboard.messages.MessagesListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -13,7 +15,58 @@
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:scrollbars="none"
+            android:visibility="gone"
             tools:listitem="@layout/message_item_layout" />
 
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/loader"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/loader"
+            android:tint="@color/blue4"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/message"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/illustration"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginHorizontal="70dp"
+            android:alpha="0.4"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textAlignment="center"
+            android:textColor="#0B162B"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text="Votre profil est en cours de validation" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/editProfileBtn"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="@color/selector_button_background"
+            android:enabled="true"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/edit_profile_btn_label"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:cornerRadius="7dp" />
     </RelativeLayout>
 </layout>

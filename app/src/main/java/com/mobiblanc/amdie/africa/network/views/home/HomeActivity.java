@@ -26,9 +26,6 @@ public class HomeActivity extends AppCompatActivity {
         activityBinding.tabDots.setupWithViewPager(activityBinding.pager);
         activityBinding.pager.setAdapter(new HomePagerAdapter());
 
-        activityBinding.startBtn.setOnClickListener(v -> {
-            startActivity(new Intent(HomeActivity.this, AuthenticationActivity.class));
-            finish();
-        });
+        activityBinding.startBtn.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AuthenticationActivity.class)));
     }
 }

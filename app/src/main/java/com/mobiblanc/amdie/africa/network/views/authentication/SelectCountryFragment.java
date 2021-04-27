@@ -25,7 +25,7 @@ import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
 
 public class SelectCountryFragment extends Fragment {
 
-    private FragmentSelectCountryBinding fragmentBinding;
+    private static FragmentSelectCountryBinding fragmentBinding;
     private PreferenceManager preferenceManager;
     private String firstName;
     private String lastName;
@@ -35,6 +35,7 @@ public class SelectCountryFragment extends Fragment {
     private int country;
     private int city;
     private int nationality = 1;
+    private Boolean request = false;
 
     public SelectCountryFragment() {
         // Required empty public constructor
@@ -131,22 +132,30 @@ public class SelectCountryFragment extends Fragment {
     }
 
     private void updateProfile() {
+        fragmentBinding.loader.setVisibility(View.VISIBLE);
         ((AuthenticationActivity) requireActivity()).getViewModel().updateProfile(preferenceManager.getValue(Constants.TOKEN, ""),
                 lastName, company, job, email, firstName, country, city, nationality);
+        request = true;
     }
 
     private void handleUpdateProfileData(Resource<UpdateProfileData> responseData) {
-        switch (responseData.status) {
-            case SUCCESS:
-                Intent intent = new Intent(requireActivity(), DashboardActivity.class);
-                startActivity(intent);
-                requireActivity().finish();
-                break;
-            case LOADING:
-                break;
-            case ERROR:
-                Utilities.showErrorPopup(requireContext(), responseData.message);
-                break;
-        }
+        fragmentBinding.loader.setVisibility(View.GONE);
+        if (request)
+            switch (responseData.status) {
+                case SUCCESS:
+                    Intent intent = new Intent(requireActivity(), DashboardActivity.class);
+                    startActivity(intent);
+                    requireActivity().finish();
+                    break;
+                case INVALID_TOKEN:
+                    Utilities.showErrorPopupWithCLick(requireContext(), responseData.data.getHeader().getMessage(), v -> {
+                        preferenceManager.clearAll();
+                        ((AuthenticationActivity) requireActivity()).showFragment(new MobileRegisterFragment());
+                    });
+                    break;
+                case ERROR:
+                    Utilities.showErrorPopup(requireContext(), responseData.message);
+                    break;
+            }
     }
 }

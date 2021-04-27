@@ -19,7 +19,7 @@ public class AuthenticationActivity extends BaseActivity {
 
         viewModel = ViewModelProviders.of(this).get(AuthenticationViewModel.class);
 
-        replaceFragment(new MobileRegisterFragment());
+        replaceFragment(new MobileRegisterFragment(), "");
     }
 
     @Override

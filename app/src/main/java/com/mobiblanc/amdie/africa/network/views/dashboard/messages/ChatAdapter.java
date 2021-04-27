@@ -7,34 +7,47 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mobiblanc.amdie.africa.network.databinding.ReceiveChatItemLayoutBinding;
+import com.bumptech.glide.Glide;
+import com.mobiblanc.amdie.africa.network.databinding.ReceivedChatItemLayoutBinding;
+import com.mobiblanc.amdie.africa.network.databinding.ReceivedChatItemLayoutBindingImpl;
 import com.mobiblanc.amdie.africa.network.databinding.SendChatItemLayoutBinding;
+import com.mobiblanc.amdie.africa.network.models.messaging.messages.Message;
+
+import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Context context;
+    private final List<Message> messages;
+    private final int idReceiver;
+    private final String picture;
 
-    public ChatAdapter(Context context) {
+    public ChatAdapter(Context context, List<Message> messages, int idReceiver, String picture) {
         this.context = context;
+        this.messages = messages;
+        this.idReceiver = idReceiver;
+        this.picture = picture;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return position;
+        if (messages.get(position).getIdClient() != idReceiver)
+            return 1001;
+        else
+            return 1002;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
-            case 0:
-            case 2:
-                return new ReceiveChatViewHolder(ReceiveChatItemLayoutBinding.inflate(
+            case 1001:
+                return new SendChatViewHolder(SendChatItemLayoutBinding.inflate(
                         LayoutInflater.from(parent.getContext()),
                         parent,
                         false));
-            case 1:
-                return new SendChatViewHolder(SendChatItemLayoutBinding.inflate(
+            case 1002:
+                return new ReceiveChatViewHolder(ReceivedChatItemLayoutBindingImpl.inflate(
                         LayoutInflater.from(parent.getContext()),
                         parent,
                         false));
@@ -46,18 +59,22 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof SendChatViewHolder)
-            ((SendChatViewHolder) holder).bind();
+            ((SendChatViewHolder) holder).bind(messages.get(position));
         else
-            ((ReceiveChatViewHolder) holder).bind();
+            ((ReceiveChatViewHolder) holder).bind(messages.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return messages.size();
     }
 
+    public void addMessage(Message message) {
+        messages.add(message);
+        notifyItemInserted(messages.size() - 1);
+    }
 
-    class SendChatViewHolder extends RecyclerView.ViewHolder {
+    static class SendChatViewHolder extends RecyclerView.ViewHolder {
 
         SendChatItemLayoutBinding itemBinding;
 
@@ -66,26 +83,23 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             this.itemBinding = itemBinding;
         }
 
-        private void bind() {
-
+        private void bind(Message message) {
+            itemBinding.text.setText(message.getMessage());
         }
     }
 
     class ReceiveChatViewHolder extends RecyclerView.ViewHolder {
 
-        ReceiveChatItemLayoutBinding itemBinding;
+        ReceivedChatItemLayoutBinding itemBinding;
 
-        ReceiveChatViewHolder(ReceiveChatItemLayoutBinding itemBinding) {
+        ReceiveChatViewHolder(ReceivedChatItemLayoutBinding itemBinding) {
             super(itemBinding.getRoot());
             this.itemBinding = itemBinding;
         }
 
-        private void bind() {
-            if (getAdapterPosition() == 0)
-                itemBinding.message.setText("Bonjour");
-            else
-                itemBinding.message.setText("Je souhaite investir dans votre projet. Êtes vous disponible cette semaine pour une éventuelle rencontre ?");
-
+        private void bind(Message message) {
+            Glide.with(context).load(picture).into(itemBinding.icon);
+            itemBinding.text.setText(message.getMessage());
         }
     }
 }

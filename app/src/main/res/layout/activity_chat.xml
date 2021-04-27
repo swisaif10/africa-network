@@ -6,6 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
         tools:context=".views.dashboard.messages.MessagesListFragment">
 
         <LinearLayout
@@ -37,7 +39,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/ustda" />
+                tools:src="@drawable/ustda" />
 
             <TextView
                 android:id="@+id/name"
@@ -46,9 +48,9 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Enoh Titilayo"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="Enoh Titilayo" />
 
         </LinearLayout>
 
@@ -68,17 +70,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
+                android:id="@+id/input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:background="@drawable/chat_background"
                 android:backgroundTint="#F3F3F8"
-                android:hint="Écrire"
+                android:hint="@string/input_hint"
                 android:padding="10dp"
                 android:textColor="@color/blue4"
                 android:textSize="12sp" />
@@ -90,8 +92,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/montserrat_semibold"
-                android:text="Envoyer"
-                android:textColor="@color/blue4"
+                android:text="@string/send_btn_label"
+                android:textColor="@color/blue5"
                 android:textSize="14sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

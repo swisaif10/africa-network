@@ -3,14 +3,16 @@ package com.mobiblanc.amdie.africa.network.views.dashboard.feed;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.databinding.FeedItemLayoutBinding;
+import com.mobiblanc.amdie.africa.network.listeners.OnItemSelectedListener;
 import com.mobiblanc.amdie.africa.network.models.feed.Feed;
 
 import java.util.List;
@@ -19,10 +21,12 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.ViewHolder> 
 
     private final Context context;
     private final List<Feed> feeds;
+    private final OnItemSelectedListener onItemSelectedListener;
 
-    public FeedsAdapter(Context context, List<Feed> feeds) {
+    public FeedsAdapter(Context context, List<Feed> feeds, OnItemSelectedListener onItemSelectedListener) {
         this.context = context;
         this.feeds = feeds;
+        this.onItemSelectedListener = onItemSelectedListener;
     }
 
     @NonNull
@@ -61,8 +65,21 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.ViewHolder> 
             itemBinding.description.setText(Html.fromHtml(feed.getBody()));
             Glide.with(context).load(feed.getImage()).fitCenter().into(itemBinding.image);
 
-            itemBinding.shareBtn.setOnClickListener(v -> {
+            if (feed.getLiked() == 0) {
+                itemBinding.likeBtn.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.heart_unselected), null, null, null);
+                itemBinding.likeBtn.setTextColor(ContextCompat.getColor(context, R.color.likeTextColor));
+            } else {
+                itemBinding.likeBtn.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.heart), null, null, null);
+                itemBinding.likeBtn.setTextColor(ContextCompat.getColor(context, R.color.blue4));
+            }
 
+            itemBinding.likeBtn.setOnClickListener(v -> {
+                if (feed.getLiked() == 0)
+                    feed.setLiked(1);
+                else
+                    feed.setLiked(0);
+                notifyDataSetChanged();
+                onItemSelectedListener.onItemSelectedListener(feed);
             });
 
         }

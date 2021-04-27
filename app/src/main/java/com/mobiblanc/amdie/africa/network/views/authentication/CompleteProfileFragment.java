@@ -1,12 +1,12 @@
 package com.mobiblanc.amdie.africa.network.views.authentication;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +23,7 @@ import com.mobiblanc.amdie.africa.network.databinding.FragmentCompleteProfileBin
 import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.CheckSMSData;
 import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.City;
 import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.Country;
+import com.mobiblanc.amdie.africa.network.views.cgu.CGUActivity;
 
 public class CompleteProfileFragment extends Fragment {
 
@@ -73,10 +74,14 @@ public class CompleteProfileFragment extends Fragment {
                 fragmentBinding.lastName.getText().toString(), fragmentBinding.company.getText().toString(),
                 fragmentBinding.job.getText().toString(), fragmentBinding.email.getText().toString(),
                 fragmentBinding.firstName.getText().toString(),
-                country.getId(), city.getId())));
+                country.getId(), city.getId()), ""));
 
         fragmentBinding.phoneNumber.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         fragmentBinding.phoneNumber.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+
+        fragmentBinding.cguBtn.setText(Html.fromHtml(requireActivity().getResources().getString(R.string.cgu_text)));
+        fragmentBinding.cguCheck.setOnCheckedChangeListener((buttonView, isChecked) -> fragmentBinding.nextBtn.setEnabled(checkForm()));
+        fragmentBinding.cguBtn.setOnClickListener(v -> startActivity(new Intent(requireActivity(), CGUActivity.class)));
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -86,7 +91,6 @@ public class CompleteProfileFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 fragmentBinding.nextBtn.setEnabled(checkForm());
             }
 
@@ -120,7 +124,7 @@ public class CompleteProfileFragment extends Fragment {
             public void afterTextChanged(Editable s) {
                 if (Utilities.isEmailValid(s.toString()))
                     fragmentBinding.emailError.setVisibility(View.GONE);
-                else
+                else if (!s.toString().isEmpty())
                     fragmentBinding.emailError.setVisibility(View.VISIBLE);
             }
         });
@@ -159,6 +163,8 @@ public class CompleteProfileFragment extends Fragment {
                 !Utilities.isEmpty(fragmentBinding.city) &&
                 !Utilities.isEmpty(fragmentBinding.job) &&
                 !Utilities.isEmpty(fragmentBinding.company) &&
-                Utilities.isEmailValid(fragmentBinding.email.getText().toString());
+                Utilities.isEmailValid(fragmentBinding.email.getText().toString()) &&
+                fragmentBinding.cguCheck.isChecked();
     }
+
 }

@@ -9,7 +9,7 @@ public class Results implements Serializable {
     @Expose
     private String birthday;
     @Expose
-    private String city;
+    private int city;
     @SerializedName("commune")
     private int town;
     @SerializedName("notif_push")
@@ -40,6 +40,8 @@ public class Results implements Serializable {
     private String username;
     @SerializedName("civilite")
     private String civility;
+    @Expose
+    private int country;
 
     public String getBirthday() {
         return birthday;
@@ -47,14 +49,6 @@ public class Results implements Serializable {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public int getTown() {
@@ -175,5 +169,21 @@ public class Results implements Serializable {
 
     public void setCivility(String civility) {
         this.civility = civility;
+    }
+
+    public int getCity() {
+        return city;
+    }
+
+    public void setCity(int city) {
+        this.city = city;
+    }
+
+    public int getCountry() {
+        return country;
+    }
+
+    public void setCountry(int country) {
+        this.country = country;
     }
 }

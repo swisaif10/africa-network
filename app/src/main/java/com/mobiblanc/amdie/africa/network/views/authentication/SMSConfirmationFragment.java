@@ -24,9 +24,10 @@ import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
 
 public class SMSConfirmationFragment extends Fragment {
 
-    private FragmentSmsConfirmationBinding fragmentBinding;
+    private static FragmentSmsConfirmationBinding fragmentBinding;
     private String msisdn;
     private PreferenceManager preferenceManager;
+    private Boolean request = false;
 
     public static SMSConfirmationFragment newInstance(String msisdn) {
         SMSConfirmationFragment fragment = new SMSConfirmationFragment();
@@ -47,12 +48,6 @@ public class SMSConfirmationFragment extends Fragment {
         if ((getArguments() != null))
             msisdn = getArguments().getString("msisdn");
 
-        ((AuthenticationActivity) requireActivity()).getViewModel().getCheckSMSLiveData().observe(requireActivity(), this::handleCheckSMSData);
-
-        preferenceManager = new PreferenceManager.Builder(requireContext(), Context.MODE_PRIVATE)
-                .name(BuildConfig.APPLICATION_ID)
-                .build();
-
     }
 
     @Override
@@ -67,6 +62,16 @@ public class SMSConfirmationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         init();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AuthenticationActivity) requireActivity()).getViewModel().getCheckSMSLiveData().observe(requireActivity(), this::handleCheckSMSData);
+
+        preferenceManager = new PreferenceManager.Builder(requireContext(), Context.MODE_PRIVATE)
+                .name(BuildConfig.APPLICATION_ID)
+                .build();
     }
 
     private void init() {
@@ -93,25 +98,32 @@ public class SMSConfirmationFragment extends Fragment {
     }
 
     private void checkSMS() {
-        ((AuthenticationActivity) requireActivity()).getViewModel().checkSMS(msisdn, fragmentBinding.code.getText().toString(), "fr");
+        fragmentBinding.loader.setVisibility(View.VISIBLE);
+        ((AuthenticationActivity) requireActivity()).getViewModel().checkSMS(msisdn, fragmentBinding.code.getText().toString(), preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""), "fr");
+        request = true;
     }
 
     private void handleCheckSMSData(Resource<CheckSMSData> responseData) {
-
-        switch (responseData.status) {
-            case SUCCESS:
-                preferenceManager.putValue(Constants.TOKEN, responseData.data.getResults().getToken());
-                if (responseData.data.getResults().getSearch() == 0) {
-                    startActivity(new Intent(requireActivity(), DashboardActivity.class));
-                    requireActivity().finish();
-                } else
-                    ((AuthenticationActivity) requireActivity()).replaceFragment(CompleteProfileFragment.newInstance(msisdn, responseData.data));
-                break;
-            case LOADING:
-                break;
-            case ERROR:
-                Utilities.showErrorPopup(requireContext(), responseData.message);
-                break;
-        }
+        fragmentBinding.loader.setVisibility(View.GONE);
+        if (request)
+            switch (responseData.status) {
+                case SUCCESS:
+                    preferenceManager.putValue(Constants.TOKEN, responseData.data.getResults().getToken());
+                    preferenceManager.putValue(Constants.ID_USER, responseData.data.getResults().getId());
+                    preferenceManager.putValue(Constants.USERNAME, responseData.data.getResults().getFirstName() + " " + responseData.data.getResults().getLastName());
+                    preferenceManager.putValue(Constants.COUNTRY, responseData.data.getCountryNameById(responseData.data.getResults().getCountry()));
+                    preferenceManager.putValue(Constants.PICTURE, responseData.data.getResults().getPicture());
+                    if (responseData.data.getResults().getSearch() == 1 || responseData.data.getResults().getSearch() == 0) {
+                        startActivity(new Intent(requireActivity(), DashboardActivity.class));
+                        requireActivity().finish();
+                    } else
+                        ((AuthenticationActivity) requireActivity()).replaceFragment(CompleteProfileFragment.newInstance(msisdn, responseData.data), "");
+                    break;
+                case INVALID_TOKEN:
+                    break;
+                case ERROR:
+                    Utilities.showErrorPopup(requireContext(), responseData.message);
+                    break;
+            }
     }
 }

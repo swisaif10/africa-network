@@ -8,17 +8,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.databinding.ContactItemLayoutBinding;
-import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
+import com.mobiblanc.amdie.africa.network.listeners.OnContactSelectedListener;
+import com.mobiblanc.amdie.africa.network.models.contacts.list.Contact;
+
+import java.util.List;
 
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
 
     private final Context context;
+    private final List<Contact> contacts;
+    private final OnContactSelectedListener onContactSelectedListener;
     private final int type;
 
-    public ContactsAdapter(Context context, int type) {
+    public ContactsAdapter(Context context, List<Contact> contacts, OnContactSelectedListener onContactSelectedListener, int type) {
         this.context = context;
+        this.contacts = contacts;
+        this.onContactSelectedListener = onContactSelectedListener;
         this.type = type;
     }
 
@@ -33,23 +41,18 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind();
+        holder.bind(contacts.get(position));
     }
 
     @Override
     public int getItemCount() {
-        switch (type) {
-            case 0:
-                return 10;
-            case 1:
-                return 3;
-            case 2:
-                return 7;
-            default:
-                return 0;
-        }
+        return contacts.size();
     }
 
+    public void removeItem(int position) {
+        contacts.remove(position);
+        notifyItemRemoved(position);
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -60,29 +63,24 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             this.itemBinding = itemBinding;
         }
 
-        private void bind() {
-            switch (type) {
-                case 0:
-                    itemBinding.icon.setImageResource(R.drawable.ustda);
-                    itemBinding.name.setText("Enoh Titilayo");
-                    itemBinding.description.setText("USTDA / Nigeria");
-                    itemBinding.sendMsgBtn.setVisibility(View.VISIBLE);
-                    break;
-                case 1:
-                    itemBinding.icon.setImageResource(R.drawable.tijdane);
-                    itemBinding.name.setText("Tidjane Thiam");
-                    itemBinding.description.setText("Lorem ipsum");
-                    itemBinding.requestLayout.setVisibility(View.VISIBLE);
-                    break;
-                case 2:
-                    itemBinding.icon.setImageResource(R.drawable.saki);
-                    itemBinding.name.setText("Saki Macozoma");
-                    itemBinding.description.setText("Lorem ipsum");
-                    itemBinding.msgBtn.setVisibility(View.VISIBLE);
-                    itemBinding.getRoot().setOnClickListener(v -> ((DashboardActivity) context).replaceFragment(new ContactDetailsFragment()));
-                    break;
-            }
+        private void bind(Contact contact) {
+            itemBinding.name.setText(contact.getUsername());
+            itemBinding.description.setText(String.format("%s / %s", contact.getCompanyName(), contact.getProvince()));
+            Glide.with(context).load(contact.getProfilePicture()).fitCenter().into(itemBinding.icon);
 
+            if (type == 1)
+                itemBinding.addToFavouritesBtn.setVisibility(View.GONE);
+            else if (contact.isFavourite())
+                itemBinding.addToFavouritesBtn.setImageResource(R.drawable.favoris);
+            else
+                itemBinding.addToFavouritesBtn.setImageResource(R.drawable.favoris_1);
+
+            itemBinding.addToFavouritesBtn.setOnClickListener(v -> {
+                contact.setFavourite(!contact.isFavourite());
+                notifyDataSetChanged();
+                onContactSelectedListener.onFavouriteClick(contact);
+            });
+            itemBinding.sendMessageBtn.setOnClickListener(v -> onContactSelectedListener.onMessageClick(contact));
         }
     }
 }

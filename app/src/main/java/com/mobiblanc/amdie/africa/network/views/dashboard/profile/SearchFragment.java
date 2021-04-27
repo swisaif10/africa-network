@@ -1,14 +1,10 @@
-package com.mobiblanc.amdie.africa.network.views.dashboard.search;
+package com.mobiblanc.amdie.africa.network.views.dashboard.profile;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -16,8 +12,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,14 +21,8 @@ import androidx.fragment.app.Fragment;
 
 import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentSearchBinding;
-import com.vansuita.pickimage.bean.PickResult;
-import com.vansuita.pickimage.bundle.PickSetup;
-import com.vansuita.pickimage.dialog.PickImageDialog;
-import com.vansuita.pickimage.enums.EPickType;
-import com.vansuita.pickimage.listeners.IPickResult;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;

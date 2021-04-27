@@ -18,7 +18,6 @@ public class CheckSMSData implements Serializable {
     private Results results;
     @SerializedName("Liste_countries")
     private List<Country> countries;
-    @Expose
     private List<Form> forms;
 
     public void setHeader(Header header) {
@@ -53,19 +52,19 @@ public class CheckSMSData implements Serializable {
         this.countries = countries;
     }
 
-    public void setForms(List<Form> forms) {
-        this.forms = forms;
-    }
-
-    public List<Form> getForms() {
-        return forms;
-    }
-
     public List<String> getCountriesNames() {
         List<String> names = new ArrayList<>();
         for (Country country : countries) {
             names.add(country.getName());
         }
         return names;
+    }
+
+    public String getCountryNameById(int id) {
+        for (Country country : countries) {
+            if (country.getId() == id)
+                return country.getName();
+        }
+        return "";
     }
 }

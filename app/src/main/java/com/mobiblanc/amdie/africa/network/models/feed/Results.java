@@ -11,7 +11,7 @@ public class Results{
     @Expose
     private List<Type> types;
     @SerializedName("secteurs")
-    private List<sector> sectors;
+    private List<Sector> sectors;
 
     public List<Feed> getFeeds() {
         return feeds;
@@ -29,11 +29,11 @@ public class Results{
         this.types = types;
     }
 
-    public List<sector> getSectors() {
+    public List<Sector> getSectors() {
         return sectors;
     }
 
-    public void setSectors(List<sector> sectors) {
-        this.sectors = sectors;
+    public void setSectors(List<Sector> Sectors) {
+        this.sectors = Sectors;
     }
 }

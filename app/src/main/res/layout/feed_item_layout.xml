@@ -67,20 +67,20 @@
             tools:src="@drawable/article" />
 
         <TextView
-            android:id="@+id/shareBtn"
+            android:id="@+id/likeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:drawableStart="@drawable/heart_unselected"
             android:drawablePadding="10dp"
             android:fontFamily="@font/montserrat_medium"
             android:gravity="center"
-            android:text="J'aime"
+            android:text="@string/like_btn_label"
             android:textColor="#9AA8B1"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image" />
+            app:layout_constraintTop_toBottomOf="@id/image"
+            app:drawableStartCompat="@drawable/heart_unselected" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

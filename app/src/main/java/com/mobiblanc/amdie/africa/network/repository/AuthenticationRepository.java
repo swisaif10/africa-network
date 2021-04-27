@@ -7,6 +7,7 @@ import com.mobiblanc.amdie.africa.network.datamanager.ApiManager;
 import com.mobiblanc.amdie.africa.network.models.authentication.SendSMSData;
 import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.CheckSMSData;
 import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
+import com.mobiblanc.amdie.africa.network.models.cgu.CGUData;
 
 public class AuthenticationRepository {
 
@@ -14,8 +15,8 @@ public class AuthenticationRepository {
         new ApiManager().sendSMS(msisdn, lang, uid, mutableLiveData);
     }
 
-    public void checkSMS(String msisdn, String code, String lang, MutableLiveData<Resource<CheckSMSData>> mutableLiveData) {
-        new ApiManager().checkSMS(msisdn, code, lang, mutableLiveData);
+    public void checkSMS(String msisdn, String code, String firebaseToken, String lang, MutableLiveData<Resource<CheckSMSData>> mutableLiveData) {
+        new ApiManager().checkSMS(msisdn, code, firebaseToken, lang, mutableLiveData);
     }
 
     public void updateProfile(String token,

@@ -44,8 +44,8 @@ public class AuthenticationViewModel extends AndroidViewModel {
         repository.sendSMS(msisdn, lang, uid, sendSMSLiveData);
     }
 
-    public void checkSMS(String msisdn, String code, String lang) {
-        repository.checkSMS(msisdn, code, lang, checkSMSLiveData);
+    public void checkSMS(String msisdn, String code, String firebaseToken, String lang) {
+        repository.checkSMS(msisdn, code, firebaseToken, lang, checkSMSLiveData);
     }
 
     public void updateProfile(String token,

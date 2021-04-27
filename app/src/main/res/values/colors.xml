@@ -13,7 +13,9 @@
     <color name="grey">#969B9E</color>
     <color name="grey2">#666564</color>
     <color name="grey3">#88889C</color>
+    <color name="likeTextColor">#9AA8B1</color>
 
     <color name="transparent">#0288889C</color>
+    <color name="calendar">#9B9B9B</color>
 
 </resources>

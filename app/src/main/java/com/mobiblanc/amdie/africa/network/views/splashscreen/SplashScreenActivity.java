@@ -71,7 +71,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         break;
                 }
                 break;
-            case LOADING:
+            case INVALID_TOKEN:
                 break;
             case ERROR:
                 Utilities.showErrorPopup(this, responseData.message);

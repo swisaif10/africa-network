@@ -2,12 +2,16 @@ package com.mobiblanc.amdie.africa.network.models.common;
 
 import com.google.gson.annotations.Expose;
 
-public class Header {
+import java.io.Serializable;
+
+public class Header implements Serializable {
 
     @Expose
     private String status;
     @Expose
     private String message;
+    @Expose
+    private String search;
 
     public String getStatus() {
         return status;
@@ -23,5 +27,13 @@ public class Header {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 }

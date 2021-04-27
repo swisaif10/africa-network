@@ -2,11 +2,12 @@ package com.mobiblanc.amdie.africa.network.models.feed;
 
 import com.google.gson.annotations.Expose;
 
-public class sector {
+public class Sector {
     @Expose
     private int id;
     @Expose
     private String value;
+    private Boolean checked = false;
 
     public int getId() {
         return id;
@@ -22,5 +23,13 @@ public class sector {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 }

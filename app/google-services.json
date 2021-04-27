@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1095690899560",
+    "project_id": "africa-network",
+    "storage_bucket": "africa-network.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095690899560:android:64e1609de1472106ababdd",
+        "android_client_info": {
+          "package_name": "com.mobiblanc.amdie.africa.network"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095690899560-q7qmql3ovo4ncmgikpn3ebhbicck4j04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcYYWjTeVVtzZeURzwD5LCVzHb7RUrALg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095690899560-q7qmql3ovo4ncmgikpn3ebhbicck4j04.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1095690899560-2c4643mt1kbrg0ei6j5058doh56uvm0m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mobiblanc.-AfricaNetwork.AfricaNetwork"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
