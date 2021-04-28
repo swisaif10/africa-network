@@ -22,6 +22,6 @@ public interface ApiEndpoints {
 
     String UPDATE_MENTORE_URL = "api-be/api/update/mentore";
     String GET_INIT_MONTORING_URL = "api-be/api/init/montoring ";
-    String SET_LIKE_URL ="api-be/api/page/like";
-    String GET_PROFILE="api-be/api/get/profile";
+    String SET_LIKE_URL = "api-be/api/page/like";
+    String GET_PROFILE = "api-be/api/get/profile";
 }

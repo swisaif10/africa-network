@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -21,7 +20,6 @@ import com.mobiblanc.amdie.africa.network.models.cgu.CGUData;
 import com.mobiblanc.amdie.africa.network.models.cgu.Results;
 import com.mobiblanc.amdie.africa.network.viewmodels.CGUViewModel;
 import com.mobiblanc.amdie.africa.network.views.base.BaseActivity;
-import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
 
 public class CGUActivity extends BaseActivity {
 

@@ -101,19 +101,19 @@
                     android:id="@+id/bar"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:visibility="gone"
-                    android:background="#B4B1CF" />
+                    android:background="#B4B1CF"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/btn_2"
                     android:layout_width="match_parent"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:padding="20dp"
                     android:text="Anglais"
                     android:textColor="@color/black"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/notifBtn" />
             </LinearLayout>
         </LinearLayout>

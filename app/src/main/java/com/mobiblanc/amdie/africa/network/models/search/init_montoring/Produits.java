@@ -1,95 +1,96 @@
 package com.mobiblanc.amdie.africa.network.models.search.init_montoring;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class Produits{
+import java.util.List;
 
-	@SerializedName("libelle_parent")
-	private String libelleParent;
+public class Produits {
 
-	@SerializedName("ordre")
-	private int ordre;
+    @SerializedName("libelle_parent")
+    private String libelleParent;
 
-	@SerializedName("max")
-	private int max;
+    @SerializedName("ordre")
+    private int ordre;
 
-	@SerializedName("libelle")
-	private String libelle;
+    @SerializedName("max")
+    private int max;
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("libelle")
+    private String libelle;
 
-	@SerializedName("objet_reference_values")
-	private List<ObjetReferenceValuesItem> objetReferenceValues;
+    @SerializedName("name")
+    private String name;
 
-	@SerializedName("type")
-	private String type;
+    @SerializedName("objet_reference_values")
+    private List<ObjetReferenceValuesItem> objetReferenceValues;
 
-	@SerializedName("objet_reference")
-	private String objetReference;
+    @SerializedName("type")
+    private String type;
 
-	public void setLibelleParent(String libelleParent){
-		this.libelleParent = libelleParent;
-	}
+    @SerializedName("objet_reference")
+    private String objetReference;
 
-	public String getLibelleParent(){
-		return libelleParent;
-	}
+    public String getLibelleParent() {
+        return libelleParent;
+    }
 
-	public void setOrdre(int ordre){
-		this.ordre = ordre;
-	}
+    public void setLibelleParent(String libelleParent) {
+        this.libelleParent = libelleParent;
+    }
 
-	public int getOrdre(){
-		return ordre;
-	}
+    public int getOrdre() {
+        return ordre;
+    }
 
-	public void setMax(int max){
-		this.max = max;
-	}
+    public void setOrdre(int ordre) {
+        this.ordre = ordre;
+    }
 
-	public int getMax(){
-		return max;
-	}
+    public int getMax() {
+        return max;
+    }
 
-	public void setLibelle(String libelle){
-		this.libelle = libelle;
-	}
+    public void setMax(int max) {
+        this.max = max;
+    }
 
-	public String getLibelle(){
-		return libelle;
-	}
+    public String getLibelle() {
+        return libelle;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setObjetReferenceValues(List<ObjetReferenceValuesItem> objetReferenceValues){
-		this.objetReferenceValues = objetReferenceValues;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public List<ObjetReferenceValuesItem> getObjetReferenceValues(){
-		return objetReferenceValues;
-	}
+    public List<ObjetReferenceValuesItem> getObjetReferenceValues() {
+        return objetReferenceValues;
+    }
 
-	public void setType(String type){
-		this.type = type;
-	}
+    public void setObjetReferenceValues(List<ObjetReferenceValuesItem> objetReferenceValues) {
+        this.objetReferenceValues = objetReferenceValues;
+    }
 
-	public String getType(){
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setObjetReference(String objetReference){
-		this.objetReference = objetReference;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getObjetReference(){
-		return objetReference;
-	}
+    public String getObjetReference() {
+        return objetReference;
+    }
+
+    public void setObjetReference(String objetReference) {
+        this.objetReference = objetReference;
+    }
 }

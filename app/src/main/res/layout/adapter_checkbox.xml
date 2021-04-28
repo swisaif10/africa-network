@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-<LinearLayout
-    android:padding="10dp"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBox
-        android:layout_marginLeft="10dp"
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="22dp"
-        android:button="@drawable/checkbox_bag"
-        android:buttonTint="@color/blue4"
-        style="@style/WhiteCheck"
-        android:outlineSpotShadowColor="@color/transparent"
-        android:outlineAmbientShadowColor="@color/transparent"
-        android:shadowColor="@color/transparent"
-        android:textSize="13sp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:textColor="@color/black"
-        android:text="aaaaaaaaaaaa"
-        android:paddingLeft="11dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-         />
+        <CheckBox
+            android:id="@+id/checkBox"
+            style="@style/WhiteCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginLeft="10dp"
+            android:button="@drawable/checkbox_bag"
+            android:buttonTint="@color/blue4"
+            android:fontFamily="@font/montserrat_semibold"
+            android:outlineAmbientShadowColor="@color/transparent"
+            android:outlineSpotShadowColor="@color/transparent"
+            android:paddingLeft="11dp"
+            android:shadowColor="@color/transparent"
+            android:text="aaaaaaaaaaaa"
+            android:textColor="@color/black"
+            android:textSize="13sp"
 
-</LinearLayout>
+            />
+
+    </LinearLayout>
 </layout>

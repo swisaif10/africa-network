@@ -14,12 +14,10 @@ import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.databinding.ActivityChangeLanguageBinding;
 import com.mobiblanc.amdie.africa.network.views.home.HomeActivity;
 
-import it.beppi.tristatetogglebutton_library.TriStateToggleButton;
-
 public class ChangeLanguageActivity extends AppCompatActivity {
 
+    Boolean select = false;
     private ActivityChangeLanguageBinding activityBinding;
-    Boolean select=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +48,15 @@ public class ChangeLanguageActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!select){
-                startActivity(new Intent(ChangeLanguageActivity.this, HomeActivity.class));
-                finish();}
+                if (!select) {
+                    startActivity(new Intent(ChangeLanguageActivity.this, HomeActivity.class));
+                    finish();
+                }
             }
         }, 3000);
-        activityBinding.seekbarLangage.setOnTouchListener(new View.OnTouchListener()
-        {
+        activityBinding.seekbarLangage.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
+            public boolean onTouch(View v, MotionEvent event) {
                 return true;
             }
         });
@@ -81,13 +78,13 @@ public class ChangeLanguageActivity extends AppCompatActivity {
         activityBinding.seekbarLangage.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (seekBar.getProgress()>25){
-                    select=true;
+                if (seekBar.getProgress() > 25) {
+                    select = true;
                     startActivity(new Intent(ChangeLanguageActivity.this, HomeActivity.class));
                     finish();
                 }
-                if (seekBar.getProgress()<5){
-                    select=true;
+                if (seekBar.getProgress() < 5) {
+                    select = true;
                     startActivity(new Intent(ChangeLanguageActivity.this, HomeActivity.class));
                     finish();
                 }
@@ -97,6 +94,7 @@ public class ChangeLanguageActivity extends AppCompatActivity {
             public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 //                if (seekBar.getProgress()>25){

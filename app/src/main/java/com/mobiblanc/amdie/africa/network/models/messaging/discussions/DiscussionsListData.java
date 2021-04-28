@@ -5,26 +5,26 @@ import com.mobiblanc.amdie.africa.network.models.common.Header;
 
 import java.util.List;
 
-public class DiscussionsListData{
+public class DiscussionsListData {
 
-	@Expose
-	private Header header;
-	@Expose
-	private List<Discussion> results;
+    @Expose
+    private Header header;
+    @Expose
+    private List<Discussion> results;
 
-	public void setHeader(Header header){
-		this.header = header;
-	}
+    public Header getHeader() {
+        return header;
+    }
 
-	public Header getHeader(){
-		return header;
-	}
+    public void setHeader(Header header) {
+        this.header = header;
+    }
 
-	public void setResults(List<Discussion> results){
-		this.results = results;
-	}
+    public List<Discussion> getResults() {
+        return results;
+    }
 
-	public List<Discussion> getResults(){
-		return results;
-	}
+    public void setResults(List<Discussion> results) {
+        this.results = results;
+    }
 }

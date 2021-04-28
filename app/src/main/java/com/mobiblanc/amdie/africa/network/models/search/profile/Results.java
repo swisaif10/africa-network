@@ -1,337 +1,338 @@
 package com.mobiblanc.amdie.africa.network.models.search.profile;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class Results{
+import java.util.List;
 
-	@SerializedName("birthday")
-	private String birthday;
+public class Results {
 
-	@SerializedName("produits")
-	private String produits;
+    @SerializedName("birthday")
+    private String birthday;
 
-	@SerializedName("city")
-	private String city;
+    @SerializedName("produits")
+    private String produits;
 
-	@SerializedName("commune")
-	private String commune;
+    @SerializedName("city")
+    private String city;
 
-	@SerializedName("pictureEntreprise")
-	private String pictureEntreprise;
+    @SerializedName("commune")
+    private String commune;
 
-	@SerializedName("nom")
-	private String nom;
+    @SerializedName("pictureEntreprise")
+    private String pictureEntreprise;
 
-	@SerializedName("presentation")
-	private String presentation;
+    @SerializedName("nom")
+    private String nom;
 
-	@SerializedName("pictureProfil")
-	private String pictureProfil;
+    @SerializedName("presentation")
+    private String presentation;
 
-	@SerializedName("mode_emploi")
-	private ModeEmploi modeEmploi;
+    @SerializedName("pictureProfil")
+    private String pictureProfil;
 
-	@SerializedName("province")
-	private String province;
+    @SerializedName("mode_emploi")
+    private ModeEmploi modeEmploi;
 
-	@SerializedName("notif_email")
-	private boolean notifEmail;
+    @SerializedName("province")
+    private String province;
 
-	@SerializedName("id")
-	private int id;
+    @SerializedName("notif_email")
+    private boolean notifEmail;
 
-	@SerializedName("prenom")
-	private String prenom;
+    @SerializedName("id")
+    private int id;
 
-	@SerializedName("email")
-	private String email;
+    @SerializedName("prenom")
+    private String prenom;
 
-	@SerializedName("notif_sms")
-	private boolean notifSms;
+    @SerializedName("email")
+    private String email;
 
-	@SerializedName("civilite")
-	private String civilite;
+    @SerializedName("notif_sms")
+    private boolean notifSms;
 
-	@SerializedName("notif_push")
-	private boolean notifPush;
+    @SerializedName("civilite")
+    private String civilite;
 
-	@SerializedName("topics")
-	private List<TopicsItem> topics;
+    @SerializedName("notif_push")
+    private boolean notifPush;
 
-	@SerializedName("siege")
-	private String siege;
+    @SerializedName("topics")
+    private List<TopicsItem> topics;
 
-	@SerializedName("monitoring")
-	private int monitoring;
+    @SerializedName("siege")
+    private String siege;
 
-	@SerializedName("devise")
-	private List<DeviseItem> devise;
+    @SerializedName("monitoring")
+    private int monitoring;
 
-	@SerializedName("token")
-	private String token;
+    @SerializedName("devise")
+    private List<DeviseItem> devise;
 
-	@SerializedName("secteur")
-	private List<SecteurItem> secteur;
+    @SerializedName("token")
+    private String token;
 
-	@SerializedName("effectif")
-	private String effectif;
+    @SerializedName("secteur")
+    private List<SecteurItem> secteur;
 
-	@SerializedName("chiffredaffaire")
-	private String chiffredaffaire;
+    @SerializedName("effectif")
+    private String effectif;
 
-	@SerializedName("fonction")
-	private String fonction;
+    @SerializedName("chiffredaffaire")
+    private String chiffredaffaire;
 
-	@SerializedName("share_app")
-	private String shareApp;
+    @SerializedName("fonction")
+    private String fonction;
 
-	@SerializedName("nomentreprise")
-	private String nomentreprise;
+    @SerializedName("share_app")
+    private String shareApp;
 
-	@SerializedName("username")
-	private String username;
+    @SerializedName("nomentreprise")
+    private String nomentreprise;
 
-	@SerializedName("mentions_legales")
-	private MentionsLegales mentionsLegales;
+    @SerializedName("username")
+    private String username;
 
-	public void setBirthday(String birthday){
-		this.birthday = birthday;
-	}
+    @SerializedName("mentions_legales")
+    private MentionsLegales mentionsLegales;
 
-	public String getBirthday(){
-		return birthday;
-	}
+    public String getBirthday() {
+        return birthday;
+    }
 
-	public void setProduits(String produits){
-		this.produits = produits;
-	}
-
-	public String getProduits(){
-		return produits;
-	}
-
-	public void setCity(String city){
-		this.city = city;
-	}
-
-	public String getCity(){
-		return city;
-	}
-
-	public void setCommune(String commune){
-		this.commune = commune;
-	}
-
-	public String getCommune(){
-		return commune;
-	}
-
-	public void setPictureEntreprise(String pictureEntreprise){
-		this.pictureEntreprise = pictureEntreprise;
-	}
-
-	public String getPictureEntreprise(){
-		return pictureEntreprise;
-	}
-
-	public void setNom(String nom){
-		this.nom = nom;
-	}
-
-	public String getNom(){
-		return nom;
-	}
-
-	public void setPresentation(String presentation){
-		this.presentation = presentation;
-	}
-
-	public String getPresentation(){
-		return presentation;
-	}
-
-	public void setPictureProfil(String pictureProfil){
-		this.pictureProfil = pictureProfil;
-	}
-
-	public String getPictureProfil(){
-		return pictureProfil;
-	}
-
-	public void setModeEmploi(ModeEmploi modeEmploi){
-		this.modeEmploi = modeEmploi;
-	}
-
-	public ModeEmploi getModeEmploi(){
-		return modeEmploi;
-	}
-
-	public void setProvince(String province){
-		this.province = province;
-	}
-
-	public String getProvince(){
-		return province;
-	}
-
-	public void setNotifEmail(boolean notifEmail){
-		this.notifEmail = notifEmail;
-	}
-
-	public boolean isNotifEmail(){
-		return notifEmail;
-	}
-
-	public void setId(int id){
-		this.id = id;
-	}
-
-	public int getId(){
-		return id;
-	}
-
-	public void setPrenom(String prenom){
-		this.prenom = prenom;
-	}
-
-	public String getPrenom(){
-		return prenom;
-	}
-
-	public void setEmail(String email){
-		this.email = email;
-	}
-
-	public String getEmail(){
-		return email;
-	}
-
-	public void setNotifSms(boolean notifSms){
-		this.notifSms = notifSms;
-	}
-
-	public boolean isNotifSms(){
-		return notifSms;
-	}
-
-	public void setCivilite(String civilite){
-		this.civilite = civilite;
-	}
-
-	public String getCivilite(){
-		return civilite;
-	}
-
-	public void setNotifPush(boolean notifPush){
-		this.notifPush = notifPush;
-	}
-
-	public boolean isNotifPush(){
-		return notifPush;
-	}
-
-	public void setTopics(List<TopicsItem> topics){
-		this.topics = topics;
-	}
-
-	public List<TopicsItem> getTopics(){
-		return topics;
-	}
-
-	public void setSiege(String siege){
-		this.siege = siege;
-	}
-
-	public String getSiege(){
-		return siege;
-	}
-
-	public void setMonitoring(int monitoring){
-		this.monitoring = monitoring;
-	}
-
-	public int getMonitoring(){
-		return monitoring;
-	}
-
-	public void setDevise(List<DeviseItem> devise){
-		this.devise = devise;
-	}
-
-	public List<DeviseItem> getDevise(){
-		return devise;
-	}
-
-	public void setToken(String token){
-		this.token = token;
-	}
-
-	public String getToken(){
-		return token;
-	}
-
-	public void setSecteur(List<SecteurItem> secteur){
-		this.secteur = secteur;
-	}
-
-	public List<SecteurItem> getSecteur(){
-		return secteur;
-	}
-
-	public void setEffectif(String effectif){
-		this.effectif = effectif;
-	}
-
-	public String getEffectif(){
-		return effectif;
-	}
-
-	public void setChiffredaffaire(String chiffredaffaire){
-		this.chiffredaffaire = chiffredaffaire;
-	}
-
-	public String getChiffredaffaire(){
-		return chiffredaffaire;
-	}
-
-	public void setFonction(String fonction){
-		this.fonction = fonction;
-	}
-
-	public String getFonction(){
-		return fonction;
-	}
-
-	public void setShareApp(String shareApp){
-		this.shareApp = shareApp;
-	}
-
-	public String getShareApp(){
-		return shareApp;
-	}
-
-	public void setNomentreprise(String nomentreprise){
-		this.nomentreprise = nomentreprise;
-	}
-
-	public String getNomentreprise(){
-		return nomentreprise;
-	}
-
-	public void setUsername(String username){
-		this.username = username;
-	}
-
-	public String getUsername(){
-		return username;
-	}
-
-	public void setMentionsLegales(MentionsLegales mentionsLegales){
-		this.mentionsLegales = mentionsLegales;
-	}
-
-	public MentionsLegales getMentionsLegales(){
-		return mentionsLegales;
-	}
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getProduits() {
+        return produits;
+    }
+
+    public void setProduits(String produits) {
+        this.produits = produits;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCommune() {
+        return commune;
+    }
+
+    public void setCommune(String commune) {
+        this.commune = commune;
+    }
+
+    public String getPictureEntreprise() {
+        return pictureEntreprise;
+    }
+
+    public void setPictureEntreprise(String pictureEntreprise) {
+        this.pictureEntreprise = pictureEntreprise;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPresentation() {
+        return presentation;
+    }
+
+    public void setPresentation(String presentation) {
+        this.presentation = presentation;
+    }
+
+    public String getPictureProfil() {
+        return pictureProfil;
+    }
+
+    public void setPictureProfil(String pictureProfil) {
+        this.pictureProfil = pictureProfil;
+    }
+
+    public ModeEmploi getModeEmploi() {
+        return modeEmploi;
+    }
+
+    public void setModeEmploi(ModeEmploi modeEmploi) {
+        this.modeEmploi = modeEmploi;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public boolean isNotifEmail() {
+        return notifEmail;
+    }
+
+    public void setNotifEmail(boolean notifEmail) {
+        this.notifEmail = notifEmail;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isNotifSms() {
+        return notifSms;
+    }
+
+    public void setNotifSms(boolean notifSms) {
+        this.notifSms = notifSms;
+    }
+
+    public String getCivilite() {
+        return civilite;
+    }
+
+    public void setCivilite(String civilite) {
+        this.civilite = civilite;
+    }
+
+    public boolean isNotifPush() {
+        return notifPush;
+    }
+
+    public void setNotifPush(boolean notifPush) {
+        this.notifPush = notifPush;
+    }
+
+    public List<TopicsItem> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<TopicsItem> topics) {
+        this.topics = topics;
+    }
+
+    public String getSiege() {
+        return siege;
+    }
+
+    public void setSiege(String siege) {
+        this.siege = siege;
+    }
+
+    public int getMonitoring() {
+        return monitoring;
+    }
+
+    public void setMonitoring(int monitoring) {
+        this.monitoring = monitoring;
+    }
+
+    public List<DeviseItem> getDevise() {
+        return devise;
+    }
+
+    public void setDevise(List<DeviseItem> devise) {
+        this.devise = devise;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public List<SecteurItem> getSecteur() {
+        return secteur;
+    }
+
+    public void setSecteur(List<SecteurItem> secteur) {
+        this.secteur = secteur;
+    }
+
+    public String getEffectif() {
+        return effectif;
+    }
+
+    public void setEffectif(String effectif) {
+        this.effectif = effectif;
+    }
+
+    public String getChiffredaffaire() {
+        return chiffredaffaire;
+    }
+
+    public void setChiffredaffaire(String chiffredaffaire) {
+        this.chiffredaffaire = chiffredaffaire;
+    }
+
+    public String getFonction() {
+        return fonction;
+    }
+
+    public void setFonction(String fonction) {
+        this.fonction = fonction;
+    }
+
+    public String getShareApp() {
+        return shareApp;
+    }
+
+    public void setShareApp(String shareApp) {
+        this.shareApp = shareApp;
+    }
+
+    public String getNomentreprise() {
+        return nomentreprise;
+    }
+
+    public void setNomentreprise(String nomentreprise) {
+        this.nomentreprise = nomentreprise;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public MentionsLegales getMentionsLegales() {
+        return mentionsLegales;
+    }
+
+    public void setMentionsLegales(MentionsLegales mentionsLegales) {
+        this.mentionsLegales = mentionsLegales;
+    }
 }

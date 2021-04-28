@@ -13,35 +13,35 @@ public class Results {
     @Expose
     private String username;
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getDate() {
         return date;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setIdSender(Integer idSender) {
-        this.idSender = idSender;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Integer getIdSender() {
         return idSender;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setIdSender(Integer idSender) {
+        this.idSender = idSender;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

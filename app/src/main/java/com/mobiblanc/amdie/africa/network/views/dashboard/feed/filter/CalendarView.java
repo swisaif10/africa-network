@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -37,23 +36,6 @@ public class CalendarView extends LinearLayout {
 
     // default date format
     private static final String DATE_FORMAT = "MMMM, yyyy";
-
-    // date format
-    private String dateFormat;
-
-    // current displayed month
-    private Calendar currentDate = Calendar.getInstance();
-
-    //event handling
-    private EventHandler eventHandler = null;
-
-    // internal components
-    private LinearLayout header;
-    private ImageView btnPrev;
-    private ImageView btnNext;
-    private TextView txtDate;
-    private GridView grid;
-
     // seasons' rainbow
     int[] rainbow = new int[]{
             R.color.white,
@@ -61,9 +43,20 @@ public class CalendarView extends LinearLayout {
             R.color.white,
             R.color.white
     };
-
     // month-season association (northern hemisphere, sorry australia :)
     int[] monthSeason = new int[]{2, 2, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2};
+    // date format
+    private String dateFormat;
+    // current displayed month
+    private Calendar currentDate = Calendar.getInstance();
+    //event handling
+    private EventHandler eventHandler = null;
+    // internal components
+    private LinearLayout header;
+    private ImageView btnPrev;
+    private ImageView btnNext;
+    private TextView txtDate;
+    private GridView grid;
 
     public CalendarView(Context context) {
         super(context);
@@ -179,6 +172,20 @@ public class CalendarView extends LinearLayout {
         header.setBackgroundColor(getResources().getColor(color));
     }
 
+    /**
+     * Assign event handler to be passed needed events
+     */
+    public void setEventHandler(EventHandler eventHandler) {
+        this.eventHandler = eventHandler;
+    }
+
+    /**
+     * This interface defines what events to be reported to
+     * the outside world
+     */
+    public interface EventHandler {
+        void onDayPress(Date date);
+    }
 
     private class CalendarAdapter extends ArrayAdapter<Date> {
         // days with events
@@ -239,20 +246,5 @@ public class CalendarView extends LinearLayout {
 
             return view;
         }
-    }
-
-    /**
-     * Assign event handler to be passed needed events
-     */
-    public void setEventHandler(EventHandler eventHandler) {
-        this.eventHandler = eventHandler;
-    }
-
-    /**
-     * This interface defines what events to be reported to
-     * the outside world
-     */
-    public interface EventHandler {
-        void onDayPress(Date date);
     }
 }

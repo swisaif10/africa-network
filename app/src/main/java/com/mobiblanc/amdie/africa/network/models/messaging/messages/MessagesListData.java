@@ -12,19 +12,19 @@ public class MessagesListData implements Serializable {
     @Expose
     private List<Message> results;
 
-    public void setHeader(Header header){
-        this.header = header;
-    }
-
-    public Header getHeader(){
+    public Header getHeader() {
         return header;
     }
 
-    public void setResults(List<Message> results){
-        this.results = results;
+    public void setHeader(Header header) {
+        this.header = header;
     }
 
-    public List<Message> getResults(){
+    public List<Message> getResults() {
         return results;
+    }
+
+    public void setResults(List<Message> results) {
+        this.results = results;
     }
 }

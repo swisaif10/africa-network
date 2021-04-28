@@ -20,20 +20,20 @@ public class CheckSMSData implements Serializable {
     private List<Country> countries;
     private List<Form> forms;
 
-    public void setHeader(Header header) {
-        this.header = header;
-    }
-
     public Header getHeader() {
         return header;
     }
 
-    public void setResults(Results results) {
-        this.results = results;
+    public void setHeader(Header header) {
+        this.header = header;
     }
 
     public Results getResults() {
         return results;
+    }
+
+    public void setResults(Results results) {
+        this.results = results;
     }
 
     public List<place> getPlaces() {

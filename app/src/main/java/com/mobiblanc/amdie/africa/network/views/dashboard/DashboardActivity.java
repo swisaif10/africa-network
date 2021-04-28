@@ -47,11 +47,11 @@ import java.util.List;
 
 public class DashboardActivity extends BaseActivity {
 
+    ArrayList<Fragment> fragments;
     private ActivityDashboardBinding activityBinding;
     private DashboardViewModel viewModel;
     private PreferenceManager preferenceManager;
     private List<MenuItem> menuList;
-    ArrayList<Fragment> fragments;
 
     public DashboardViewModel getViewModel() {
         return viewModel;

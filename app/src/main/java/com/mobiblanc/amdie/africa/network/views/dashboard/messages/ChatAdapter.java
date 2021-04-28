@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mobiblanc.amdie.africa.network.databinding.ReceivedChatItemLayoutBinding;
-import com.mobiblanc.amdie.africa.network.databinding.ReceivedChatItemLayoutBindingImpl;
 import com.mobiblanc.amdie.africa.network.databinding.SendChatItemLayoutBinding;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.Message;
 
@@ -47,7 +46,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         parent,
                         false));
             case 1002:
-                return new ReceiveChatViewHolder(ReceivedChatItemLayoutBindingImpl.inflate(
+                return new ReceiveChatViewHolder(ReceivedChatItemLayoutBinding.inflate(
                         LayoutInflater.from(parent.getContext()),
                         parent,
                         false));

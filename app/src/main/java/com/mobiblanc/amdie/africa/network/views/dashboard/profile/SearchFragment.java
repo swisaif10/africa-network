@@ -1,4 +1,4 @@
-package com.mobiblanc.amdie.africa.network.views.dashboard.search;
+package com.mobiblanc.amdie.africa.network.views.dashboard.profile;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.InputType;
@@ -24,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,7 +53,6 @@ import com.mobiblanc.amdie.africa.network.viewmodels.SearchViewModel;
 import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
 import com.mobiblanc.amdie.africa.network.views.dashboard.detail_search.DetailSearchFragment;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -75,7 +72,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class SearchFragment extends Fragment implements CheckedLisner {
-    private File file = null;
+    public static final int REQUEST_IMAGE = 100;
     private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};
     private static final int CAMERA_REQUEST_CODE = 10;
     private static final int REQUEST_IMAGE_CAPTURE = 20;
@@ -85,20 +82,37 @@ public class SearchFragment extends Fragment implements CheckedLisner {
     private static final int REQUEST_IMAGE_CAPTURE_ENTRPRISE = 20;
     private static final int REQUEST_IMAGE_CAPTURE_ENTRPRISE_CAMERA = 21;
     private static final int REQUEST_IMAGE_CAPTURE_ENTRPRISE_GALL = 22;
-    private String path_profile, path_entreprise;
-    private FragmentSearchBinding fragmentBinding;
     SearchViewModel viewModel;
-    private PreferenceManager preferenceManager;
     String topicS = "", presentationS = "", siegeS = "", secteurS = "", chiffredaffaireS = "", effectifS = "", deviseS = "", produitS = "";
     Uri profile_img, entreprise_img;
-    Boolean checked_topics = false, checked_secteur = false, checked_siege = false, checked_devise = false,checked_produits = false,checked_effectif = false;
-
-
-    public static final int REQUEST_IMAGE = 100;
+    Boolean checked_topics = false, checked_secteur = false, checked_siege = false, checked_devise = false, checked_produits = false, checked_effectif = false;
     Dialog loading;
+    private File file = null;
+    private String path_profile, path_entreprise;
+    private FragmentSearchBinding fragmentBinding;
+    private PreferenceManager preferenceManager;
 
     public SearchFragment() {
         // Required empty public constructor
+    }
+
+    public static File savebitmap(Bitmap bmp) throws IOException {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
+        File f = new File(Environment.getExternalStorageDirectory()
+                + File.separator + "africa.jpg");
+        f.createNewFile();
+        FileOutputStream fo = new FileOutputStream(f);
+        fo.write(bytes.toByteArray());
+        fo.close();
+        return f;
+    }
+
+    public static String convert(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+
+        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
     }
 
     @Override
@@ -116,7 +130,6 @@ public class SearchFragment extends Fragment implements CheckedLisner {
         viewModel.getUpdateMentoreLiveData().observe(requireActivity(), this::handleUpdateMentoreData);
         Log.e("token ", preferenceManager.getValue(Constants.TOKEN, ""));
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -266,29 +279,9 @@ public class SearchFragment extends Fragment implements CheckedLisner {
         return s;
     }
 
-    public static File savebitmap(Bitmap bmp) throws IOException {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
-        File f = new File(Environment.getExternalStorageDirectory()
-                + File.separator + "africa.jpg");
-        f.createNewFile();
-        FileOutputStream fo = new FileOutputStream(f);
-        fo.write(bytes.toByteArray());
-        fo.close();
-        return f;
-    }
-
-    public static String convert(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-
-        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-    }
-
-
     private Boolean checkForm() {
-        if (!checked_effectif){
-            effectifS=fragmentBinding.squad.getText().toString();
+        if (!checked_effectif) {
+            effectifS = fragmentBinding.squad.getText().toString();
         }
 
         return !Utilities.isEmpty(fragmentBinding.presentation) &&
@@ -330,9 +323,9 @@ public class SearchFragment extends Fragment implements CheckedLisner {
         loading.dismiss();
         switch (responseData.status) {
             case SUCCESS:
-                ((DashboardActivity) getActivity()).replaceFragment(new ValidationFragment());
+                ((DashboardActivity) getActivity()).replaceFragment(new ValidationFragment(), "");
                 break;
-            case LOADING:
+            case INVALID_TOKEN:
                 break;
             case ERROR:
                 Utilities.showErrorPopup(requireContext(), responseData.message);
@@ -370,13 +363,13 @@ public class SearchFragment extends Fragment implements CheckedLisner {
 
 
                 } else if (responseData.data.getHeader().getSearch() == 0) {
-                    ((DashboardActivity) getActivity()).replaceFragment(new ValidationFragment());
+                    ((DashboardActivity) getActivity()).replaceFragment(new ValidationFragment(), "");
                 } else if (responseData.data.getHeader().getSearch() == 1) {
-                    ((DashboardActivity) getActivity()).replaceFragment(new DetailSearchFragment());
+                    ((DashboardActivity) getActivity()).replaceFragment(new DetailSearchFragment(), "");
                 }
 
                 break;
-            case LOADING:
+            case INVALID_TOKEN:
                 break;
             case ERROR:
                 Utilities.showErrorPopup(getContext(), responseData.message);

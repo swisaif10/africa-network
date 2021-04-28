@@ -22,7 +22,6 @@ import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManag
 import com.mobiblanc.amdie.africa.network.listeners.OnItemSelectedListener;
 import com.mobiblanc.amdie.africa.network.models.messaging.discussions.Discussion;
 import com.mobiblanc.amdie.africa.network.models.messaging.discussions.DiscussionsListData;
-import com.mobiblanc.amdie.africa.network.models.messaging.messages.MessagesListData;
 import com.mobiblanc.amdie.africa.network.viewmodels.MessagesViewModel;
 import com.mobiblanc.amdie.africa.network.views.chat.ChatActivity;
 import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;

@@ -1,51 +1,52 @@
 package com.mobiblanc.amdie.africa.network.models.search.get_mentore;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class Request{
+import java.util.List;
 
-	@SerializedName("method")
-	private String method;
+public class Request {
 
-	@SerializedName("header")
-	private List<Object> header;
+    @SerializedName("method")
+    private String method;
 
-	@SerializedName("body")
-	private Body body;
+    @SerializedName("header")
+    private List<Object> header;
 
-	@SerializedName("url")
-	private String url;
+    @SerializedName("body")
+    private Body body;
 
-	public void setMethod(String method){
-		this.method = method;
-	}
+    @SerializedName("url")
+    private String url;
 
-	public String getMethod(){
-		return method;
-	}
+    public String getMethod() {
+        return method;
+    }
 
-	public void setHeader(List<Object> header){
-		this.header = header;
-	}
+    public void setMethod(String method) {
+        this.method = method;
+    }
 
-	public List<Object> getHeader(){
-		return header;
-	}
+    public List<Object> getHeader() {
+        return header;
+    }
 
-	public void setBody(Body body){
-		this.body = body;
-	}
+    public void setHeader(List<Object> header) {
+        this.header = header;
+    }
 
-	public Body getBody(){
-		return body;
-	}
+    public Body getBody() {
+        return body;
+    }
 
-	public void setUrl(String url){
-		this.url = url;
-	}
+    public void setBody(Body body) {
+        this.body = body;
+    }
 
-	public String getUrl(){
-		return url;
-	}
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

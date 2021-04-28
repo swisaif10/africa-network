@@ -14,13 +14,13 @@
         android:icon="@mipmap/africanet"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_traffic_config"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.AfricaNetwork"
         tools:replace="android:allowBackup"
-        android:requestLegacyExternalStorage="true"
 
         tools:targetApi="n">
-        <activity android:name=".views.cgu.CGUActivity"></activity>
+        <activity android:name=".views.cgu.CGUActivity"/>
         <activity
             android:name=".views.chat.ChatActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -58,14 +58,14 @@
 
         <!-- cache directory file provider paths -->
         <provider
-            android:name=".views.dashboard.search.MyFileProvider"
+            android:name=".views.dashboard.profile.MyFileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

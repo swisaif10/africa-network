@@ -4,19 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.text.InputType;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexDirection;
@@ -27,17 +23,11 @@ import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.Utilities.Constants;
 import com.mobiblanc.amdie.africa.network.Utilities.Resource;
 import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
-import com.mobiblanc.amdie.africa.network.databinding.FragmentContactDetailsBinding;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentDetailSearchBinding;
-import com.mobiblanc.amdie.africa.network.databinding.FragmentSearchBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
-import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
 import com.mobiblanc.amdie.africa.network.models.search.profile.Profile;
 import com.mobiblanc.amdie.africa.network.models.search.profile.TopicsItem;
 import com.mobiblanc.amdie.africa.network.viewmodels.DetailSearchViewModel;
-import com.mobiblanc.amdie.africa.network.viewmodels.SearchViewModel;
-import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
-import com.mobiblanc.amdie.africa.network.views.dashboard.search.ValidationFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,18 +39,17 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class DetailSearchFragment extends Fragment {
-    DetailSearchViewModel viewModel;
-    private PreferenceManager preferenceManager;
-    FragmentDetailSearchBinding binding;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    DetailSearchViewModel viewModel;
+    FragmentDetailSearchBinding binding;
+    Dialog loading;
+    private PreferenceManager preferenceManager;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Dialog loading;
 
     public DetailSearchFragment() {
         // Required empty public constructor
@@ -130,11 +119,12 @@ public class DetailSearchFragment extends Fragment {
                 Glide.with(this).load(responseData.data.getResults().getPictureEntreprise()).into(binding.icon);
                 Glide.with(this).load(responseData.data.getResults().getPictureProfil()).into(binding.profilePicture);
 
-                if (responseData.data.getResults().getDevise().get(0).getName().equals("Dollars")) {
-                    binding.chiffreAffer.setText(responseData.data.getResults().getChiffredaffaire() + " $");
-                } else {
-                    binding.chiffreAffer.setText(responseData.data.getResults().getChiffredaffaire() + " €");
-                }
+                if (!responseData.data.getResults().getDevise().isEmpty())
+                    if (responseData.data.getResults().getDevise().get(0).getName().equals("Dollars")) {
+                        binding.chiffreAffer.setText(responseData.data.getResults().getChiffredaffaire() + " $");
+                    } else {
+                        binding.chiffreAffer.setText(responseData.data.getResults().getChiffredaffaire() + " €");
+                    }
                 binding.country.setText(responseData.data.getResults().getProvince());
                 binding.effectif.setText(responseData.data.getResults().getEffectif());
                 binding.fonction.setText(responseData.data.getResults().getFonction());
@@ -156,7 +146,7 @@ public class DetailSearchFragment extends Fragment {
                 binding.recyclerviewTopic.setAdapter(adapter);
 
                 break;
-            case LOADING:
+            case INVALID_TOKEN:
                 break;
             case ERROR:
                 Utilities.showErrorPopup(getContext(), responseData.message);
@@ -184,5 +174,4 @@ public class DetailSearchFragment extends Fragment {
 
 
     }
-
 }

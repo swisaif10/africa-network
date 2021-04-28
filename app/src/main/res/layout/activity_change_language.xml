@@ -48,35 +48,35 @@
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
-<!--            <it.beppi.tristatetogglebutton_library.TriStateToggleButton-->
-<!--                android:id="@+id/toggle"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="25dp"-->
-<!--                android:layout_centerInParent="true"-->
-<!--                android:layout_marginHorizontal="35dp"-->
-<!--                android:layout_toStartOf="@id/englishBtn"-->
-<!--                android:layout_toEndOf="@id/frenchBtn"-->
-<!--                app:tbDefaultStatus="mid"-->
-<!--                app:tbIsMidSelectable="false"-->
-<!--                app:tbMidColor="#A8A5C3"-->
-<!--                app:tbOffBorderColor="#A8A5C3"-->
-<!--                app:tbOffColor="#A8A5C3"-->
-<!--                app:tbOnColor="#A8A5C3"-->
-<!--                app:tbSpotColor="@color/white" />-->
+            <!--            <it.beppi.tristatetogglebutton_library.TriStateToggleButton-->
+            <!--                android:id="@+id/toggle"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="25dp"-->
+            <!--                android:layout_centerInParent="true"-->
+            <!--                android:layout_marginHorizontal="35dp"-->
+            <!--                android:layout_toStartOf="@id/englishBtn"-->
+            <!--                android:layout_toEndOf="@id/frenchBtn"-->
+            <!--                app:tbDefaultStatus="mid"-->
+            <!--                app:tbIsMidSelectable="false"-->
+            <!--                app:tbMidColor="#A8A5C3"-->
+            <!--                app:tbOffBorderColor="#A8A5C3"-->
+            <!--                app:tbOffColor="#A8A5C3"-->
+            <!--                app:tbOnColor="#A8A5C3"-->
+            <!--                app:tbSpotColor="@color/white" />-->
 
             <SeekBar
-                android:layout_centerVertical="true"
                 android:id="@+id/seekbar_langage"
                 android:layout_width="51dp"
                 android:layout_height="21dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_marginHorizontal="35dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="30dp"
-                android:layout_centerHorizontal="true"
-                android:max="30"
-                android:progress="15"
-
                 android:background="@drawable/background_gray"
+                android:max="30"
+
+                android:progress="15"
                 android:progressDrawable="@drawable/seekbar_drawable_progress"
                 android:thumb="@drawable/seekbar_drawable_thumb" />
 

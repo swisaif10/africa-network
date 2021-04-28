@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,19 +15,20 @@ import com.mobiblanc.amdie.africa.network.models.search.profile.TopicsItem;
 
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
-    private List<TopicsItem> list;
+public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     Context context;
+    private List<TopicsItem> list;
 
     public Adapter(List<TopicsItem> list) {
         this.list = list;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.item, parent, false);
+        View listItem = layoutInflater.inflate(R.layout.item, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
-        this.context=parent.getContext();
+        this.context = parent.getContext();
         return viewHolder;
     }
 
@@ -37,7 +37,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
         holder.textView.setText(list.get(position).getName());
         Glide.with(context).load(list.get(position).getIcon()).into(holder.imageView);
-
 
 
     }

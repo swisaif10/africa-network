@@ -22,35 +22,35 @@ public class Message implements Serializable {
         this.username = username;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getDate() {
         return date;
     }
 
-    public void setIdClient(Integer idClient) {
-        this.idClient = idClient;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Integer getIdClient() {
         return idClient;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setIdClient(Integer idClient) {
+        this.idClient = idClient;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

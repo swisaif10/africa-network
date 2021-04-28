@@ -1,31 +1,31 @@
 package com.mobiblanc.amdie.africa.network.models.countries;
 
-public class CurrenciesItem{
+public class CurrenciesItem {
     private String symbol;
     private String code;
     private String name;
 
-    public void setSymbol(String symbol){
-        this.symbol = symbol;
-    }
-
-    public String getSymbol(){
+    public String getSymbol() {
         return symbol;
     }
 
-    public void setCode(String code){
-        this.code = code;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
-    public String getCode(){
+    public String getCode() {
         return code;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

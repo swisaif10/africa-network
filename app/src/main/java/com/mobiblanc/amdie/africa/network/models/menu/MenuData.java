@@ -12,19 +12,19 @@ public class MenuData {
     @Expose
     private List<Result> results;
 
-    public void setHeader(Header header){
-        this.header = header;
-    }
-
-    public Header getHeader(){
+    public Header getHeader() {
         return header;
     }
 
-    public void setResults(List<Result> results){
-        this.results = results;
+    public void setHeader(Header header) {
+        this.header = header;
     }
 
-    public List<Result> getResults(){
+    public List<Result> getResults() {
         return results;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
     }
 }

@@ -20,59 +20,59 @@ public class Discussion {
     @SerializedName("entreprise")
     private String company;
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getDate() {
         return date;
     }
 
-    public void setMessengerName(String messengerName) {
-        this.messengerName = messengerName;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getMessengerName() {
         return messengerName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMessengerName(String messengerName) {
+        this.messengerName = messengerName;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setIdReceiver(int idReceiver) {
-        this.idReceiver = idReceiver;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIdReceiver() {
         return idReceiver;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setIdReceiver(int idReceiver) {
+        this.idReceiver = idReceiver;
     }
 
     public String getPicture() {
         return picture;
     }
 
-	public String getCountry() {
-		return country;
-	}
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public String getCompany() {
-		return company;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public void setCompany(String company) {
-		this.company = company;
-	}
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
 }

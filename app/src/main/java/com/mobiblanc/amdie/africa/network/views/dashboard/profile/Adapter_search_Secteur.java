@@ -1,4 +1,4 @@
-package com.mobiblanc.amdie.africa.network.views.dashboard.search;
+package com.mobiblanc.amdie.africa.network.views.dashboard.profile;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,7 +19,7 @@ public class Adapter_search_Secteur extends RecyclerView.Adapter<Adapter_search_
     private final CheckedLisner checkedLisner;
 
 
-    public Adapter_search_Secteur(Context context, Secteur data , CheckedLisner checkedLisner ) {
+    public Adapter_search_Secteur(Context context, Secteur data, CheckedLisner checkedLisner) {
         this.context = context;
         this.data = data;
 
@@ -45,6 +45,41 @@ public class Adapter_search_Secteur extends RecyclerView.Adapter<Adapter_search_
         return data.getObjetReferenceValues().size();
     }
 
+    void enable_check(Boolean enable) {
+        for (int i = 0; i < data.getObjetReferenceValues().size(); i++) {
+            if (!data.getObjetReferenceValues().get(i).isChecked())
+                data.getObjetReferenceValues().get(i).setEnable(enable);
+        }
+        notifyDataSetChanged();
+        checkedLisner.Checked_Secteur(nbr_check() > 0, getList_id_String(), getList_name_String());
+    }
+
+    int nbr_check() {
+        int nn = 0;
+        for (int i = 0; i < data.getObjetReferenceValues().size(); i++) {
+            if (data.getObjetReferenceValues().get(i).isChecked())
+                nn++;
+        }
+        return nn;
+    }
+
+    String getList_id_String() {
+        String s = "";
+        for (int i = 0; i < data.getObjetReferenceValues().size(); i++) {
+            if (data.getObjetReferenceValues().get(i).isChecked())
+                s = s + data.getObjetReferenceValues().get(i).getId() + ",";
+        }
+        return s;
+    }
+
+    String getList_name_String() {
+        String s = "";
+        for (int i = 0; i < data.getObjetReferenceValues().size(); i++) {
+            if (data.getObjetReferenceValues().get(i).isChecked())
+                s = s + data.getObjetReferenceValues().get(i).getName() + ", ";
+        }
+        return s;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -56,51 +91,19 @@ public class Adapter_search_Secteur extends RecyclerView.Adapter<Adapter_search_
         }
 
         private void bind(ObjetReferenceValuesItem objetReferenceValuesItem) {
-              itemBinding.checkBox.setText(objetReferenceValuesItem.getName());
-              itemBinding.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                  objetReferenceValuesItem.setChecked(isChecked);
-                  if (nbr_check() <data.getMax()){
-                      enable_check(true);
-                  }else {
-                      enable_check(false);
-                  }
+            itemBinding.checkBox.setText(objetReferenceValuesItem.getName());
+            itemBinding.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                objetReferenceValuesItem.setChecked(isChecked);
+                if (nbr_check() < data.getMax()) {
+                    enable_check(true);
+                } else {
+                    enable_check(false);
+                }
 
-              });
+            });
 
             itemBinding.checkBox.setEnabled(objetReferenceValuesItem.isEnable());
 
         }
-    }
-    void enable_check(Boolean enable){
-        for (int i=0 ;i< data.getObjetReferenceValues().size();i++){
-            if (!data.getObjetReferenceValues().get(i).isChecked())
-                data.getObjetReferenceValues().get(i).setEnable(enable);
-        }
-        notifyDataSetChanged();
-        checkedLisner.Checked_Secteur(nbr_check()>0,getList_id_String(),getList_name_String());
-    }
-    int nbr_check(){
-        int nn=0;
-        for (int i=0 ;i< data.getObjetReferenceValues().size();i++){
-            if (data.getObjetReferenceValues().get(i).isChecked())
-               nn++;
-        }
-         return nn;
-    }
-    String getList_id_String(){
-        String s="";
-        for (int i=0 ;i< data.getObjetReferenceValues().size();i++){
-            if (data.getObjetReferenceValues().get(i).isChecked())
-                s=s+  data.getObjetReferenceValues().get(i).getId()+",";
-        }
-        return s;
-    }
-    String getList_name_String(){
-        String s="";
-        for (int i=0 ;i< data.getObjetReferenceValues().size();i++){
-            if (data.getObjetReferenceValues().get(i).isChecked())
-                s=s+  data.getObjetReferenceValues().get(i).getName()+", ";
-        }
-        return s;
     }
 }

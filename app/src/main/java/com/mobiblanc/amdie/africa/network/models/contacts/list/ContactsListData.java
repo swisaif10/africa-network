@@ -17,35 +17,35 @@ public class ContactsListData {
     @Expose
     private List<Contact> results;
 
-    public void setNbrPages(int nbrPages) {
-        this.nbrPages = nbrPages;
-    }
-
     public int getNbrPages() {
         return nbrPages;
     }
 
-    public void setHeader(Header header) {
-        this.header = header;
+    public void setNbrPages(int nbrPages) {
+        this.nbrPages = nbrPages;
     }
 
     public Header getHeader() {
         return header;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setHeader(Header header) {
+        this.header = header;
     }
 
     public int getPage() {
         return page;
     }
 
-    public void setResults(List<Contact> results) {
-        this.results = results;
+    public void setPage(int page) {
+        this.page = page;
     }
 
     public List<Contact> getResults() {
         return results;
+    }
+
+    public void setResults(List<Contact> results) {
+        this.results = results;
     }
 }

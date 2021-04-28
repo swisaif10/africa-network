@@ -29,16 +29,16 @@ public class SMSConfirmationFragment extends Fragment {
     private PreferenceManager preferenceManager;
     private Boolean request = false;
 
+    public SMSConfirmationFragment() {
+        // Required empty public constructor
+    }
+
     public static SMSConfirmationFragment newInstance(String msisdn) {
         SMSConfirmationFragment fragment = new SMSConfirmationFragment();
         Bundle args = new Bundle();
         args.putString("msisdn", msisdn);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public SMSConfirmationFragment() {
-        // Required empty public constructor
     }
 
     @Override

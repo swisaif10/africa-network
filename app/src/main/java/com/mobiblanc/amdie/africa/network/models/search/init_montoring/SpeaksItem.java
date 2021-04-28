@@ -2,38 +2,38 @@ package com.mobiblanc.amdie.africa.network.models.search.init_montoring;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SpeaksItem{
+public class SpeaksItem {
 
-	@SerializedName("ordre")
-	private int ordre;
+    @SerializedName("ordre")
+    private int ordre;
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("name")
+    private String name;
 
-	@SerializedName("id")
-	private int id;
+    @SerializedName("id")
+    private int id;
 
-	public void setOrdre(int ordre){
-		this.ordre = ordre;
-	}
+    public int getOrdre() {
+        return ordre;
+    }
 
-	public int getOrdre(){
-		return ordre;
-	}
+    public void setOrdre(int ordre) {
+        this.ordre = ordre;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setId(int id){
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getId(){
-		return id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 }

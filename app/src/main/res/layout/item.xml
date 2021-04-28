@@ -4,8 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/img"
@@ -17,9 +16,9 @@
 
     <TextView
         android:id="@+id/id_txt"
-        android:layout_marginTop="33dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
 
         android:fontFamily="@font/montserrat_regular"
         android:text="Investir"

@@ -3,434 +3,464 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.dashboard.search.SearchFragment">
-     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    <androidx.core.widget.NestedScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:overScrollMode="never"
-        android:visibility="gone"
-        android:id="@+id/view_update"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:visibility="visible"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/view_update"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:weightSum="100"
-            android:orientation="horizontal">
-            <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                android:id="@+id/btn_photo_profile"
-                android:layout_gravity="center_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="42"
-                android:layout_height="122dp"
-                android:background="@color/white"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
-                android:layout_marginStart="20dp"
-                >
-            <LinearLayout
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_image"
-                    android:layout_width="30dp"
-                    android:layout_height="24dp"/>
-                <TextView
-                    android:layout_marginTop="8dp"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:id="@+id/txt_photo_profil"
-                    android:text="@string/add_photo_profile"
-                    android:textColor="@color/blue4" />
-            </LinearLayout>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:id="@+id/img_profil"/>
-            </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-            <View
-                android:layout_width="0dp"
-                android:layout_weight="10"
-                android:layout_height="wrap_content"/>
-            <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                android:id="@+id/btn_photo_entreprise"
-                android:layout_gravity="center_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="42"
-                android:layout_height="122dp"
-                android:background="@color/white"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
-               >
-                <LinearLayout
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_image"
-                        android:layout_width="30dp"
-                        android:layout_height="24dp"/>
-                    <TextView
-                        android:layout_marginTop="8dp"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_semibold"
-                        android:textSize="13sp"
-                        android:gravity="center"
-                        android:text="@string/add_photo_entreprise"
-                        android:id="@+id/txt_photo_entreprise"
-                        android:textColor="@color/blue4" />
-                </LinearLayout>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:id="@+id/img_entreprise"/>
-            </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-
-        </LinearLayout>
-
-
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:text="&#9679; Profil"
-                    android:textColor="@color/blue4"
-                    android:textSize="19sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
-                <EditText
-                    android:id="@+id/presentation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_secteur"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:hint="@string/presentation_hint"
-                    android:paddingBottom="20dp"
-                    android:textColor="@color/blue4"
-                    android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
-                    android:imeOptions="actionDone"
-                    android:inputType="textMultiLine"
-                    android:theme="@style/editTextTheme" />
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:id="@+id/btn_photo_profile"
+                        android:layout_width="0dp"
+                        android:layout_height="122dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="42"
+                        android:background="@color/white"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
-                <TextView
-                    android:id="@+id/topics"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_topics"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:hint="@string/topics_hint"
-                    android:paddingBottom="20dp"
-                    android:drawableEnd="@drawable/ic_arrow"
-                    android:textColor="@color/blue4"
-                    android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
-                    android:layout_marginStart="5dp"
-                    android:theme="@style/textTheme" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/blue6"/>
-                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                    android:id="@+id/card_topic"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp"
-                    android:layout_margin="10dp"
-                    android:visibility="gone" >
-                <androidx.recyclerview.widget.RecyclerView
-                    app:cardElevation="10dp"
-                    android:background="@drawable/bag_rec"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:scrollbars="vertical"
-                    tools:listitem="@layout/adapter_checkbox"
-                    android:id="@+id/recyclerview_topic"/>
-                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:text="@string/enterprise_title"
-                    android:textColor="@color/blue4"
-                    android:textSize="17sp" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/sector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_secteur"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:hint="@string/activity_hint"
-                    android:paddingBottom="15dp"
-                    android:textColor="@color/blue4"
-                    android:drawableEnd="@drawable/ic_arrow"
-                    android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
-                    android:layout_marginStart="5dp"
-                    android:theme="@style/textTheme" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/blue6"/>
-                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                    android:id="@+id/card_secteur"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp"
-                    android:layout_margin="10dp"
-                    android:visibility="gone" >
-                    <androidx.recyclerview.widget.RecyclerView
-                        app:cardElevation="10dp"
-                        android:background="@drawable/bag_rec"
-                        android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        android:scrollbars="vertical"
-                        tools:listitem="@layout/adapter_checkbox"
-                        android:id="@+id/recyclerview_secteur"/>
-                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_image" />
 
-                <TextView
-                    android:id="@+id/headquarters"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_entreprise"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:hint="@string/headquarters_hint"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="20dp"
-                    android:drawableEnd="@drawable/ic_arrow"
-                    android:textColor="@color/blue4"
-                    android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
-                    android:layout_marginStart="5dp"
-                    android:theme="@style/textTheme" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/blue6"/>
-                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                    android:id="@+id/card_siege"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp"
-                    android:layout_margin="10dp"
-                    android:visibility="gone" >
-                    <androidx.recyclerview.widget.RecyclerView
-                        app:cardElevation="10dp"
-                        android:background="@drawable/bag_rec"
-                        android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        android:scrollbars="vertical"
-                        tools:listitem="@layout/adapter_checkbox"
-                        android:id="@+id/recyclerview_siege"/>
-                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                    android:id="@+id/squad"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_effectife"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:hint="@string/squad_hint"
-                    android:paddingBottom="20dp"
-                    android:textColor="@color/blue4"
-                    android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@id/products"
-                    android:theme="@style/editTextTheme" />
-                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                    android:id="@+id/card_effectif"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp"
-                    android:layout_margin="10dp"
-                    android:visibility="gone" >
-                    <androidx.recyclerview.widget.RecyclerView
-                        app:cardElevation="10dp"
-                        android:background="@drawable/bag_rec"
-                        android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        android:scrollbars="vertical"
-                        tools:listitem="@layout/adapter_checkbox"
-                        android:id="@+id/recyclerview_effectif"/>
-                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-                <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
-                    android:id="@+id/products"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_effectife"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:hint="@string/product"
-                    android:paddingBottom="20dp"
-                    android:textColor="@color/blue4"
-                    android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
-                    android:imeOptions="actionNext"
-                    android:nextFocusDown="@id/turnover"
-                    android:theme="@style/editTextTheme" />
+                            <TextView
+                                android:id="@+id/txt_photo_profil"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:gravity="center"
+                                android:text="@string/add_photo_profile"
+                                android:textColor="@color/blue4"
+                                android:textSize="13sp" />
+                        </LinearLayout>
 
-                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                    android:id="@+id/card_produits"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp"
-                    android:layout_margin="10dp"
-                    android:visibility="gone" >
-                    <androidx.recyclerview.widget.RecyclerView
-                        app:cardElevation="10dp"
-                        android:background="@drawable/bag_rec"
-                        android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        android:scrollbars="vertical"
-                        tools:listitem="@layout/adapter_checkbox"
-                        android:id="@+id/recyclerview_produits"/>
-                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                    android:id="@+id/turnover"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_invest"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:hint="@string/turnover_hint"
-                    android:paddingBottom="20dp"
-                    android:textColor="@color/blue4"
-                    android:textColorHint="@color/grey2"
-                    android:textSize="14sp"
-                    android:theme="@style/editTextTheme"
-                    android:imeOptions="actionDone"
+                        <ImageView
+                            android:id="@+id/img_profil"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
-                    />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10" />
 
-                <TextView
-                    android:id="@+id/devise"
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:id="@+id/btn_photo_entreprise"
+                        android:layout_width="0dp"
+                        android:layout_height="122dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="42"
+                        android:background="@color/white"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_image" />
+
+                            <TextView
+                                android:id="@+id/txt_photo_entreprise"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:gravity="center"
+                                android:text="@string/add_photo_entreprise"
+                                android:textColor="@color/blue4"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/img_entreprise"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/devise"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:hint="@string/devise"
-                    android:paddingBottom="20dp"
-                    android:textColor="@color/blue4"
-                    android:textColorHint="@color/grey2"
-                    android:drawableEnd="@drawable/ic_arrow"
-                    android:textSize="14sp"
-                    android:dropDownHeight="150dp"
-                    android:layout_marginStart="5dp"
-                    android:theme="@style/textTheme" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/blue6"/>
-                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                    android:id="@+id/card_devise"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp"
-                    android:layout_margin="10dp"
-                    android:visibility="gone" >
-                    <androidx.recyclerview.widget.RecyclerView
-                        app:cardElevation="10dp"
-                        android:background="@drawable/bag_rec"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="&#9679; Profil"
+                        android:textColor="@color/blue4"
+                        android:textSize="19sp" />
+
+                    <EditText
+                        android:id="@+id/presentation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scrollbars="vertical"
-                        tools:listitem="@layout/adapter_checkbox"
-                        android:id="@+id/recyclerview_devise"/>
-                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-                <TextView
-                    android:id="@+id/nextBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginHorizontal="50dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/clic_bag_b"
-                    android:gravity="center"
-                    android:enabled="false"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:text="@string/next_btn_label"
-                    android:textAllCaps="false"
-                    android:textColor="@drawable/txt_clic_inv"
-                    android:textSize="15sp"
-                    app:cornerRadius="7dp" />
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/ic_secteur"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:hint="@string/presentation_hint"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/blue4"
+                        android:textColorHint="@color/grey2"
+                        android:textSize="14sp"
+                        android:theme="@style/editTextTheme" />
 
+                    <TextView
+                        android:id="@+id/topics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/ic_topics"
+                        android:drawableEnd="@drawable/ic_arrow"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:hint="@string/topics_hint"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/blue4"
+                        android:textColorHint="@color/grey2"
+                        android:textSize="14sp"
+                        android:theme="@style/textTheme" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/blue6" />
+
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:id="@+id/card_topic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_topic"
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:background="@drawable/bag_rec"
+                            android:scrollbars="vertical"
+                            app:cardElevation="10dp"
+                            tools:listitem="@layout/adapter_checkbox" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="@string/enterprise_title"
+                        android:textColor="@color/blue4"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/sector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/ic_secteur"
+                        android:drawableEnd="@drawable/ic_arrow"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:hint="@string/activity_hint"
+                        android:paddingBottom="15dp"
+                        android:textColor="@color/blue4"
+                        android:textColorHint="@color/grey2"
+                        android:textSize="14sp"
+                        android:theme="@style/textTheme" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/blue6" />
+
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:id="@+id/card_secteur"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_secteur"
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:background="@drawable/bag_rec"
+                            android:scrollbars="vertical"
+                            app:cardElevation="10dp"
+                            tools:listitem="@layout/adapter_checkbox" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+                    <TextView
+                        android:id="@+id/headquarters"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/ic_entreprise"
+                        android:drawableEnd="@drawable/ic_arrow"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:gravity="center_vertical"
+                        android:hint="@string/headquarters_hint"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/blue4"
+                        android:textColorHint="@color/grey2"
+                        android:textSize="14sp"
+                        android:theme="@style/textTheme" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/blue6" />
+
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:id="@+id/card_siege"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_siege"
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:background="@drawable/bag_rec"
+                            android:scrollbars="vertical"
+                            app:cardElevation="10dp"
+                            tools:listitem="@layout/adapter_checkbox" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        android:id="@+id/squad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/ic_effectife"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:hint="@string/squad_hint"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/products"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/blue4"
+                        android:textColorHint="@color/grey2"
+                        android:textSize="14sp"
+                        android:theme="@style/editTextTheme" />
+
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:id="@+id/card_effectif"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_effectif"
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:background="@drawable/bag_rec"
+                            android:scrollbars="vertical"
+                            app:cardElevation="10dp"
+                            tools:listitem="@layout/adapter_checkbox" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+                    <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
+                        android:id="@+id/products"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/ic_effectife"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:hint="@string/product"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/turnover"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/blue4"
+                        android:textColorHint="@color/grey2"
+                        android:textSize="14sp"
+                        android:theme="@style/editTextTheme" />
+
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:id="@+id/card_produits"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_produits"
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:background="@drawable/bag_rec"
+                            android:scrollbars="vertical"
+                            app:cardElevation="10dp"
+                            tools:listitem="@layout/adapter_checkbox" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        android:id="@+id/turnover"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/ic_invest"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:hint="@string/turnover_hint"
+                        android:imeOptions="actionDone"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/blue4"
+                        android:textColorHint="@color/grey2"
+                        android:textSize="14sp"
+                        android:theme="@style/editTextTheme"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/devise"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/devise"
+                        android:drawableEnd="@drawable/ic_arrow"
+                        android:drawablePadding="10dp"
+                        android:dropDownHeight="150dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:hint="@string/devise"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/blue4"
+                        android:textColorHint="@color/grey2"
+                        android:textSize="14sp"
+                        android:theme="@style/textTheme" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/blue6" />
+
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:id="@+id/card_devise"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_devise"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bag_rec"
+                            android:scrollbars="vertical"
+                            app:cardElevation="10dp"
+                            tools:listitem="@layout/adapter_checkbox" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+                    <TextView
+                        android:id="@+id/nextBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="65dp"
+                        android:layout_marginHorizontal="50dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/clic_bag_b"
+                        android:enabled="false"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:gravity="center"
+                        android:text="@string/next_btn_label"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/txt_clic_inv"
+                        android:textSize="15sp"
+                        app:cornerRadius="7dp" />
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-</RelativeLayout>
+    </RelativeLayout>
 </layout>

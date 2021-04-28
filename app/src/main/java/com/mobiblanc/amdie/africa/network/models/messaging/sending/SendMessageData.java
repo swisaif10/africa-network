@@ -3,25 +3,25 @@ package com.mobiblanc.amdie.africa.network.models.messaging.sending;
 import com.google.gson.annotations.Expose;
 import com.mobiblanc.amdie.africa.network.models.common.Header;
 
-public class SendMessageData{
+public class SendMessageData {
     @Expose
     private Header header;
     @Expose
     private Results results;
 
-    public void setHeader(Header header){
-        this.header = header;
-    }
-
-    public Header getHeader(){
+    public Header getHeader() {
         return header;
     }
 
-    public void setResults(Results results){
-        this.results = results;
+    public void setHeader(Header header) {
+        this.header = header;
     }
 
-    public Results getResults(){
+    public Results getResults() {
         return results;
+    }
+
+    public void setResults(Results results) {
+        this.results = results;
     }
 }

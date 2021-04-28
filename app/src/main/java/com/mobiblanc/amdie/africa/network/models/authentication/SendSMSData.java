@@ -1,7 +1,6 @@
 package com.mobiblanc.amdie.africa.network.models.authentication;
 
 import com.google.gson.annotations.Expose;
-import com.mobiblanc.amdie.africa.network.models.checkversion.CheckVersionResponse;
 import com.mobiblanc.amdie.africa.network.models.common.Header;
 
 public class SendSMSData {

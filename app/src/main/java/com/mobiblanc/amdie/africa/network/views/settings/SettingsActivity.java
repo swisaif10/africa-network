@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -16,12 +15,12 @@ import com.mobiblanc.amdie.africa.network.databinding.ActivitySettingsBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 
 
-
 public class SettingsActivity extends AppCompatActivity {
 
+    String lang = "fr";
     private ActivitySettingsBinding activityBinding;
     private PreferenceManager preferenceManager;
-    String lang="fr";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +33,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         try {
             preferenceManager.getValueB(Constants.NOTIFICATION, true);
-        }catch (Exception e){
+        } catch (Exception e) {
             preferenceManager.putValue(Constants.NOTIFICATION, true);
         }
         init();
@@ -43,28 +42,28 @@ public class SettingsActivity extends AppCompatActivity {
     private void init() {
         activityBinding.backBtn.setOnClickListener(v ->
                 onBackPressed());
-        if (preferenceManager.getValueB(Constants.NOTIFICATION, true)){
+        if (preferenceManager.getValueB(Constants.NOTIFICATION, true)) {
             activityBinding.imgSw.setImageDrawable(getDrawable(R.drawable.actif));
-        }else {
+        } else {
             activityBinding.imgSw.setImageDrawable(getDrawable(R.drawable.inactif));
         }
         activityBinding.imgSw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 preferenceManager.putValue(Constants.NOTIFICATION, !preferenceManager.getValueB(Constants.NOTIFICATION, true));
-                if (preferenceManager.getValueB(Constants.NOTIFICATION, true)){
+                if (preferenceManager.getValueB(Constants.NOTIFICATION, true)) {
                     activityBinding.imgSw.setImageDrawable(getDrawable(R.drawable.actif));
-                }else {
+                } else {
                     activityBinding.imgSw.setImageDrawable(getDrawable(R.drawable.inactif));
                 }
             }
         });
-        if (preferenceManager.getValueS(Constants.LANGUAGE, "fr").equals("fr")){
-            lang="fr";
+        if (preferenceManager.getValueS(Constants.LANGUAGE, "fr").equals("fr")) {
+            lang = "fr";
             activityBinding.btn1.setText(getText(R.string.fr));
             activityBinding.btn2.setText(getText(R.string.ang));
-        }else {
-            lang="ang";
+        } else {
+            lang = "ang";
             activityBinding.btn2.setText(getText(R.string.fr));
             activityBinding.btn1.setText(getText(R.string.ang));
         }
@@ -73,19 +72,19 @@ public class SettingsActivity extends AppCompatActivity {
             @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
-                if (activityBinding.btn2.getVisibility()==View.GONE){
+                if (activityBinding.btn2.getVisibility() == View.GONE) {
                     activityBinding.btn2.setVisibility(View.VISIBLE);
                     activityBinding.bar.setVisibility(View.VISIBLE);
-                    activityBinding.btn1.setCompoundDrawablesWithIntrinsicBounds(null,null,getDrawable(R.drawable.arrow_up),null);
-                    if (getText(R.string.ang).equals(activityBinding.btn1.getText().toString())){
+                    activityBinding.btn1.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(R.drawable.arrow_up), null);
+                    if (getText(R.string.ang).equals(activityBinding.btn1.getText().toString())) {
                         preferenceManager.putValue(Constants.LANGUAGE, "ang");
-                    }else {
+                    } else {
                         preferenceManager.putValue(Constants.LANGUAGE, "fr");
                     }
-                }else {
+                } else {
                     activityBinding.btn2.setVisibility(View.GONE);
                     activityBinding.bar.setVisibility(View.GONE);
-                    activityBinding.btn1.setCompoundDrawablesWithIntrinsicBounds(null,null,getDrawable(R.drawable.arrow_down),null);
+                    activityBinding.btn1.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(R.drawable.arrow_down), null);
                 }
             }
         });
@@ -94,25 +93,24 @@ public class SettingsActivity extends AppCompatActivity {
             @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
-                if (getText(R.string.ang).equals(activityBinding.btn2.getText().toString())){
+                if (getText(R.string.ang).equals(activityBinding.btn2.getText().toString())) {
                     preferenceManager.putValue(Constants.LANGUAGE, "ang");
-                }else {
+                } else {
                     preferenceManager.putValue(Constants.LANGUAGE, "fr");
                 }
 
-             String lang=activityBinding.btn1.getText().toString();
-                    activityBinding.btn2.setVisibility(View.GONE);
-                    activityBinding.bar.setVisibility(View.GONE);
-                    activityBinding.btn1.setCompoundDrawablesWithIntrinsicBounds(null,null,getDrawable(R.drawable.arrow_down),null);
-                    activityBinding.btn1.setText(activityBinding.btn2.getText().toString());
-                    activityBinding.btn2.setText(lang);
+                String lang = activityBinding.btn1.getText().toString();
+                activityBinding.btn2.setVisibility(View.GONE);
+                activityBinding.bar.setVisibility(View.GONE);
+                activityBinding.btn1.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(R.drawable.arrow_down), null);
+                activityBinding.btn1.setText(activityBinding.btn2.getText().toString());
+                activityBinding.btn2.setText(lang);
 
 
             }
         });
 
-}
-
+    }
 
 
 }

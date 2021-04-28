@@ -8,6 +8,6 @@
         <attr name="keep_hint" format="boolean" />
     </declare-styleable>
     <declare-styleable name="CalendarView">
-        <attr name="dateFormat" format="string"/>
+        <attr name="dateFormat" format="string" />
     </declare-styleable>
 </resources>

@@ -78,7 +78,7 @@ public class DashboardViewModel extends AndroidViewModel {
     }
 
     public void likeFeed(String token,
-                       int id) {
+                         int id) {
         repository.likeFeed(token, id, likeFeedLiveData);
     }
 }

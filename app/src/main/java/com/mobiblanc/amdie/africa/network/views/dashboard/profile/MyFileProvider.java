@@ -1,4 +1,4 @@
-package com.mobiblanc.amdie.africa.network.views.dashboard.search;
+package com.mobiblanc.amdie.africa.network.views.dashboard.profile;
 
 import androidx.core.content.FileProvider;
 

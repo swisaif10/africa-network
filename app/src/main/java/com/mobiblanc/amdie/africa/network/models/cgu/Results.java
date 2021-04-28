@@ -9,19 +9,19 @@ public class Results {
     @Expose
     private String message;
 
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
-    }
-
     public String getHtmlContent() {
         return htmlContent;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
     }
 
     public String getMessage() {
         return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

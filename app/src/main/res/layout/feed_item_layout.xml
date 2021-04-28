@@ -77,10 +77,10 @@
             android:text="@string/like_btn_label"
             android:textColor="#9AA8B1"
             android:textSize="10sp"
+            app:drawableStartCompat="@drawable/heart_unselected"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image"
-            app:drawableStartCompat="@drawable/heart_unselected" />
+            app:layout_constraintTop_toBottomOf="@id/image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

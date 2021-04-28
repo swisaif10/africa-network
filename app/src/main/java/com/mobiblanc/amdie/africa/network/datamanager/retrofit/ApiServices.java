@@ -14,12 +14,19 @@ import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
 import com.mobiblanc.amdie.africa.network.models.messaging.discussions.DiscussionsListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.MessagesListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.sending.SendMessageData;
+import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
+import com.mobiblanc.amdie.africa.network.models.search.profile.Profile;
+import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
 import com.mobiblanc.amdie.africa.network.models.share.ShareAppData;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface ApiServices {
 
@@ -152,7 +159,6 @@ public interface ApiServices {
                                            @Part("chiffredaffaire") RequestBody chiffredaffaire,
                                            @Part("effectif") RequestBody effectif,
                                            @Part("topics") RequestBody topics,
-
                                            @Part("devise") RequestBody devise,
                                            @Part("produits") RequestBody produit);
 
@@ -164,13 +170,9 @@ public interface ApiServices {
                                               @Field("lang") String lang);
 
     @FormUrlEncoded
-    @POST(ApiEndpoints.SET_LIKE_URL)
-    Call<LikeModel> setLikeFeed(@Field("token") String token,
-                                @Field("id") int id);
-
-    @FormUrlEncoded
     @POST(ApiEndpoints.GET_PROFILE)
     Call<Profile> getProfile(@Field("token") String token,
                              @Field("canal") String canal,
                              @Field("lang") String lang);
+
 }

@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-
 import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
 import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
 import com.mobiblanc.amdie.africa.network.repository.ContactsRepository;
@@ -22,6 +21,7 @@ public class SearchViewModel extends AndroidViewModel {
     private final MutableLiveData<Resource<UpdateMentoreData>> updateMentoreDataLiveData;
     private final MutableLiveData<Resource<InitMontoringData>> InitMontoringLiveData;
     private final MutableLiveData<Resource<InitMontoringData>> InitProfileLiveData;
+
     public SearchViewModel(@NonNull Application application) {
         super(application);
 
@@ -30,15 +30,19 @@ public class SearchViewModel extends AndroidViewModel {
         InitMontoringLiveData = new MutableLiveData<>();
         InitProfileLiveData = new MutableLiveData<>();
     }
+
     public MutableLiveData<Resource<UpdateMentoreData>> getUpdateMentoreLiveData() {
         return updateMentoreDataLiveData;
     }
+
     public MutableLiveData<Resource<InitMontoringData>> getInitMontoringLiveData() {
         return InitMontoringLiveData;
     }
+
     public MutableLiveData<Resource<InitMontoringData>> getInitProfileLiveData() {
         return InitProfileLiveData;
     }
+
     public void updateMentore(RequestBody token,
                               MultipartBody.Part pictureProfil,
                               MultipartBody.Part pictureEntreprise,
@@ -52,16 +56,17 @@ public class SearchViewModel extends AndroidViewModel {
                               RequestBody topics,
                               RequestBody devise,
                               RequestBody produit) {
-        repository.updateMentore(token, pictureProfil, pictureEntreprise, lang, canal,   presentation,   siege,    secteur,  chiffredaffaire,
-                effectif,     topics,devise,produit , updateMentoreDataLiveData);
+        repository.updateMentore(token, pictureProfil, pictureEntreprise, lang, canal, presentation, siege, secteur, chiffredaffaire,
+                effectif, topics, devise, produit, updateMentoreDataLiveData);
     }
 
     public void getInitOntoring(String token,
-                        String lang) {
-       repository.getInitMontoring(token, lang, InitMontoringLiveData);
-    }
-    public void getInitProfile(String token,
                                 String lang) {
+        repository.getInitMontoring(token, lang, InitMontoringLiveData);
+    }
+
+    public void getInitProfile(String token,
+                               String lang) {
         repository.getInitMontoring(token, lang, InitProfileLiveData);
     }
 }

@@ -14,15 +14,16 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
-
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.mobiblanc.amdie.africa.network.R;
+
 import static android.content.ContentValues.TAG;
 
 public class MaskedEditText extends AppCompatEditText implements TextWatcher {
 
     public static final String SPACE = " ";
+    protected int maxRawLength;
     private String mask;
     private char charRepresentation;
     private boolean keepHint;
@@ -35,7 +36,6 @@ public class MaskedEditText extends AppCompatEditText implements TextWatcher {
     private int selection;
     private boolean initialized;
     private boolean ignore;
-    protected int maxRawLength;
     private int lastValidMaskPosition;
     private boolean selectionChanged;
     private OnFocusChangeListener focusChangeListener;
@@ -84,6 +84,11 @@ public class MaskedEditText extends AppCompatEditText implements TextWatcher {
             }
         });
         attributes.recycle();
+    }
+
+    public MaskedEditText(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
     }
 
     @Override
@@ -173,9 +178,8 @@ public class MaskedEditText extends AppCompatEditText implements TextWatcher {
         return getHint() != null;
     }
 
-    public MaskedEditText(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init();
+    public String getMask() {
+        return this.mask;
     }
 
     public void setMask(String mask) {
@@ -183,21 +187,17 @@ public class MaskedEditText extends AppCompatEditText implements TextWatcher {
         cleanUp();
     }
 
-    public String getMask() {
-        return this.mask;
-    }
-
     public String getRawText() {
         return this.rawText.getText();
+    }
+
+    public char getCharRepresentation() {
+        return this.charRepresentation;
     }
 
     public void setCharRepresentation(char charRepresentation) {
         this.charRepresentation = charRepresentation;
         cleanUp();
-    }
-
-    public char getCharRepresentation() {
-        return this.charRepresentation;
     }
 
     /**

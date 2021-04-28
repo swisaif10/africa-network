@@ -1,51 +1,52 @@
 package com.mobiblanc.amdie.africa.network.models.search.init_montoring;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ListeCountriesItem{
+import java.util.List;
 
-	@SerializedName("ordre")
-	private int ordre;
+public class ListeCountriesItem {
 
-	@SerializedName("prefectures")
-	private List<PrefecturesItem> prefectures;
+    @SerializedName("ordre")
+    private int ordre;
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("prefectures")
+    private List<PrefecturesItem> prefectures;
 
-	@SerializedName("id")
-	private int id;
+    @SerializedName("name")
+    private String name;
 
-	public void setOrdre(int ordre){
-		this.ordre = ordre;
-	}
+    @SerializedName("id")
+    private int id;
 
-	public int getOrdre(){
-		return ordre;
-	}
+    public int getOrdre() {
+        return ordre;
+    }
 
-	public void setPrefectures(List<PrefecturesItem> prefectures){
-		this.prefectures = prefectures;
-	}
+    public void setOrdre(int ordre) {
+        this.ordre = ordre;
+    }
 
-	public List<PrefecturesItem> getPrefectures(){
-		return prefectures;
-	}
+    public List<PrefecturesItem> getPrefectures() {
+        return prefectures;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public void setPrefectures(List<PrefecturesItem> prefectures) {
+        this.prefectures = prefectures;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setId(int id){
-		this.id = id;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public int getId(){
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

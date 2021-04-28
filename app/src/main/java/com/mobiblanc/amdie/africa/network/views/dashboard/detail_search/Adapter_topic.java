@@ -11,17 +11,18 @@ import com.mobiblanc.amdie.africa.network.R;
 
 import java.util.List;
 
-public class Adapter_topic extends RecyclerView.Adapter<Adapter_topic.ViewHolder>{
+public class Adapter_topic extends RecyclerView.Adapter<Adapter_topic.ViewHolder> {
     private List<String> list;
 
 
     public Adapter_topic(List<String> list) {
         this.list = list;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.item_topics, parent, false);
+        View listItem = layoutInflater.inflate(R.layout.item_topics, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }

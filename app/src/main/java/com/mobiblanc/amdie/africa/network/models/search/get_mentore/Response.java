@@ -1,51 +1,52 @@
 package com.mobiblanc.amdie.africa.network.models.search.get_mentore;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class Response{
+import java.util.List;
 
-	@SerializedName("request")
-	private Request request;
+public class Response {
 
-	@SerializedName("response")
-	private List<Object> response;
+    @SerializedName("request")
+    private Request request;
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("response")
+    private List<Object> response;
 
-	@SerializedName("id")
-	private String id;
+    @SerializedName("name")
+    private String name;
 
-	public void setRequest(Request request){
-		this.request = request;
-	}
+    @SerializedName("id")
+    private String id;
 
-	public Request getRequest(){
-		return request;
-	}
+    public Request getRequest() {
+        return request;
+    }
 
-	public void setResponse(List<Object> response){
-		this.response = response;
-	}
+    public void setRequest(Request request) {
+        this.request = request;
+    }
 
-	public List<Object> getResponse(){
-		return response;
-	}
+    public List<Object> getResponse() {
+        return response;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public void setResponse(List<Object> response) {
+        this.response = response;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setId(String id){
-		this.id = id;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getId(){
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

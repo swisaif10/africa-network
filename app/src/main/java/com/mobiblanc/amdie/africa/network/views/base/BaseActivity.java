@@ -67,7 +67,7 @@ public class BaseActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().remove(fragment).commit();
     }
 
-    public void tokenExpired(){
+    public void tokenExpired() {
         startActivity(new Intent(this, AuthenticationActivity.class));
         finish();
     }

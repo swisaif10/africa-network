@@ -1,84 +1,85 @@
 package com.mobiblanc.amdie.africa.network.models.search.init_montoring;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class Results{
+import java.util.List;
 
-	@SerializedName("speaks")
-	private List<SpeaksItem> speaks;
+public class Results {
 
-	@SerializedName("tranches_age")
-	private List<TranchesAgeItem> tranchesAge;
+    @SerializedName("speaks")
+    private List<SpeaksItem> speaks;
 
-	@SerializedName("competence_technique")
-	private List<CompetenceTechniqueItem> competenceTechnique;
+    @SerializedName("tranches_age")
+    private List<TranchesAgeItem> tranchesAge;
 
-	@SerializedName("secteurs")
-	private List<SecteursItem> secteurs;
+    @SerializedName("competence_technique")
+    private List<CompetenceTechniqueItem> competenceTechnique;
 
-	@SerializedName("experiences")
-	private List<ExperiencesItem> experiences;
+    @SerializedName("secteurs")
+    private List<SecteursItem> secteurs;
 
-	@SerializedName("prestations_attendues")
-	private List<PrestationsAttenduesItem> prestationsAttendues;
+    @SerializedName("experiences")
+    private List<ExperiencesItem> experiences;
 
-	@SerializedName("Liste_countries")
-	private List<ListeCountriesItem> listeCountries;
+    @SerializedName("prestations_attendues")
+    private List<PrestationsAttenduesItem> prestationsAttendues;
 
-	public void setSpeaks(List<SpeaksItem> speaks){
-		this.speaks = speaks;
-	}
+    @SerializedName("Liste_countries")
+    private List<ListeCountriesItem> listeCountries;
 
-	public List<SpeaksItem> getSpeaks(){
-		return speaks;
-	}
+    public List<SpeaksItem> getSpeaks() {
+        return speaks;
+    }
 
-	public void setTranchesAge(List<TranchesAgeItem> tranchesAge){
-		this.tranchesAge = tranchesAge;
-	}
+    public void setSpeaks(List<SpeaksItem> speaks) {
+        this.speaks = speaks;
+    }
 
-	public List<TranchesAgeItem> getTranchesAge(){
-		return tranchesAge;
-	}
+    public List<TranchesAgeItem> getTranchesAge() {
+        return tranchesAge;
+    }
 
-	public void setCompetenceTechnique(List<CompetenceTechniqueItem> competenceTechnique){
-		this.competenceTechnique = competenceTechnique;
-	}
+    public void setTranchesAge(List<TranchesAgeItem> tranchesAge) {
+        this.tranchesAge = tranchesAge;
+    }
 
-	public List<CompetenceTechniqueItem> getCompetenceTechnique(){
-		return competenceTechnique;
-	}
+    public List<CompetenceTechniqueItem> getCompetenceTechnique() {
+        return competenceTechnique;
+    }
 
-	public void setSecteurs(List<SecteursItem> secteurs){
-		this.secteurs = secteurs;
-	}
+    public void setCompetenceTechnique(List<CompetenceTechniqueItem> competenceTechnique) {
+        this.competenceTechnique = competenceTechnique;
+    }
 
-	public List<SecteursItem> getSecteurs(){
-		return secteurs;
-	}
+    public List<SecteursItem> getSecteurs() {
+        return secteurs;
+    }
 
-	public void setExperiences(List<ExperiencesItem> experiences){
-		this.experiences = experiences;
-	}
+    public void setSecteurs(List<SecteursItem> secteurs) {
+        this.secteurs = secteurs;
+    }
 
-	public List<ExperiencesItem> getExperiences(){
-		return experiences;
-	}
+    public List<ExperiencesItem> getExperiences() {
+        return experiences;
+    }
 
-	public void setPrestationsAttendues(List<PrestationsAttenduesItem> prestationsAttendues){
-		this.prestationsAttendues = prestationsAttendues;
-	}
+    public void setExperiences(List<ExperiencesItem> experiences) {
+        this.experiences = experiences;
+    }
 
-	public List<PrestationsAttenduesItem> getPrestationsAttendues(){
-		return prestationsAttendues;
-	}
+    public List<PrestationsAttenduesItem> getPrestationsAttendues() {
+        return prestationsAttendues;
+    }
 
-	public void setListeCountries(List<ListeCountriesItem> listeCountries){
-		this.listeCountries = listeCountries;
-	}
+    public void setPrestationsAttendues(List<PrestationsAttenduesItem> prestationsAttendues) {
+        this.prestationsAttendues = prestationsAttendues;
+    }
 
-	public List<ListeCountriesItem> getListeCountries(){
-		return listeCountries;
-	}
+    public List<ListeCountriesItem> getListeCountries() {
+        return listeCountries;
+    }
+
+    public void setListeCountries(List<ListeCountriesItem> listeCountries) {
+        this.listeCountries = listeCountries;
+    }
 }

@@ -111,6 +111,7 @@ public interface Utilities {
         dialog.setContentView(view);
         dialog.show();
     }
+
     static void showPhotoDialog(Context context, OnDialogButtonsClickListener onDialogButtonsClickListener) {
 
         if (context == null) {
@@ -134,6 +135,7 @@ public interface Utilities {
         dialog.setContentView(view);
         dialog.show();
     }
+
     static String getUID(Context context) {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }

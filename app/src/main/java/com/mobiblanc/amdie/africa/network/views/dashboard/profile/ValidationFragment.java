@@ -1,12 +1,11 @@
-package com.mobiblanc.amdie.africa.network.views.dashboard.search;
+package com.mobiblanc.amdie.africa.network.views.dashboard.profile;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.mobiblanc.amdie.africa.network.R;
 
