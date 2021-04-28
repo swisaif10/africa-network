@@ -56,7 +56,8 @@ public class AuthenticationViewModel extends AndroidViewModel {
                               String firstName,
                               int country,
                               int city,
-                              int nationality) {
-        repository.updateProfile(token, lastName, company, job, email, firstName, country, city, nationality, updateProfileLiveData);
+                              int nationality,
+                              String firebaseToken) {
+        repository.updateProfile(token, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, updateProfileLiveData);
     }
 }

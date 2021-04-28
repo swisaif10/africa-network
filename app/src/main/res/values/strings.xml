@@ -48,9 +48,6 @@
     <string name="lbl_set_profile_photo">Ajouter photo de profil</string>
     <string name="lbl_take_camera_picture">Prendre une photo</string>
     <string name="lbl_choose_from_gallery">Choisir une photo</string>
-    <string name="fr">Francais</string>
-    <string name="ang">Anglais</string>
-
 
     <string name="cgu_text"><![CDATA[<font color="#000000">J’accepte </font><font color="#0C0366"><u>les conditions générales</u></font>]]></string>
     <string name="input_hint">Écrire</string>

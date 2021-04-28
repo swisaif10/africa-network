@@ -63,16 +63,17 @@
                     android:text="@string/notification"
                     android:textColor="@color/black" />
 
-
-                <ImageView
-                    android:id="@+id/img_sw"
-                    android:layout_width="41dp"
-                    android:layout_height="22dp"
+                <it.beppi.tristatetogglebutton_library.TriStateToggleButton
+                    android:id="@+id/notifToggle"
+                    android:layout_width="35dp"
+                    android:layout_height="18dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="13dp"
-                    android:background="@drawable/actif" />
-
+                    android:layout_centerInParent="true"
+                    app:tbIsMidSelectable="false"
+                    app:tbOffBorderColor="@color/blue4"
+                    app:tbOffColor="@color/grey3"
+                    app:tbOnColor="@color/blue4"
+                    app:tbSpotColor="@color/white" />
 
             </RelativeLayout>
 
@@ -82,36 +83,34 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/selected_country_background"
-                android:orientation="vertical"
-                tools:ignore="MissingConstraints">
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/btn_1"
+                    android:id="@+id/firstLanguageChoiceBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:padding="20dp"
-                    android:text="Francais"
+                    android:text="@string/french_label"
                     android:textColor="@color/black"
                     app:drawableEndCompat="@drawable/ic_arrow"
                     app:layout_constraintTop_toBottomOf="@id/notifBtn" />
 
                 <View
-                    android:id="@+id/bar"
+                    android:id="@+id/separator"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#B4B1CF"
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/btn_2"
+                    android:id="@+id/secondLanguageChoiceBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:padding="20dp"
-                    android:text="Anglais"
+                    android:text="@string/english_label"
                     android:textColor="@color/black"
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/notifBtn" />

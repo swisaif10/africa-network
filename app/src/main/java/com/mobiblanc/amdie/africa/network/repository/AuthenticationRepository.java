@@ -27,7 +27,8 @@ public class AuthenticationRepository {
                               int country,
                               int city,
                               int nationality,
+                              String firebaseToken,
                               MutableLiveData<Resource<UpdateProfileData>> mutableLiveData) {
-        new ApiManager().updateProfile(token, lastName, company, job, email, firstName, country, city, nationality, mutableLiveData);
+        new ApiManager().updateProfile(token, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, mutableLiveData);
     }
 }

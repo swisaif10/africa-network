@@ -117,8 +117,9 @@ public class ApiManager {
                               int country,
                               int city,
                               int nationality,
+                              String firebaseToken,
                               MutableLiveData<Resource<UpdateProfileData>> mutableLiveData) {
-        Call<UpdateProfileData> call = RetrofitClient.getInstance().endpoint().updateProfile(token, lastName, company, job, email, firstName, country, city, nationality);
+        Call<UpdateProfileData> call = RetrofitClient.getInstance().endpoint().updateProfile(token, lastName, company, job, email, firstName, country, city, nationality, firebaseToken);
         call.enqueue(new Callback<UpdateProfileData>() {
             @Override
             public void onResponse(@NonNull Call<UpdateProfileData> call, @NonNull Response<UpdateProfileData> response) {

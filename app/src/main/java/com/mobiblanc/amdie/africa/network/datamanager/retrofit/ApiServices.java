@@ -58,7 +58,8 @@ public interface ApiServices {
                                           @Field("prenom") String firstName,
                                           @Field("country") int country,
                                           @Field("city") int city,
-                                          @Field("nationality") int nationality);
+                                          @Field("nationality") int nationality,
+                                          @Field("firebase_token") String firebaseToken);
 
     @FormUrlEncoded
     @POST(ApiEndpoints.GET_FEEDS_URL)

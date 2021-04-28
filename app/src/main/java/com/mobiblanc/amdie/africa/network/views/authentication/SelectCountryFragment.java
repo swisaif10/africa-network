@@ -134,7 +134,7 @@ public class SelectCountryFragment extends Fragment {
     private void updateProfile() {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
         ((AuthenticationActivity) requireActivity()).getViewModel().updateProfile(preferenceManager.getValue(Constants.TOKEN, ""),
-                lastName, company, job, email, firstName, country, city, nationality);
+                lastName, company, job, email, firstName, country, city, nationality, preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""));
         request = true;
     }
 
