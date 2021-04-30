@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.models.cgu.CGUData;
 import com.mobiblanc.amdie.africa.network.repository.CGURepository;
 

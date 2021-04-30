@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.ActivityChatBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.Message;
@@ -114,7 +114,7 @@ public class ChatActivity extends BaseActivity {
     }
 
     private void getMessagesList() {
-        viewModel.getMessagesList(preferenceManager.getValue(Constants.TOKEN, ""), id, "fr");
+        viewModel.getMessagesList(preferenceManager.getValue(Constants.TOKEN, ""), id, preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleMessagesListData(Resource<MessagesListData> responseData) {
@@ -145,7 +145,7 @@ public class ChatActivity extends BaseActivity {
     }
 
     private void sendMessage() {
-        viewModel.sendMessage(preferenceManager.getValue(Constants.TOKEN, ""), id, activityBinding.input.getText().toString(), "fr");
+        viewModel.sendMessage(preferenceManager.getValue(Constants.TOKEN, ""), id, activityBinding.input.getText().toString(), preferenceManager.getValue(Constants.LANGUAGE, "fr"));
         activityBinding.input.setText("");
     }
 

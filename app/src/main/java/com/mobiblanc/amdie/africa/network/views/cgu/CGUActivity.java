@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.ActivityCguBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.models.cgu.CGUData;
@@ -44,7 +44,7 @@ public class CGUActivity extends BaseActivity {
 
     private void getCGU() {
         activityBinding.loader.setVisibility(View.VISIBLE);
-        viewModel.getCGU(preferenceManager.getValue(Constants.TOKEN, ""), "fr");
+        viewModel.getCGU(preferenceManager.getValue(Constants.TOKEN, ""), preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleCGUData(Resource<CGUData> responseData) {

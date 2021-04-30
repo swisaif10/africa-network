@@ -1,6 +1,7 @@
-package com.mobiblanc.amdie.africa.network.Utilities;
+package com.mobiblanc.amdie.africa.network.utilities;
 
 public interface Constants {
+    String FIRST_LAUNCH = "FIRST_LAUNCH";
     String TOKEN = "TOKEN";
     String ID_USER = "ID_USER";
     String USERNAME = "USERNAME";

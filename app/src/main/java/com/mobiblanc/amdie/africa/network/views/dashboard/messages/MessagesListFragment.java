@@ -14,9 +14,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.mobiblanc.amdie.africa.network.BuildConfig;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentMessagesListBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.listeners.OnItemSelectedListener;
@@ -77,7 +77,7 @@ public class MessagesListFragment extends Fragment implements OnItemSelectedList
 
     private void getDiscussionsList() {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
-        viewModel.getDiscussionsList(preferenceManager.getValue(Constants.TOKEN, ""), "fr");
+        viewModel.getDiscussionsList(preferenceManager.getValue(Constants.TOKEN, ""), preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleDiscussionsListData(Resource<DiscussionsListData> responseData) {
@@ -86,14 +86,12 @@ public class MessagesListFragment extends Fragment implements OnItemSelectedList
             case SUCCESS:
                 switch (responseData.data.getHeader().getSearch()) {
                     case "-1":
-                        fragmentBinding.image.setVisibility(View.VISIBLE);
-                        fragmentBinding.message.setVisibility(View.VISIBLE);
+                        fragmentBinding.placeholder.setVisibility(View.VISIBLE);
                         fragmentBinding.editProfileBtn.setVisibility(View.VISIBLE);
                         fragmentBinding.message.setText(responseData.data.getHeader().getMessage());
                         break;
                     case "0":
-                        fragmentBinding.image.setVisibility(View.VISIBLE);
-                        fragmentBinding.message.setVisibility(View.VISIBLE);
+                        fragmentBinding.placeholder.setVisibility(View.VISIBLE);
                         fragmentBinding.message.setText(responseData.data.getHeader().getMessage());
                         break;
                     case "1":

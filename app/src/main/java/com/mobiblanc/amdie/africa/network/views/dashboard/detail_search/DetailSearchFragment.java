@@ -20,9 +20,9 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentDetailSearchBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.models.search.profile.Profile;
@@ -109,7 +109,7 @@ public class DetailSearchFragment extends Fragment {
     }
 
     private void getInitProfile() {
-        viewModel.getInitProfile(preferenceManager.getValue(Constants.TOKEN, ""), "fr");
+        viewModel.getInitProfile(preferenceManager.getValue(Constants.TOKEN, ""), preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     @SuppressLint("ClickableViewAccessibility")

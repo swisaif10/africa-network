@@ -2,7 +2,7 @@ package com.mobiblanc.amdie.africa.network.repository;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.datamanager.ApiManager;
 import com.mobiblanc.amdie.africa.network.models.messaging.discussions.DiscussionsListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.MessagesListData;

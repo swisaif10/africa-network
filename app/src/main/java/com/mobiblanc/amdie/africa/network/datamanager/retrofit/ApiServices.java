@@ -1,7 +1,7 @@
 package com.mobiblanc.amdie.africa.network.datamanager.retrofit;
 
-import com.mobiblanc.amdie.africa.network.models.authentication.SendSMSData;
-import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.models.authentication.sendsms.SendSMSData;
 import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
 import com.mobiblanc.amdie.africa.network.models.cgu.CGUData;
 import com.mobiblanc.amdie.africa.network.models.checkversion.CheckVersionData;
@@ -49,8 +49,21 @@ public interface ApiServices {
                                 @Field("lang") String lang);
 
     @FormUrlEncoded
+    @POST(ApiEndpoints.SEND_OTP_EMAIL_URL)
+    Call<SendSMSData> sendOTPByEmail(@Field("msisdn") String msisdn,
+                                     @Field("lang") String lang,
+                                     @Field("device_uid") String uid);
+
+    @FormUrlEncoded
+    @POST(ApiEndpoints.CHECK_OTP_EMAIL_URL)
+    Call<CheckSMSData> checkOTPByEmail(@Field("msisdn") String msisdn,
+                                       @Field("code_sms") String code,
+                                       @Field("lang") String lang);
+
+    @FormUrlEncoded
     @POST(ApiEndpoints.UPDATE_PROFILE_URL)
     Call<UpdateProfileData> updateProfile(@Field("token") String token,
+                                          @Field("gender") String gender,
                                           @Field("nom") String lastName,
                                           @Field("nomentreprise") String company,
                                           @Field("fonction") String job,
@@ -68,6 +81,7 @@ public interface ApiServices {
                                @Field("secteurs") String sectors,
                                @Field("type") String type,
                                @Field("date") String date,
+                               @Field("must_liked") Boolean mostLiked,
                                @Field("lang") String lang);
 
     @FormUrlEncoded
@@ -144,6 +158,7 @@ public interface ApiServices {
     Call<ContactsListData> getSuggestionsList(@Field("token") String token,
                                               @Field("page") int page,
                                               @Field("canal") String canal,
+                                              @Field("searchValue") String searchValue,
                                               @Field("lang") String lang);
 
 

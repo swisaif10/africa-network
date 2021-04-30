@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
 import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
 import com.mobiblanc.amdie.africa.network.repository.ContactsRepository;

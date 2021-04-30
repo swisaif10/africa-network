@@ -8,14 +8,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentNewsBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.listeners.OnFilterCheckedChangeListener;
@@ -26,6 +24,9 @@ import com.mobiblanc.amdie.africa.network.models.feed.Results;
 import com.mobiblanc.amdie.africa.network.models.feed.Sector;
 import com.mobiblanc.amdie.africa.network.models.feed.Type;
 import com.mobiblanc.amdie.africa.network.models.like.LikeFeedData;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
 import com.mobiblanc.amdie.africa.network.views.dashboard.feed.filter.SectorFilterAdapter;
 import com.mobiblanc.amdie.africa.network.views.dashboard.feed.filter.TypeFilterAdapter;
@@ -70,7 +71,7 @@ public class FeedsFragment extends Fragment implements OnFilterCheckedChangeList
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getFeeds("", "", "");
+        getFeeds("", "", "", false);
     }
 
     @Override
@@ -126,7 +127,7 @@ public class FeedsFragment extends Fragment implements OnFilterCheckedChangeList
             }
 
             if (!selectedTypes.isEmpty() || !selectedSectors.isEmpty() || !selectedDate.equalsIgnoreCase(""))
-                getFeeds(sectors.toString(), types.toString(), selectedDate);
+                getFeeds(sectors.toString(), types.toString(), selectedDate, false);
         });
 
         fragmentBinding.container.setOnClickListener(v -> {
@@ -140,7 +141,7 @@ public class FeedsFragment extends Fragment implements OnFilterCheckedChangeList
         fragmentBinding.resetBtn.setOnClickListener(v -> {
             if (!selectedTypes.isEmpty() || !selectedSectors.isEmpty() || !selectedDate.equalsIgnoreCase("")) {
                 initFilter(results);
-                getFeeds("", "", "");
+                getFeeds("", "", "", false);
             }
         });
     }
@@ -152,32 +153,32 @@ public class FeedsFragment extends Fragment implements OnFilterCheckedChangeList
         selectedDate = "";
         fragmentBinding.dateFilterBtn.setText(getString(R.string.date_hint));
         fragmentBinding.typeFilterRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        fragmentBinding.typeFilterRecycler.setAdapter(new TypeFilterAdapter(requireContext(), results.getTypes(), this));
+        fragmentBinding.typeFilterRecycler.setAdapter(new TypeFilterAdapter(results.getTypes(), this));
         fragmentBinding.typeFilterBtn.setOnClickListener(v -> {
             if (fragmentBinding.typeFilterRecycler.getVisibility() == View.VISIBLE) {
                 fragmentBinding.typeFilterRecycler.setVisibility(View.GONE);
-                //fragmentBinding.typeFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
+                fragmentBinding.typeFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
             } else {
                 fragmentBinding.sectorFilterRecycler.setVisibility(View.GONE);
                 fragmentBinding.calendar.setVisibility(View.GONE);
                 fragmentBinding.typeFilterRecycler.setVisibility(View.VISIBLE);
-                //fragmentBinding.typeFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.arrow_up), null);
-                //fragmentBinding.sectorFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
+                fragmentBinding.typeFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.arrow_up), null);
+                fragmentBinding.sectorFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
             }
         });
 
         fragmentBinding.sectorFilterRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        fragmentBinding.sectorFilterRecycler.setAdapter(new SectorFilterAdapter(requireContext(), results.getSectors(), this));
+        fragmentBinding.sectorFilterRecycler.setAdapter(new SectorFilterAdapter(results.getSectors(), this));
         fragmentBinding.sectorFilterBtn.setOnClickListener(v -> {
             if (fragmentBinding.sectorFilterRecycler.getVisibility() == View.VISIBLE) {
                 fragmentBinding.sectorFilterRecycler.setVisibility(View.GONE);
-                //fragmentBinding.sectorFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
+                fragmentBinding.sectorFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
             } else {
                 fragmentBinding.typeFilterRecycler.setVisibility(View.GONE);
                 fragmentBinding.calendar.setVisibility(View.GONE);
                 fragmentBinding.sectorFilterRecycler.setVisibility(View.VISIBLE);
-                //fragmentBinding.sectorFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.arrow_up), null);
-                //fragmentBinding.typeFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
+                fragmentBinding.sectorFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.arrow_up), null);
+                fragmentBinding.typeFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
             }
         });
 
@@ -188,15 +189,13 @@ public class FeedsFragment extends Fragment implements OnFilterCheckedChangeList
                 fragmentBinding.typeFilterRecycler.setVisibility(View.GONE);
                 fragmentBinding.sectorFilterRecycler.setVisibility(View.GONE);
                 fragmentBinding.calendar.setVisibility(View.VISIBLE);
-                //fragmentBinding.typeFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
-                //fragmentBinding.sectorFilterBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow), null);
             }
         });
     }
 
-    private void getFeeds(String sectors, String type, String date) {
+    private void getFeeds(String sectors, String type, String date, Boolean mostLiked) {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
-        ((DashboardActivity) requireActivity()).getViewModel().getFeeds(preferenceManager.getValue(Constants.TOKEN, ""), sectors, type, date, "fr");
+        ((DashboardActivity) requireActivity()).getViewModel().getFeeds(preferenceManager.getValue(Constants.TOKEN, ""), sectors, type, date, mostLiked, preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleGetFeedsData(Resource<GetFeedData> responseData) {

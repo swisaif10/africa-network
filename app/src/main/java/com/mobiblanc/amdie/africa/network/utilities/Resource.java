@@ -1,4 +1,4 @@
-package com.mobiblanc.amdie.africa.network.Utilities;
+package com.mobiblanc.amdie.africa.network.utilities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

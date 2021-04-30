@@ -15,24 +15,26 @@ import androidx.fragment.app.Fragment;
 
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentSelectCountryBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
 
 public class SelectCountryFragment extends Fragment {
 
     private static FragmentSelectCountryBinding fragmentBinding;
     private PreferenceManager preferenceManager;
+    private String gender;
     private String firstName;
     private String lastName;
     private String email;
     private String job;
     private String company;
     private int country;
+    private String countryName;
     private int city;
     private int nationality = 1;
     private Boolean request = false;
@@ -42,16 +44,18 @@ public class SelectCountryFragment extends Fragment {
     }
 
     public static SelectCountryFragment newInstance
-            (String lastName, String company, String job,
-             String email, String firstName, int country, int city) {
+            (String gender, String lastName, String company, String job,
+             String email, String firstName, int country, String countryName, int city) {
         SelectCountryFragment fragment = new SelectCountryFragment();
         Bundle args = new Bundle();
+        args.putString("gender", gender);
         args.putString("firstName", firstName);
         args.putString("lastName", lastName);
         args.putString("email", email);
         args.putString("job", job);
         args.putString("company", company);
         args.putInt("country", country);
+        args.putString("countryName", countryName);
         args.putInt("city", city);
         fragment.setArguments(args);
         return fragment;
@@ -62,12 +66,14 @@ public class SelectCountryFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
+            gender = getArguments().getString("gender");
             firstName = getArguments().getString("firstName");
             lastName = getArguments().getString("lastName");
             email = getArguments().getString("email");
             job = getArguments().getString("job");
             company = getArguments().getString("company");
             country = getArguments().getInt("country");
+            countryName = getArguments().getString("countryName");
             city = getArguments().getInt("city");
         }
 
@@ -133,7 +139,7 @@ public class SelectCountryFragment extends Fragment {
 
     private void updateProfile() {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
-        ((AuthenticationActivity) requireActivity()).getViewModel().updateProfile(preferenceManager.getValue(Constants.TOKEN, ""),
+        ((AuthenticationActivity) requireActivity()).getViewModel().updateProfile(preferenceManager.getValue(Constants.TOKEN, ""), gender,
                 lastName, company, job, email, firstName, country, city, nationality, preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""));
         request = true;
     }
@@ -143,6 +149,10 @@ public class SelectCountryFragment extends Fragment {
         if (request)
             switch (responseData.status) {
                 case SUCCESS:
+                    preferenceManager.putValue(Constants.ID_USER, responseData.data.getResults().getId());
+                    preferenceManager.putValue(Constants.USERNAME, responseData.data.getResults().getFirstName() + " " + responseData.data.getResults().getLastName());
+                    preferenceManager.putValue(Constants.COUNTRY, countryName);
+                    preferenceManager.putValue(Constants.PICTURE, responseData.data.getResults().getPicture());
                     Intent intent = new Intent(requireActivity(), DashboardActivity.class);
                     startActivity(intent);
                     requireActivity().finish();

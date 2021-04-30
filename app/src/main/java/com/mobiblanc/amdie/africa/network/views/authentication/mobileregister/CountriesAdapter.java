@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.GlideApp;
+import com.mobiblanc.amdie.africa.network.utilities.GlideApp;
 import com.mobiblanc.amdie.africa.network.models.countries.Country;
 
 import java.util.List;

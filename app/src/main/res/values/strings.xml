@@ -11,7 +11,7 @@
     <string name="resend_code_btn_label">Renvoyer le code</string>
     <string name="sms_confirmation_description">Vous recevrez un sms de confirmation d’activation sur votre mobile.\nCe code n’engendrera aucun frais</string>
     <string name="choose_country_title">Choisissez votre</string>
-    <string name="choose_country_subtitle">espace AfricaNetwork</string>
+    <string name="choose_country_subtitle">espace Africa Network</string>
     <string name="morocco_title">Nationalité Marocaine</string>
     <string name="others_title">Autre Nationalité</string>
     <string name="french_label">Français</string>
@@ -40,10 +40,8 @@
     <string name="turnover_hint">Chiffre d\'affaires</string>
     <string name="email_error_label">Le format de votre adresse email n\'est pas valide</string>
     <string name="devise">Devise</string>
-    <string name="add_photo_profile">Ajouter \n photo de \n profil</string>
+    <string name="add_photo_profile">Ajouter\nphoto de\nprofil</string>
     <string name="add_photo_entreprise">Ajouter \n photo de \n l’entreprise</string>
-    <!-- TODO: Remove or change this placeholder text -->
-
 
     <string name="lbl_set_profile_photo">Ajouter photo de profil</string>
     <string name="lbl_take_camera_picture">Prendre une photo</string>
@@ -59,7 +57,13 @@
     <string name="filter_btn_hint">Filtrer</string>
     <string name="like_btn_label">J\'aime</string>
     <string name="edit_profile_btn_label">Compléter mon profil</string>
-    <string name="my_favourites_title">Mes favoris</string>
-    <string name="my_contacts_btn_label">Mes contacts</string>
+    <string name="my_favourites_title">Favoris</string>
+    <string name="my_contacts_btn_label">Contacts</string>
     <string name="suggestions_btn_Label">Suggestions</string>
+    <string name="home_pager_title">Plateforme de Networking\nen ligne Maroc-Afrique</string>
+    <string name="home_pager_body_1">Rejoignez une véritable communauté d’acteurs économiques africains promouvant le commerce et l’investissement intra-africains</string>
+    <string name="home_pager_body_2">Le partage d’expertise, d’expérience et de savoir-faire, la mise en commun d’idées et la fédération des acteurs du continent</string>
+    <string name="woman_hint">Femme</string>
+    <string name="man_hint">Homme</string>
+    <string name="mobile_register_description_text">L’adhésion à la plateforme est totalement gratuite</string>
 </resources>

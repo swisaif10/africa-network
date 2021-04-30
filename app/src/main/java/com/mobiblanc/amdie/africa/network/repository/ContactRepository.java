@@ -2,7 +2,7 @@ package com.mobiblanc.amdie.africa.network.repository;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.datamanager.ApiManager;
 import com.mobiblanc.amdie.africa.network.models.contacts.favourite.AddFavouriteData;
 import com.mobiblanc.amdie.africa.network.models.contacts.list.ContactsListData;
@@ -36,9 +36,10 @@ public class ContactRepository {
 
     public void getSuggestionsList(String token,
                                    int page,
+                                   String searchValue,
                                    String lang,
                                    MutableLiveData<Resource<ContactsListData>> mutableLiveData) {
-        new ApiManager().getSuggestionsList(token, page, lang, mutableLiveData);
+        new ApiManager().getSuggestionsList(token, page, searchValue, lang, mutableLiveData);
     }
 
 }

@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/view_update"
+            android:id="@+id/updateView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -20,8 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -32,7 +31,7 @@
                     android:weightSum="100">
 
                     <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                        android:id="@+id/btn_photo_profile"
+                        android:id="@+id/profilePictureBtn"
                         android:layout_width="0dp"
                         android:layout_height="122dp"
                         android:layout_gravity="center_vertical"
@@ -56,7 +55,6 @@
                                 android:src="@drawable/ic_image" />
 
                             <TextView
-                                android:id="@+id/txt_photo_profil"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"

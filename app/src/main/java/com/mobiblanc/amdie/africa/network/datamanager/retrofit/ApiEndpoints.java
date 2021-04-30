@@ -5,6 +5,8 @@ public interface ApiEndpoints {
     String SEND_SMS_URL = "api-be/api/send/sms";
     String ChECK_SMS_URL = "api-be/api/check/sms";
     String UPDATE_PROFILE_URL = "api-be/api/update/profile";
+    String SEND_OTP_EMAIL_URL = "api-be/api/send/otp-email";
+    String CHECK_OTP_EMAIL_URL = "api-be/api/check/otp";
     String GET_FEEDS_URL = "api-be/api/get/feed";
     String GET_MENU_URL = "api-be/api/menu";
     String SHARE_APP_URL = "api-be/api/assistance/share";

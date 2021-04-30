@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.models.contacts.favourite.AddFavouriteData;
 import com.mobiblanc.amdie.africa.network.models.contacts.list.ContactsListData;
 import com.mobiblanc.amdie.africa.network.repository.ContactRepository;
@@ -68,7 +68,7 @@ public class ContactsViewModel extends AndroidViewModel {
         repository.getFavouritesList(token, lang, favouritesListLiveData);
     }
 
-    public void getSuggestionsList(String token, int page, String lang) {
-        repository.getSuggestionsList(token, page, lang, suggestionsListLiveData);
+    public void getSuggestionsList(String token, int page, String searchValue, String lang) {
+        repository.getSuggestionsList(token, page, searchValue, lang, suggestionsListLiveData);
     }
 }

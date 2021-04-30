@@ -4,10 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.mobiblanc.amdie.africa.network.BuildConfig;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
 import com.mobiblanc.amdie.africa.network.datamanager.retrofit.RetrofitClient;
-import com.mobiblanc.amdie.africa.network.models.authentication.SendSMSData;
-import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.models.authentication.sendsms.SendSMSData;
 import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
 import com.mobiblanc.amdie.africa.network.models.cgu.CGUData;
 import com.mobiblanc.amdie.africa.network.models.checkversion.CheckVersionData;
@@ -24,6 +23,7 @@ import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMonto
 import com.mobiblanc.amdie.africa.network.models.search.profile.Profile;
 import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
 import com.mobiblanc.amdie.africa.network.models.share.ShareAppData;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -108,7 +108,50 @@ public class ApiManager {
         });
     }
 
+    public void sendOTPByEmail(String msisdn, String lang, String uid, MutableLiveData<Resource<SendSMSData>> mutableLiveData) {
+        Call<SendSMSData> call = RetrofitClient.getInstance().endpoint().sendOTPByEmail(msisdn, lang, uid);
+        call.enqueue(new Callback<SendSMSData>() {
+            @Override
+            public void onResponse(@NonNull Call<SendSMSData> call, @NonNull Response<SendSMSData> response) {
+                if (response.body() != null)
+                    if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                        mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                    else
+                        mutableLiveData.setValue(Resource.success(response.body()));
+                else
+                    mutableLiveData.setValue(Resource.error("Internal Server Error", null));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SendSMSData> call, @NonNull Throwable t) {
+                HandleThrowableException(t, mutableLiveData);
+            }
+        });
+    }
+
+    public void checkOTPByEmail(String msisdn, String code, String firebaseToken, String lang, MutableLiveData<Resource<CheckSMSData>> mutableLiveData) {
+        Call<CheckSMSData> call = RetrofitClient.getInstance().endpoint().checkOTPByEmail(msisdn, code, lang);
+        call.enqueue(new Callback<CheckSMSData>() {
+            @Override
+            public void onResponse(@NonNull Call<CheckSMSData> call, @NonNull Response<CheckSMSData> response) {
+                if (response.body() != null)
+                    if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                        mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                    else
+                        mutableLiveData.setValue(Resource.success(response.body()));
+                else
+                    mutableLiveData.setValue(Resource.error("Internal Server Error", null));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CheckSMSData> call, @NonNull Throwable t) {
+                HandleThrowableException(t, mutableLiveData);
+            }
+        });
+    }
+
     public void updateProfile(String token,
+                              String gender,
                               String lastName,
                               String company,
                               String job,
@@ -119,7 +162,7 @@ public class ApiManager {
                               int nationality,
                               String firebaseToken,
                               MutableLiveData<Resource<UpdateProfileData>> mutableLiveData) {
-        Call<UpdateProfileData> call = RetrofitClient.getInstance().endpoint().updateProfile(token, lastName, company, job, email, firstName, country, city, nationality, firebaseToken);
+        Call<UpdateProfileData> call = RetrofitClient.getInstance().endpoint().updateProfile(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken);
         call.enqueue(new Callback<UpdateProfileData>() {
             @Override
             public void onResponse(@NonNull Call<UpdateProfileData> call, @NonNull Response<UpdateProfileData> response) {
@@ -145,9 +188,10 @@ public class ApiManager {
                          String sectors,
                          String type,
                          String date,
+                         Boolean mostLiked,
                          String lang,
                          MutableLiveData<Resource<GetFeedData>> mutableLiveData) {
-        Call<GetFeedData> call = RetrofitClient.getInstance().endpoint().getFeeds(token, "mobile", sectors, type, date, lang);
+        Call<GetFeedData> call = RetrofitClient.getInstance().endpoint().getFeeds(token, "mobile", sectors, type, date, mostLiked, lang);
         call.enqueue(new Callback<GetFeedData>() {
             @Override
             public void onResponse(@NonNull Call<GetFeedData> call, @NonNull Response<GetFeedData> response) {
@@ -476,9 +520,10 @@ public class ApiManager {
 
     public void getSuggestionsList(String token,
                                    int page,
+                                   String searchValue,
                                    String lang,
                                    MutableLiveData<Resource<ContactsListData>> mutableLiveData) {
-        Call<ContactsListData> call = RetrofitClient.getInstance().endpoint().getSuggestionsList(token, page, "mobile", lang);
+        Call<ContactsListData> call = RetrofitClient.getInstance().endpoint().getSuggestionsList(token, page, "mobile", searchValue, lang);
         call.enqueue(new Callback<ContactsListData>() {
             @Override
             public void onResponse(@NonNull Call<ContactsListData> call, @NonNull Response<ContactsListData> response) {

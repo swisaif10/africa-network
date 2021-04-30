@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.mobiblanc.amdie.africa.network.BuildConfig;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 
 public class FirebaseService extends FirebaseMessagingService {

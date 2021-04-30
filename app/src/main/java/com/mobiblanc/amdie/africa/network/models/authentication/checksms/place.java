@@ -1,11 +1,11 @@
-package com.mobiblanc.amdie.africa.network.models.authentication.checkSMS;
+package com.mobiblanc.amdie.africa.network.models.authentication.checksms;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class City implements Serializable {
+public class place implements Serializable {
     @SerializedName("ordre")
     private int order;
     @Expose

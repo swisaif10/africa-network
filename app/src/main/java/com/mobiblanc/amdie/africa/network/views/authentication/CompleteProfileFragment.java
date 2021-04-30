@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +15,16 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.NumericKeyBoardTransformationMethod;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentCompleteProfileBinding;
-import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.CheckSMSData;
-import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.City;
-import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.Country;
+import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.models.authentication.checksms.City;
+import com.mobiblanc.amdie.africa.network.models.authentication.checksms.Country;
+import com.mobiblanc.amdie.africa.network.utilities.NumericKeyBoardTransformationMethod;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.views.cgu.CGUActivity;
 
 public class CompleteProfileFragment extends Fragment {
@@ -31,6 +33,7 @@ public class CompleteProfileFragment extends Fragment {
     private CheckSMSData data;
     private Country country;
     private City city;
+    private String gender = "";
 
     public CompleteProfileFragment() {
         // Required empty public constructor
@@ -69,12 +72,46 @@ public class CompleteProfileFragment extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     private void init() {
+        float elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5,
+                getResources().getDisplayMetrics());
+
+        fragmentBinding.man.setOnClickListener(v -> {
+            fragmentBinding.woman.setBackgroundResource(R.drawable.unselected_country_background);
+            fragmentBinding.woman.setElevation(elevation);
+            fragmentBinding.womanCheck.setImageResource(R.drawable.ic_uncheck_country);
+            fragmentBinding.womanImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.grey), android.graphics.PorterDuff.Mode.MULTIPLY);
+            fragmentBinding.womanName.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey));
+
+            fragmentBinding.man.setBackgroundResource(R.drawable.selected_country_background);
+            fragmentBinding.man.setElevation(0f);
+            fragmentBinding.manCheck.setImageResource(R.drawable.ic_check_country);
+            fragmentBinding.manImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.blue4), android.graphics.PorterDuff.Mode.MULTIPLY);
+            fragmentBinding.manName.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue3));
+
+            gender = "man";
+
+            fragmentBinding.nextBtn.setEnabled(checkForm());
+        });
+
+        fragmentBinding.woman.setOnClickListener(v -> {
+            fragmentBinding.man.setBackgroundResource(R.drawable.unselected_country_background);
+            fragmentBinding.man.setElevation(elevation);
+            fragmentBinding.manCheck.setImageResource(R.drawable.ic_uncheck_country);
+            fragmentBinding.manImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.grey), android.graphics.PorterDuff.Mode.MULTIPLY);
+            fragmentBinding.manName.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey));
+
+            fragmentBinding.woman.setBackgroundResource(R.drawable.selected_country_background);
+            fragmentBinding.woman.setElevation(0f);
+            fragmentBinding.womanCheck.setImageResource(R.drawable.ic_check_country);
+            fragmentBinding.womanImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.blue4), android.graphics.PorterDuff.Mode.MULTIPLY);
+            fragmentBinding.womanName.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue3));
+
+            gender = "woman";
+
+            fragmentBinding.nextBtn.setEnabled(checkForm());
+        });
+
         fragmentBinding.container.setOnClickListener(v -> Utilities.hideSoftKeyboard(requireContext(), requireView()));
-        fragmentBinding.nextBtn.setOnClickListener(v -> ((AuthenticationActivity) requireActivity()).replaceFragment(SelectCountryFragment.newInstance(
-                fragmentBinding.lastName.getText().toString(), fragmentBinding.company.getText().toString(),
-                fragmentBinding.job.getText().toString(), fragmentBinding.email.getText().toString(),
-                fragmentBinding.firstName.getText().toString(),
-                country.getId(), city.getId()), ""));
 
         fragmentBinding.phoneNumber.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         fragmentBinding.phoneNumber.setTransformationMethod(new NumericKeyBoardTransformationMethod());
@@ -151,13 +188,19 @@ public class CompleteProfileFragment extends Fragment {
             });
         });
 
-
         fragmentBinding.city.setOnItemClickListener((parent, view, position, id) -> city = country.getCities().get(position));
+
+        fragmentBinding.nextBtn.setOnClickListener(v -> ((AuthenticationActivity) requireActivity()).replaceFragment(SelectCountryFragment.newInstance(
+                gender, fragmentBinding.lastName.getText().toString(), fragmentBinding.company.getText().toString(),
+                fragmentBinding.job.getText().toString(), fragmentBinding.email.getText().toString(),
+                fragmentBinding.firstName.getText().toString(),
+                country.getId(), country.getName(), city.getId()), ""));
 
     }
 
     private Boolean checkForm() {
-        return !Utilities.isEmpty(fragmentBinding.firstName) &&
+        return !gender.equalsIgnoreCase("") &&
+                !Utilities.isEmpty(fragmentBinding.firstName) &&
                 !Utilities.isEmpty(fragmentBinding.lastName) &&
                 !Utilities.isEmpty(fragmentBinding.country) &&
                 !Utilities.isEmpty(fragmentBinding.city) &&

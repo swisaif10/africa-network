@@ -1,4 +1,4 @@
-package com.mobiblanc.amdie.africa.network.models.authentication.checkSMS;
+package com.mobiblanc.amdie.africa.network.models.authentication.checksms;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

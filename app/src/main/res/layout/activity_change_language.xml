@@ -41,53 +41,39 @@
             <TextView
                 android:id="@+id/frenchBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center"
+                android:paddingEnd="35dp"
                 android:text="@string/french_label"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
-            <!--            <it.beppi.tristatetogglebutton_library.TriStateToggleButton-->
-            <!--                android:id="@+id/toggle"-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="25dp"-->
-            <!--                android:layout_centerInParent="true"-->
-            <!--                android:layout_marginHorizontal="35dp"-->
-            <!--                android:layout_toStartOf="@id/englishBtn"-->
-            <!--                android:layout_toEndOf="@id/frenchBtn"-->
-            <!--                app:tbDefaultStatus="mid"-->
-            <!--                app:tbIsMidSelectable="false"-->
-            <!--                app:tbMidColor="#A8A5C3"-->
-            <!--                app:tbOffBorderColor="#A8A5C3"-->
-            <!--                app:tbOffColor="#A8A5C3"-->
-            <!--                app:tbOnColor="#A8A5C3"-->
-            <!--                app:tbSpotColor="@color/white" />-->
-
-            <SeekBar
-                android:id="@+id/seekbar_langage"
-                android:layout_width="51dp"
-                android:layout_height="21dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginHorizontal="35dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/background_gray"
-                android:max="30"
-
-                android:progress="15"
-                android:progressDrawable="@drawable/seekbar_drawable_progress"
-                android:thumb="@drawable/seekbar_drawable_thumb" />
-
+            <it.beppi.tristatetogglebutton_library.TriStateToggleButton
+                android:id="@+id/toggle"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_centerInParent="true"
+                android:layout_toStartOf="@id/englishBtn"
+                android:layout_toEndOf="@id/frenchBtn"
+                app:tbDefaultStatus="mid"
+                app:tbIsMidSelectable="false"
+                app:tbMidColor="#A8A5C3"
+                app:tbOffBorderColor="#A8A5C3"
+                app:tbOffColor="#A8A5C3"
+                app:tbOnColor="#A8A5C3"
+                app:tbSpotColor="@color/white" />
 
             <TextView
                 android:id="@+id/englishBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center"
+                android:paddingStart="35dp"
                 android:text="@string/english_label"
                 android:textColor="@color/white"
                 android:textSize="12sp" />

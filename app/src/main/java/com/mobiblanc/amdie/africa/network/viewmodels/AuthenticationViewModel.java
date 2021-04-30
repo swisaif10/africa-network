@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.models.authentication.SendSMSData;
-import com.mobiblanc.amdie.africa.network.models.authentication.checkSMS.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.models.authentication.sendsms.SendSMSData;
 import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
 import com.mobiblanc.amdie.africa.network.repository.AuthenticationRepository;
 
@@ -16,7 +16,9 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     private final AuthenticationRepository repository;
     private final MutableLiveData<Resource<SendSMSData>> sendSMSLiveData;
+    private final MutableLiveData<Resource<SendSMSData>> sendOTPBYEmailLiveData;
     private final MutableLiveData<Resource<CheckSMSData>> checkSMSLiveData;
+    private final MutableLiveData<Resource<CheckSMSData>> checkOTPByEmailLiveData;
     private final MutableLiveData<Resource<UpdateProfileData>> updateProfileLiveData;
 
     public AuthenticationViewModel(@NonNull Application application) {
@@ -26,6 +28,8 @@ public class AuthenticationViewModel extends AndroidViewModel {
         sendSMSLiveData = new MutableLiveData<>();
         checkSMSLiveData = new MutableLiveData<>();
         updateProfileLiveData = new MutableLiveData<>();
+        sendOTPBYEmailLiveData = new MutableLiveData<>();
+        checkOTPByEmailLiveData = new MutableLiveData<>();
     }
 
     public MutableLiveData<Resource<SendSMSData>> getSendSMSLiveData() {
@@ -40,6 +44,14 @@ public class AuthenticationViewModel extends AndroidViewModel {
         return updateProfileLiveData;
     }
 
+    public MutableLiveData<Resource<SendSMSData>> getSendOTPBYEmailLiveData() {
+        return sendOTPBYEmailLiveData;
+    }
+
+    public MutableLiveData<Resource<CheckSMSData>> getCheckOTPByEmailLiveData() {
+        return checkOTPByEmailLiveData;
+    }
+
     public void sendSMS(String msisdn, String lang, String uid) {
         repository.sendSMS(msisdn, lang, uid, sendSMSLiveData);
     }
@@ -48,7 +60,16 @@ public class AuthenticationViewModel extends AndroidViewModel {
         repository.checkSMS(msisdn, code, firebaseToken, lang, checkSMSLiveData);
     }
 
+    public void sendOTPByEmail(String msisdn, String lang, String uid) {
+        repository.sendOTPByEmail(msisdn, lang, uid, sendSMSLiveData);
+    }
+
+    public void checkOTPByEmail(String msisdn, String code, String firebaseToken, String lang) {
+        repository.checkOTPByEmail(msisdn, code, firebaseToken, lang, checkSMSLiveData);
+    }
+
     public void updateProfile(String token,
+                              String gender,
                               String lastName,
                               String company,
                               String job,
@@ -58,6 +79,6 @@ public class AuthenticationViewModel extends AndroidViewModel {
                               int city,
                               int nationality,
                               String firebaseToken) {
-        repository.updateProfile(token, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, updateProfileLiveData);
+        repository.updateProfile(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, updateProfileLiveData);
     }
 }

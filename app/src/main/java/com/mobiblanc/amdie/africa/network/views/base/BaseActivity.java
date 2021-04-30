@@ -1,5 +1,7 @@
 package com.mobiblanc.amdie.africa.network.views.base;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.mobiblanc.amdie.africa.network.R;
+import com.mobiblanc.amdie.africa.network.utilities.ContextUtils;
 import com.mobiblanc.amdie.africa.network.views.authentication.AuthenticationActivity;
 
 public class BaseActivity extends AppCompatActivity {
@@ -15,6 +18,12 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        ContextWrapper localeUpdatedContext = new ContextUtils(this).updateLocale(newBase);
+        super.attachBaseContext(localeUpdatedContext);
     }
 
     public void addFragment(Fragment fragment) {

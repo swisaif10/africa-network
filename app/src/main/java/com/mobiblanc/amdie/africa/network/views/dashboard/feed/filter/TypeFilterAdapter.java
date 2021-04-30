@@ -15,12 +15,10 @@ import java.util.List;
 
 public class TypeFilterAdapter extends RecyclerView.Adapter<TypeFilterAdapter.ViewHolder> {
 
-    private final Context context;
     private final List<Type> types;
     private final OnFilterCheckedChangeListener onFilterCheckedChangeListener;
 
-    public TypeFilterAdapter(Context context, List<Type> types, OnFilterCheckedChangeListener onFilterCheckedChangeListener) {
-        this.context = context;
+    public TypeFilterAdapter(List<Type> types, OnFilterCheckedChangeListener onFilterCheckedChangeListener) {
         this.types = types;
         this.onFilterCheckedChangeListener = onFilterCheckedChangeListener;
     }
@@ -55,13 +53,10 @@ public class TypeFilterAdapter extends RecyclerView.Adapter<TypeFilterAdapter.Vi
         }
 
         private void bind(Type type) {
+            itemBinding.title.setText(type.getValue());
+            itemBinding.checkbox.setChecked(type.getChecked());
 
-            if (type.getChecked())
-                itemBinding.checkbox.setChecked(true);
-            else
-                itemBinding.checkbox.setChecked(false);
-
-            itemBinding.checkbox.setOnClickListener(v -> {
+            itemBinding.getRoot().setOnClickListener(v -> {
                 if (type.getChecked()) {
                     type.setChecked(false);
                     notifyDataSetChanged();
@@ -72,10 +67,6 @@ public class TypeFilterAdapter extends RecyclerView.Adapter<TypeFilterAdapter.Vi
                     onFilterCheckedChangeListener.onFilterChecked(type);
                 }
             });
-
-            itemBinding.title.setText(type.getValue());
-
-
         }
     }
 }

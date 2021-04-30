@@ -22,9 +22,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.ActivityDashboardBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.models.logout.LogoutData;
@@ -32,6 +29,9 @@ import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
 import com.mobiblanc.amdie.africa.network.models.menu.MenuItem;
 import com.mobiblanc.amdie.africa.network.models.menu.Result;
 import com.mobiblanc.amdie.africa.network.models.share.ShareAppData;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.viewmodels.DashboardViewModel;
 import com.mobiblanc.amdie.africa.network.views.authentication.AuthenticationActivity;
 import com.mobiblanc.amdie.africa.network.views.base.BaseActivity;
@@ -90,7 +90,7 @@ public class DashboardActivity extends BaseActivity {
     }
 
     private void getMenu() {
-        viewModel.getMenu(preferenceManager.getValue(Constants.TOKEN, ""), "fr");
+        viewModel.getMenu(preferenceManager.getValue(Constants.TOKEN, ""), preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleGetMenuData(Resource<MenuData> responseData) {
@@ -237,7 +237,7 @@ public class DashboardActivity extends BaseActivity {
     }
 
     private void getShareLink() {
-        viewModel.getShareLink(preferenceManager.getValue(Constants.TOKEN, ""), "fr");
+        viewModel.getShareLink(preferenceManager.getValue(Constants.TOKEN, ""), preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleShareAppData(Resource<ShareAppData> responseData) {
@@ -263,14 +263,14 @@ public class DashboardActivity extends BaseActivity {
 
     private void logout() {
         activityBinding.loader.setVisibility(View.VISIBLE);
-        viewModel.logout(preferenceManager.getValue(Constants.TOKEN, ""), "fr");
+        viewModel.logout(preferenceManager.getValue(Constants.TOKEN, ""), preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleLogoutData(Resource<LogoutData> responseData) {
         activityBinding.loader.setVisibility(View.GONE);
         switch (responseData.status) {
             case SUCCESS:
-                preferenceManager.clearAll();
+                preferenceManager.clearValue(Constants.TOKEN);
                 startActivity(new Intent(DashboardActivity.this, AuthenticationActivity.class));
                 finish();
                 break;

@@ -6,13 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
 import com.mobiblanc.amdie.africa.network.models.feed.GetFeedData;
 import com.mobiblanc.amdie.africa.network.models.like.LikeFeedData;
 import com.mobiblanc.amdie.africa.network.models.logout.LogoutData;
 import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
 import com.mobiblanc.amdie.africa.network.models.share.ShareAppData;
 import com.mobiblanc.amdie.africa.network.repository.DashboardRepository;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 
 public class DashboardViewModel extends AndroidViewModel {
 
@@ -58,8 +58,9 @@ public class DashboardViewModel extends AndroidViewModel {
                          String sectors,
                          String type,
                          String date,
+                         Boolean mostLiked,
                          String lang) {
-        repository.getFeeds(token, sectors, type, date, lang, feedsLiveData);
+        repository.getFeeds(token, sectors, type, date, mostLiked, lang, feedsLiveData);
     }
 
     public void getMenu(String token,

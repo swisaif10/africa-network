@@ -25,7 +25,7 @@ public class AuthenticationActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1)
-            getSupportFragmentManager().popBackStack();
+            super.onBackPressed();
         else
             finish();
     }

@@ -15,12 +15,10 @@ import java.util.List;
 
 public class SectorFilterAdapter extends RecyclerView.Adapter<SectorFilterAdapter.ViewHolder> {
 
-    private final Context context;
     private final List<Sector> sectors;
     private final OnFilterCheckedChangeListener onFilterCheckedChangeListener;
 
-    public SectorFilterAdapter(Context context, List<Sector> sectors, OnFilterCheckedChangeListener onFilterCheckedChangeListener) {
-        this.context = context;
+    public SectorFilterAdapter(List<Sector> sectors, OnFilterCheckedChangeListener onFilterCheckedChangeListener) {
         this.sectors = sectors;
         this.onFilterCheckedChangeListener = onFilterCheckedChangeListener;
     }
@@ -56,9 +54,10 @@ public class SectorFilterAdapter extends RecyclerView.Adapter<SectorFilterAdapte
 
         private void bind(Sector sector) {
 
+            itemBinding.title.setText(sector.getValue());
             itemBinding.checkbox.setChecked(sector.getChecked());
 
-            itemBinding.checkbox.setOnClickListener(v -> {
+            itemBinding.getRoot().setOnClickListener(v -> {
                 if (sector.getChecked()) {
                     sector.setChecked(false);
                     notifyDataSetChanged();
@@ -69,10 +68,6 @@ public class SectorFilterAdapter extends RecyclerView.Adapter<SectorFilterAdapte
                     onFilterCheckedChangeListener.onFilterChecked(sector);
                 }
             });
-
-            itemBinding.title.setText(sector.getValue());
-
-
         }
     }
 }

@@ -17,16 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.SwipeHelper;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentContactsBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.listeners.OnContactSelectedListener;
 import com.mobiblanc.amdie.africa.network.models.contacts.favourite.AddFavouriteData;
 import com.mobiblanc.amdie.africa.network.models.contacts.list.Contact;
 import com.mobiblanc.amdie.africa.network.models.contacts.list.ContactsListData;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.SwipeHelper;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.viewmodels.ContactsViewModel;
 import com.mobiblanc.amdie.africa.network.views.chat.ChatActivity;
 import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
@@ -41,6 +41,7 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
     private ContactsAdapter favouritesAdapter;
     private List<Contact> contacts;
     private int selectedId;
+    private Boolean isSuggest = false;
 
     public ContactsFragment() {
         // Required empty public constructor
@@ -73,6 +74,7 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        fragmentBinding.editProfileBtn.setOnClickListener(v -> ((DashboardActivity) requireActivity()).selectProfileTab());
         init();
         getContactsList("");
     }
@@ -103,6 +105,7 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
             fragmentBinding.contactsRecycler.setVisibility(View.VISIBLE);
             fragmentBinding.searchLayout.setVisibility(View.VISIBLE);
             fragmentBinding.favouritesRecycler.setVisibility(View.GONE);
+            isSuggest = false;
             getContactsList("");
         });
 
@@ -114,6 +117,7 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
             fragmentBinding.contactsRecycler.setVisibility(View.GONE);
             fragmentBinding.searchLayout.setVisibility(View.GONE);
             fragmentBinding.favouritesRecycler.setVisibility(View.VISIBLE);
+            isSuggest = false;
             getFavouritesList();
         });
 
@@ -123,15 +127,19 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
             fragmentBinding.mySelectionBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue6));
             fragmentBinding.suggestionsBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue4));
             fragmentBinding.contactsRecycler.setVisibility(View.GONE);
-            fragmentBinding.searchLayout.setVisibility(View.GONE);
+            fragmentBinding.searchLayout.setVisibility(View.VISIBLE);
             fragmentBinding.favouritesRecycler.setVisibility(View.GONE);
-            getSuggestionsList();
+            isSuggest = true;
+            getSuggestionsList("");
         });
 
         fragmentBinding.searchBtn.setOnClickListener(v -> {
             if (!fragmentBinding.searchInput.getText().toString().equalsIgnoreCase("")) {
                 Utilities.hideSoftKeyboard(requireContext(), requireView());
-                getContactsList(fragmentBinding.searchInput.getText().toString());
+                if (isSuggest)
+                    getSuggestionsList(fragmentBinding.searchInput.getText().toString());
+                else
+                    getContactsList(fragmentBinding.searchInput.getText().toString());
             }
         });
 
@@ -140,7 +148,7 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
 
     private void getContactsList(String searchValue) {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
-        viewModel.getContactsList(preferenceManager.getValue(Constants.TOKEN, ""), 1, searchValue, "fr");
+        viewModel.getContactsList(preferenceManager.getValue(Constants.TOKEN, ""), 1, searchValue, preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleContactsListData(Resource<ContactsListData> responseData) {
@@ -149,14 +157,12 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
             case SUCCESS:
                 switch (responseData.data.getHeader().getSearch()) {
                     case "-1":
-                        fragmentBinding.image.setVisibility(View.VISIBLE);
-                        fragmentBinding.message.setVisibility(View.VISIBLE);
+                        fragmentBinding.placeholder.setVisibility(View.VISIBLE);
                         fragmentBinding.editProfileBtn.setVisibility(View.VISIBLE);
                         fragmentBinding.message.setText(responseData.data.getHeader().getMessage());
                         break;
                     case "0":
-                        fragmentBinding.image.setVisibility(View.VISIBLE);
-                        fragmentBinding.message.setVisibility(View.VISIBLE);
+                        fragmentBinding.placeholder.setVisibility(View.VISIBLE);
                         fragmentBinding.message.setText(responseData.data.getHeader().getMessage());
                         break;
                     case "1":
@@ -234,7 +240,7 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
 
     private void getFavouritesList() {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
-        viewModel.getFavouritesList(preferenceManager.getValue(Constants.TOKEN, ""), "fr");
+        viewModel.getFavouritesList(preferenceManager.getValue(Constants.TOKEN, ""), preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleFavouritesListData(Resource<ContactsListData> responseData) {
@@ -277,9 +283,9 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
         };
     }
 
-    private void getSuggestionsList() {
+    private void getSuggestionsList(String searchValue) {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
-        viewModel.getSuggestionsList(preferenceManager.getValue(Constants.TOKEN, ""), 1, "fr");
+        viewModel.getSuggestionsList(preferenceManager.getValue(Constants.TOKEN, ""), 1, searchValue, preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleSuggestionsListData(Resource<ContactsListData> responseData) {

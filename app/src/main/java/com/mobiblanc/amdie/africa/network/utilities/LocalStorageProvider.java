@@ -1,4 +1,4 @@
-package com.mobiblanc.amdie.africa.network.Utilities;
+package com.mobiblanc.amdie.africa.network.utilities;
 
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;

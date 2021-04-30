@@ -2,7 +2,6 @@ package com.mobiblanc.amdie.africa.network.views.dashboard.profile;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -40,15 +39,15 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.Constants;
-import com.mobiblanc.amdie.africa.network.Utilities.FileUtils;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentSearchBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.listeners.OnDialogButtonsClickListener;
 import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
 import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.FileUtils;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.viewmodels.SearchViewModel;
 import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
 import com.mobiblanc.amdie.africa.network.views.dashboard.detail_search.DetailSearchFragment;
@@ -72,6 +71,10 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class SearchFragment extends Fragment implements CheckedLisner {
+
+    private FragmentSearchBinding fragmentBinding;
+    private PreferenceManager preferenceManager;
+    private SearchViewModel viewModel;
     public static final int REQUEST_IMAGE = 100;
     private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};
     private static final int CAMERA_REQUEST_CODE = 10;
@@ -82,45 +85,19 @@ public class SearchFragment extends Fragment implements CheckedLisner {
     private static final int REQUEST_IMAGE_CAPTURE_ENTRPRISE = 20;
     private static final int REQUEST_IMAGE_CAPTURE_ENTRPRISE_CAMERA = 21;
     private static final int REQUEST_IMAGE_CAPTURE_ENTRPRISE_GALL = 22;
-    SearchViewModel viewModel;
     String topicS = "", presentationS = "", siegeS = "", secteurS = "", chiffredaffaireS = "", effectifS = "", deviseS = "", produitS = "";
     Uri profile_img, entreprise_img;
     Boolean checked_topics = false, checked_secteur = false, checked_siege = false, checked_devise = false, checked_produits = false, checked_effectif = false;
-    Dialog loading;
     private File file = null;
     private String path_profile, path_entreprise;
-    private FragmentSearchBinding fragmentBinding;
-    private PreferenceManager preferenceManager;
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
-    public static File savebitmap(Bitmap bmp) throws IOException {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
-        File f = new File(Environment.getExternalStorageDirectory()
-                + File.separator + "africa.jpg");
-        f.createNewFile();
-        FileOutputStream fo = new FileOutputStream(f);
-        fo.write(bytes.toByteArray());
-        fo.close();
-        return f;
-    }
-
-    public static String convert(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-
-        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loading = new Dialog(requireContext(), android.R.style.Theme_Translucent_NoTitleBar);
-        View view = LayoutInflater.from(requireContext()).inflate(R.layout.loader, null, false);
-        loading.setContentView(view);
         viewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         viewModel.getInitMontoringLiveData().observe(this, this::handleGetIniiMontorData);
 
@@ -141,65 +118,8 @@ public class SearchFragment extends Fragment implements CheckedLisner {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //  fragmentBinding.loading.setVisibility(View.VISIBLE);
-        loading.show();
         getInitMontoring();
         init();
-    }
-
-    private void init() {
-
-        TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                fragmentBinding.nextBtn.setEnabled(checkForm());
-            }
-        };
-
-        fragmentBinding.presentation.addTextChangedListener(textWatcher);
-        fragmentBinding.topics.addTextChangedListener(textWatcher);
-        fragmentBinding.sector.addTextChangedListener(textWatcher);
-        fragmentBinding.headquarters.addTextChangedListener(textWatcher);
-        fragmentBinding.squad.addTextChangedListener(textWatcher);
-        fragmentBinding.turnover.addTextChangedListener(textWatcher);
-        fragmentBinding.products.addTextChangedListener(textWatcher);
-        fragmentBinding.devise.addTextChangedListener(textWatcher);
-
-        fragmentBinding.btnPhotoEntreprise.setOnClickListener(v -> onProfileImageClick(REQUEST_IMAGE_CAPTURE_ENTRPRISE));
-        fragmentBinding.btnPhotoProfile.setOnClickListener(v -> onProfileImageClick(REQUEST_IMAGE_CAPTURE_PROFILE));
-
-        fragmentBinding.nextBtn.setOnClickListener(v -> updateProfile());
-
-
-    }
-
-    private void getInitMontoring() {
-        viewModel.getInitOntoring(preferenceManager.getValue(Constants.TOKEN, ""), "fr");
-    }
-
-    private void dispatchTakePictureIntent(int i) {
-        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            try {
-                startActivityForResult(takePictureIntent, i);
-            } catch (ActivityNotFoundException e) {
-                // display error state to the user
-            }
-        } else {
-            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), CAMERA_PERMISSION, CAMERA_REQUEST_CODE);
-        }
-
-
     }
 
     @Override
@@ -245,6 +165,80 @@ public class SearchFragment extends Fragment implements CheckedLisner {
 
         }
         fragmentBinding.nextBtn.setEnabled(checkForm());
+    }
+
+    private void init() {
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                fragmentBinding.nextBtn.setEnabled(checkForm());
+            }
+        };
+
+        fragmentBinding.presentation.addTextChangedListener(textWatcher);
+        fragmentBinding.topics.addTextChangedListener(textWatcher);
+        fragmentBinding.sector.addTextChangedListener(textWatcher);
+        fragmentBinding.headquarters.addTextChangedListener(textWatcher);
+        fragmentBinding.squad.addTextChangedListener(textWatcher);
+        fragmentBinding.turnover.addTextChangedListener(textWatcher);
+        fragmentBinding.products.addTextChangedListener(textWatcher);
+        fragmentBinding.devise.addTextChangedListener(textWatcher);
+
+        fragmentBinding.btnPhotoEntreprise.setOnClickListener(v -> onProfileImageClick(REQUEST_IMAGE_CAPTURE_ENTRPRISE));
+        fragmentBinding.profilePictureBtn.setOnClickListener(v -> onProfileImageClick(REQUEST_IMAGE_CAPTURE_PROFILE));
+
+        fragmentBinding.nextBtn.setOnClickListener(v -> updateProfile());
+
+
+    }
+
+    private void getInitMontoring() {
+        viewModel.getInitOntoring(preferenceManager.getValue(Constants.TOKEN, ""), preferenceManager.getValue(Constants.LANGUAGE, "fr"));
+    }
+
+    private void dispatchTakePictureIntent(int i) {
+        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            try {
+                startActivityForResult(takePictureIntent, i);
+            } catch (ActivityNotFoundException e) {
+                // display error state to the user
+            }
+        } else {
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), CAMERA_PERMISSION, CAMERA_REQUEST_CODE);
+        }
+
+
+    }
+
+    public static File savebitmap(Bitmap bmp) throws IOException {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
+        File f = new File(Environment.getExternalStorageDirectory()
+                + File.separator + "africa.jpg");
+        f.createNewFile();
+        FileOutputStream fo = new FileOutputStream(f);
+        fo.write(bytes.toByteArray());
+        fo.close();
+        return f;
+    }
+
+    public static String convert(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+
+        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
     }
 
     public MultipartBody.Part uriToMultipartBody(Uri fileUri, String name) {
@@ -300,13 +294,12 @@ public class SearchFragment extends Fragment implements CheckedLisner {
 
     private void updateProfile() {
 
-        loading.show();
         RequestBody token = RequestBody.create(MultipartBody.FORM, (preferenceManager.getValue(Constants.TOKEN, "")));
 
         viewModel.updateMentore(token,
                 uriToMultipartBody(profile_img, "pictureProfil"),
                 uriToMultipartBody(entreprise_img, "pictureEntreprise"),
-                RequestBody.create(MultipartBody.FORM, "fr"),
+                RequestBody.create(MultipartBody.FORM, preferenceManager.getValue(Constants.LANGUAGE, "fr")),
                 RequestBody.create(MultipartBody.FORM, "mobile"),
                 RequestBody.create(MultipartBody.FORM, fragmentBinding.presentation.getText().toString()),
                 RequestBody.create(MultipartBody.FORM, siegeS),
@@ -319,11 +312,9 @@ public class SearchFragment extends Fragment implements CheckedLisner {
     }
 
     private void handleUpdateMentoreData(Resource<UpdateMentoreData> responseData) {
-
-        loading.dismiss();
         switch (responseData.status) {
             case SUCCESS:
-                ((DashboardActivity) getActivity()).replaceFragment(new ValidationFragment(), "");
+                ((DashboardActivity) requireActivity()).replaceFragment(new ValidationFragment(), "");
                 break;
             case INVALID_TOKEN:
                 break;
@@ -359,7 +350,7 @@ public class SearchFragment extends Fragment implements CheckedLisner {
                     setFormat_products(responseData);
                     setFormat_Chiffredaffaire(responseData, fragmentBinding.turnover);
                     setFormat_devise(responseData);
-                    fragmentBinding.viewUpdate.setVisibility(View.VISIBLE);
+                    fragmentBinding.updateView.setVisibility(View.VISIBLE);
 
 
                 } else if (responseData.data.getHeader().getSearch() == 0) {
@@ -375,10 +366,7 @@ public class SearchFragment extends Fragment implements CheckedLisner {
                 Utilities.showErrorPopup(getContext(), responseData.message);
                 break;
         }
-
-        loading.dismiss();
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     private void setFormat_topics(Resource<InitMontoringData> responseData) {
@@ -721,7 +709,6 @@ public class SearchFragment extends Fragment implements CheckedLisner {
 
     }
 
-
     void onProfileImageClick(int ss) {
         Dexter.withActivity(getActivity())
                 .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -758,7 +745,6 @@ public class SearchFragment extends Fragment implements CheckedLisner {
         });
 
     }
-
 
     @Override
     public void Checked_Topics(Boolean checked, String list_id, String list_name) {

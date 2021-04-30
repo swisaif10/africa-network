@@ -70,10 +70,6 @@ public class PreferenceManager {
         return sharedPreferences.getInt(key, defaultValue);
     }
 
-    public String getValueS(String key, String defaultValue) {
-        return sharedPreferences.getString(key, defaultValue);
-    }
-
     public float getValue(String key, float defaultValue) {
         return sharedPreferences.getFloat(key, defaultValue);
     }

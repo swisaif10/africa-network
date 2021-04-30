@@ -1,6 +1,7 @@
 package com.mobiblanc.amdie.africa.network.views.authentication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -16,13 +17,16 @@ import androidx.fragment.app.Fragment;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.Utilities.NumericKeyBoardTransformationMethod;
-import com.mobiblanc.amdie.africa.network.Utilities.Resource;
-import com.mobiblanc.amdie.africa.network.Utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentMobileRegisterBinding;
-import com.mobiblanc.amdie.africa.network.models.authentication.SendSMSData;
+import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
+import com.mobiblanc.amdie.africa.network.models.authentication.sendsms.SendSMSData;
 import com.mobiblanc.amdie.africa.network.models.countries.Country;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.NumericKeyBoardTransformationMethod;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.views.authentication.mobileregister.CountriesAdapter;
 
 import java.io.BufferedReader;
@@ -35,6 +39,7 @@ import java.util.List;
 public class MobileRegisterFragment extends Fragment {
 
     private static FragmentMobileRegisterBinding fragmentBinding;
+    private PreferenceManager preferenceManager;
     private Boolean request = false;
 
     public MobileRegisterFragment() {
@@ -44,6 +49,10 @@ public class MobileRegisterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferenceManager = new PreferenceManager.Builder(requireContext(), Context.MODE_PRIVATE)
+                .name(BuildConfig.APPLICATION_ID)
+                .build();
     }
 
     @Override
@@ -109,21 +118,26 @@ public class MobileRegisterFragment extends Fragment {
         });
 
         fragmentBinding.backBtn.setOnClickListener(v -> requireActivity().onBackPressed());
-        fragmentBinding.nextBtn.setOnClickListener(v -> sendSMS());
+        fragmentBinding.nextBtn.setOnClickListener(v -> {
+            Utilities.hideSoftKeyboard(requireContext(), requireView());
+            sendSMS();
+        });
     }
 
     private void sendSMS() {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
-        ((AuthenticationActivity) requireActivity()).getViewModel().sendSMS(fragmentBinding.phoneNumber.getText().toString(), "fr", Utilities.getUID(requireContext()));
+        ((AuthenticationActivity) requireActivity()).getViewModel().sendSMS(fragmentBinding.phoneNumber.getText().toString(), preferenceManager.getValue(Constants.LANGUAGE, "fr"), Utilities.getUID(requireContext()))
+        ;
         request = true;
     }
 
     private void handleSendSMSData(Resource<SendSMSData> responseData) {
         fragmentBinding.loader.setVisibility(View.GONE);
-        if (request)
+        if (request) {
+            request = false;
             switch (responseData.status) {
                 case SUCCESS:
-                    ((AuthenticationActivity) requireActivity()).replaceFragment(SMSConfirmationFragment.newInstance(fragmentBinding.phoneNumber.getText().toString()), "");
+                    ((AuthenticationActivity) requireActivity()).replaceFragment(SMSConfirmationFragment.newInstance(fragmentBinding.phoneNumber.getText().toString(), responseData.data.getResults().getResendByEmail()), "");
                     break;
                 case INVALID_TOKEN:
                     break;
@@ -131,6 +145,7 @@ public class MobileRegisterFragment extends Fragment {
                     Utilities.showErrorPopup(requireContext(), responseData.message);
                     break;
             }
+        }
     }
 
     private ArrayList<Country> readFromJson() {

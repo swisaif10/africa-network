@@ -80,6 +80,17 @@
                     android:text="+212"
                     android:textSize="14sp" />
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/mobile_register_description_text"
+                android:textAlignment="center"
+                android:textColor="@color/red"
+                android:textSize="10sp" />
+
         </LinearLayout>
 
         <LinearLayout
