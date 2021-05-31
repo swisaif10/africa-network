@@ -1,6 +1,5 @@
 package com.mobiblanc.amdie.africa.network.views.dashboard.feed.filter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -59,13 +58,12 @@ public class TypeFilterAdapter extends RecyclerView.Adapter<TypeFilterAdapter.Vi
             itemBinding.getRoot().setOnClickListener(v -> {
                 if (type.getChecked()) {
                     type.setChecked(false);
-                    notifyDataSetChanged();
                     onFilterCheckedChangeListener.onFilterUnchecked(type);
                 } else {
                     type.setChecked(true);
-                    notifyDataSetChanged();
                     onFilterCheckedChangeListener.onFilterChecked(type);
                 }
+                notifyDataSetChanged();
             });
         }
     }

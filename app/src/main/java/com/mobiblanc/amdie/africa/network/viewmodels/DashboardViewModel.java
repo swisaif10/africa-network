@@ -17,25 +17,17 @@ import com.mobiblanc.amdie.africa.network.utilities.Resource;
 public class DashboardViewModel extends AndroidViewModel {
 
     private final DashboardRepository repository;
-    private final MutableLiveData<Resource<GetFeedData>> feedsLiveData;
     private final MutableLiveData<Resource<MenuData>> menuLiveData;
     private final MutableLiveData<Resource<ShareAppData>> shareAppLiveData;
     private final MutableLiveData<Resource<LogoutData>> logoutLiveData;
-    private final MutableLiveData<Resource<LikeFeedData>> likeFeedLiveData;
 
     public DashboardViewModel(@NonNull Application application) {
         super(application);
 
         this.repository = new DashboardRepository();
-        feedsLiveData = new MutableLiveData<>();
         menuLiveData = new MutableLiveData<>();
         shareAppLiveData = new MutableLiveData<>();
         logoutLiveData = new MutableLiveData<>();
-        likeFeedLiveData = new MutableLiveData<>();
-    }
-
-    public MutableLiveData<Resource<GetFeedData>> getFeedsLiveData() {
-        return feedsLiveData;
     }
 
     public MutableLiveData<Resource<MenuData>> getMenuLiveData() {
@@ -48,19 +40,6 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public MutableLiveData<Resource<LogoutData>> getLogoutLiveData() {
         return logoutLiveData;
-    }
-
-    public MutableLiveData<Resource<LikeFeedData>> getLikeFeedLiveData() {
-        return likeFeedLiveData;
-    }
-
-    public void getFeeds(String token,
-                         String sectors,
-                         String type,
-                         String date,
-                         Boolean mostLiked,
-                         String lang) {
-        repository.getFeeds(token, sectors, type, date, mostLiked, lang, feedsLiveData);
     }
 
     public void getMenu(String token,
@@ -76,10 +55,5 @@ public class DashboardViewModel extends AndroidViewModel {
     public void logout(String token,
                        String lang) {
         repository.logout(token, lang, logoutLiveData);
-    }
-
-    public void likeFeed(String token,
-                         int id) {
-        repository.likeFeed(token, id, likeFeedLiveData);
     }
 }

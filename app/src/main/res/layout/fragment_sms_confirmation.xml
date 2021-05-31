@@ -7,7 +7,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.authentication.MobileRegisterFragment">
+        tools:context=".views.authentication.mobileregister.MobileRegisterFragment">
 
         <ImageView
             android:id="@+id/logo"
@@ -53,7 +53,7 @@
                 android:cursorVisible="false"
                 android:digits="0123456789"
                 android:focusableInTouchMode="true"
-                android:fontFamily="@font/montserrat_semibold"
+                android:fontFamily="@font/montserrat_semi_bold"
                 android:inputType="phone"
                 android:layoutDirection="ltr"
                 android:maxLength="4"
@@ -74,8 +74,7 @@
                 android:fontFamily="@font/montserrat_medium"
                 android:text="@string/resend_code_btn_label"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -94,8 +93,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/montserrat_medium"
+                android:gravity="center"
                 android:text="@string/sms_confirmation_description"
-                android:textAlignment="center"
                 android:textColor="@color/red"
                 android:textSize="8sp" />
 
@@ -106,7 +105,7 @@
                 android:layout_marginHorizontal="60dp"
                 android:backgroundTint="@color/selector_button_background"
                 android:enabled="false"
-                android:fontFamily="@font/montserrat_semibold"
+                android:fontFamily="@font/montserrat_semi_bold"
                 android:text="@string/next_btn_label"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -121,7 +120,7 @@
                 android:layout_height="65dp"
                 android:layout_marginHorizontal="60dp"
                 android:backgroundTint="@color/white"
-                android:fontFamily="@font/montserrat_semibold"
+                android:fontFamily="@font/montserrat_semi_bold"
                 android:text="@string/back_btn_label"
                 android:textAllCaps="false"
                 android:textColor="@color/blue2"

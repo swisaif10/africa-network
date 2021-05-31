@@ -12,6 +12,10 @@ public class Results {
     private List<Type> types;
     @SerializedName("secteurs")
     private List<Sector> sectors;
+    @Expose
+    private int offset;
+    @SerializedName("nbr_pages")
+    private int totalPages;
 
     public List<Feed> getFeeds() {
         return feeds;
@@ -35,5 +39,21 @@ public class Results {
 
     public void setSectors(List<Sector> Sectors) {
         this.sectors = Sectors;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
     }
 }

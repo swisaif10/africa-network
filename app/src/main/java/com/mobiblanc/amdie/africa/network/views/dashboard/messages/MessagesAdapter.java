@@ -61,7 +61,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             itemBinding.description.setText(String.format("%s/%s", discussion.getCompany(), discussion.getCountry()));
             itemBinding.date.setText(discussion.getDate());
 
-            itemBinding.getRoot().setOnClickListener(v -> onItemSelectedListener.onItemSelectedListener(discussion));
+            itemBinding.getRoot().setOnClickListener(v -> onItemSelectedListener.onItemSelectedListener(discussion, false));
         }
     }
 }

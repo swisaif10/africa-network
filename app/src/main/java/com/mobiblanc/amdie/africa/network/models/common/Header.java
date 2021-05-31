@@ -11,7 +11,7 @@ public class Header implements Serializable {
     @Expose
     private String message;
     @Expose
-    private String search;
+    private int search;
 
     public String getStatus() {
         return status;
@@ -29,11 +29,11 @@ public class Header implements Serializable {
         this.message = message;
     }
 
-    public String getSearch() {
+    public int getSearch() {
         return search;
     }
 
-    public void setSearch(String search) {
+    public void setSearch(int search) {
         this.search = search;
     }
 }

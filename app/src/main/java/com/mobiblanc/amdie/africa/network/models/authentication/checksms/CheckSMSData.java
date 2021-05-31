@@ -3,6 +3,7 @@ package com.mobiblanc.amdie.africa.network.models.authentication.checksms;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mobiblanc.amdie.africa.network.models.authentication.Results;
+import com.mobiblanc.amdie.africa.network.models.common.Country;
 import com.mobiblanc.amdie.africa.network.models.common.Header;
 
 import java.io.Serializable;

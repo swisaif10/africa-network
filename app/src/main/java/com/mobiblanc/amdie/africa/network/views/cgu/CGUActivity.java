@@ -11,13 +11,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.utilities.Constants;
-import com.mobiblanc.amdie.africa.network.utilities.Resource;
-import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.ActivityCguBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.models.cgu.CGUData;
 import com.mobiblanc.amdie.africa.network.models.cgu.Results;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.viewmodels.CGUViewModel;
 import com.mobiblanc.amdie.africa.network.views.base.BaseActivity;
 
@@ -54,13 +54,13 @@ public class CGUActivity extends BaseActivity {
                 init(responseData.data.getResults());
                 break;
             case INVALID_TOKEN:
-                Utilities.showErrorPopupWithCLick(this, responseData.data.getHeader().getMessage(), v -> {
-                    preferenceManager.clearAll();
+                Utilities.showServerErrorDialog(this, responseData.data.getHeader().getMessage(), v -> {
+                    preferenceManager.clearValue(Constants.TOKEN);
                     tokenExpired();
                 });
                 break;
             case ERROR:
-                Utilities.showErrorPopup(this, responseData.message);
+                Utilities.showServerErrorDialog(this, responseData.message);
                 break;
         }
     }

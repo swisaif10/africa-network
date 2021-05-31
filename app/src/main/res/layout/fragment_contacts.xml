@@ -42,7 +42,7 @@
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/selector_button_background"
                 android:enabled="true"
-                android:fontFamily="@font/montserrat_semibold"
+                android:fontFamily="@font/montserrat_semi_bold"
                 android:text="@string/edit_profile_btn_label"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -80,7 +80,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.3"
-                        android:fontFamily="@font/montserrat_semibold"
+                        android:fontFamily="@font/montserrat_semi_bold"
                         android:gravity="center"
                         android:text="@string/my_contacts_btn_label"
                         android:textColor="@color/blue4"
@@ -93,13 +93,14 @@
                         android:background="@color/blue6" />
 
                     <TextView
-                        android:id="@+id/mySelectionBtn"
+                        android:id="@+id/suggestionsBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginVertical="5dp"
                         android:layout_weight="0.3"
-                        android:fontFamily="@font/montserrat_semibold"
+                        android:fontFamily="@font/montserrat_semi_bold"
                         android:gravity="center"
-                        android:text="@string/my_favourites_title"
+                        android:text="@string/suggestions_btn_Label"
                         android:textColor="@color/blue6"
                         android:textSize="13sp" />
 
@@ -109,54 +110,133 @@
                         android:background="@color/blue6" />
 
                     <TextView
-                        android:id="@+id/suggestionsBtn"
+                        android:id="@+id/favouritesBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginVertical="5dp"
                         android:layout_weight="0.3"
-                        android:fontFamily="@font/montserrat_semibold"
+                        android:fontFamily="@font/montserrat_semi_bold"
                         android:gravity="center"
-                        android:text="@string/suggestions_btn_Label"
+                        android:text="@string/my_favourites_title"
                         android:textColor="@color/blue6"
                         android:textSize="13sp" />
 
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:id="@+id/searchLayout"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/contactsLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginHorizontal="15dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="10dp">
 
-                    <EditText
-                        android:id="@+id/searchInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/contact_background"
-                        android:fontFamily="@font/montserrat_regular"
+                    <TextView
+                        android:id="@+id/countryFilterBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/filter_options_background"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:gravity="center"
                         android:padding="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
+                        android:text="@string/country_hint"
+                        android:textColor="@color/selector_filter_text_color"
+                        app:drawableEndCompat="@drawable/arrow"
+                        app:drawableTint="@color/selector_filter_text_color"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.45" />
 
-                    <ImageView
-                        android:id="@+id/searchBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:paddingHorizontal="10dp"
-                        android:src="@drawable/ic_search" />
+                    <TextView
+                        android:id="@+id/sectorFilterBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/filter_options_background"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/sector_hint"
+                        android:textColor="@color/selector_filter_text_color"
+                        app:drawableEndCompat="@drawable/arrow"
+                        app:drawableTint="@color/selector_filter_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.45" />
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/searchLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/countryFilterBtn">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/contactsRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:visibility="visible"
-                    tools:listitem="@layout/contact_item_layout" />
+                        <EditText
+                            android:id="@+id/searchInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/contact_background"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:padding="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <ImageView
+                            android:id="@+id/searchBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:paddingHorizontal="10dp"
+                            android:src="@drawable/ic_search" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/contactsRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        app:layout_constraintTop_toBottomOf="@id/searchLayout"
+                        tools:listitem="@layout/contact_item_layout" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/countryFilterRecycler"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/filter_options_background"
+                        android:elevation="5dp"
+                        android:overScrollMode="never"
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="10dp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="@id/sectorFilterBtn"
+                        app:layout_constraintHeight_max="300dp"
+                        app:layout_constraintStart_toStartOf="@id/countryFilterBtn"
+                        app:layout_constraintTop_toBottomOf="@id/countryFilterBtn"
+                        tools:listitem="@layout/filter_item_layout" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/sectorFilterRecycler"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/filter_options_background"
+                        android:elevation="5dp"
+                        android:overScrollMode="never"
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="10dp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="@id/sectorFilterBtn"
+                        app:layout_constraintHeight_max="300dp"
+                        app:layout_constraintStart_toStartOf="@id/countryFilterBtn"
+                        app:layout_constraintTop_toBottomOf="@id/sectorFilterBtn"
+                        tools:listitem="@layout/filter_item_layout" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/favouritesRecycler"
@@ -164,8 +244,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="20dp"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
                     android:visibility="gone"
                     tools:itemCount="3"
+                    tools:listitem="@layout/contact_item_layout" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/suggestionsRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:visibility="visible"
                     tools:listitem="@layout/contact_item_layout" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

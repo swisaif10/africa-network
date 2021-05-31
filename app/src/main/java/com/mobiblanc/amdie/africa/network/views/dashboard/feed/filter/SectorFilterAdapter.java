@@ -1,6 +1,5 @@
 package com.mobiblanc.amdie.africa.network.views.dashboard.feed.filter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 

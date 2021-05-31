@@ -11,17 +11,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.databinding.ContactItemLayoutBinding;
+import com.mobiblanc.amdie.africa.network.databinding.ItemLoadingLayoutBinding;
 import com.mobiblanc.amdie.africa.network.listeners.OnContactSelectedListener;
 import com.mobiblanc.amdie.africa.network.models.contacts.list.Contact;
+import com.mobiblanc.amdie.africa.network.utilities.LoadingViewHolder;
+import com.mobiblanc.amdie.africa.network.views.base.BaseViewHolder;
 
 import java.util.List;
 
-public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
+public class ContactsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+
+    private static final int VIEW_TYPE_LOADING = 0;
+    private static final int VIEW_TYPE_NORMAL = 1;
 
     private final Context context;
     private final List<Contact> contacts;
     private final OnContactSelectedListener onContactSelectedListener;
     private final int type;
+    private boolean isLoaderVisible = false;
 
     public ContactsAdapter(Context context, List<Contact> contacts, OnContactSelectedListener onContactSelectedListener, int type) {
         this.context = context;
@@ -30,23 +37,67 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         this.type = type;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (isLoaderVisible) {
+            return position == contacts.size() - 1 ? VIEW_TYPE_LOADING : VIEW_TYPE_NORMAL;
+        } else {
+            return VIEW_TYPE_NORMAL;
+        }
+    }
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(ContactItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.getContext()),
-                parent,
-                false));
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case VIEW_TYPE_NORMAL:
+                return new ViewHolder(ContactItemLayoutBinding.inflate(
+                        LayoutInflater.from(parent.getContext()),
+                        parent,
+                        false));
+            case VIEW_TYPE_LOADING:
+                return new LoadingViewHolder(ItemLoadingLayoutBinding.inflate(
+                        LayoutInflater.from(parent.getContext()),
+                        parent,
+                        false));
+            default:
+                return null;
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(contacts.get(position));
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
+        holder.bind(position);
     }
 
     @Override
     public int getItemCount() {
-        return contacts.size();
+        return contacts == null ? 0 : contacts.size();
+    }
+
+    public void addLoading() {
+        isLoaderVisible = true;
+        contacts.add(new Contact());
+        notifyItemInserted(contacts.size() - 1);
+    }
+
+    public void removeLoading() {
+        isLoaderVisible = false;
+        int position = contacts.size() - 1;
+        Contact item = getItem(position);
+        if (item != null) {
+            contacts.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        contacts.clear();
+        notifyDataSetChanged();
+    }
+
+    public Contact getItem(int position) {
+        return contacts.get(position);
     }
 
     public void removeItem(int position) {
@@ -54,7 +105,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         notifyItemRemoved(position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends BaseViewHolder {
 
         ContactItemLayoutBinding itemBinding;
 
@@ -63,9 +114,10 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             this.itemBinding = itemBinding;
         }
 
-        private void bind(Contact contact) {
+        public void bind(int position) {
+            Contact contact = contacts.get(position);
             itemBinding.name.setText(contact.getUsername());
-            itemBinding.description.setText(String.format("%s / %s", contact.getCompanyName(), contact.getProvince()));
+            itemBinding.description.setText(String.format("%s / %s", contact.getCompanyName(), contact.getCountry()));
             Glide.with(context).load(contact.getProfilePicture()).fitCenter().into(itemBinding.icon);
 
             if (type == 1)
@@ -81,6 +133,12 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
                 onContactSelectedListener.onFavouriteClick(contact);
             });
             itemBinding.sendMessageBtn.setOnClickListener(v -> onContactSelectedListener.onMessageClick(contact));
+            itemBinding.getRoot().setOnClickListener(v -> onContactSelectedListener.onContactSelected(contact));
+        }
+
+        @Override
+        protected void clear() {
+
         }
     }
 }

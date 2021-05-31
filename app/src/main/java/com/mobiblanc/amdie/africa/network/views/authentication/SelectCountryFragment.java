@@ -17,24 +17,27 @@ import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentSelectCountryBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
-import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
+import com.mobiblanc.amdie.africa.network.models.authentication.completeregistraion.CompleteRegistrationData;
 import com.mobiblanc.amdie.africa.network.utilities.Constants;
 import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.utilities.Utilities;
+import com.mobiblanc.amdie.africa.network.views.authentication.mobileregister.MobileRegisterFragment;
 import com.mobiblanc.amdie.africa.network.views.dashboard.DashboardActivity;
 
 public class SelectCountryFragment extends Fragment {
 
     private static FragmentSelectCountryBinding fragmentBinding;
     private PreferenceManager preferenceManager;
+    private String token;
     private String gender;
     private String firstName;
     private String lastName;
     private String email;
     private String job;
     private String company;
+    private String code;
+    private String phoneNumber;
     private int country;
-    private String countryName;
     private int city;
     private int nationality = 1;
     private Boolean request = false;
@@ -44,10 +47,11 @@ public class SelectCountryFragment extends Fragment {
     }
 
     public static SelectCountryFragment newInstance
-            (String gender, String lastName, String company, String job,
-             String email, String firstName, int country, String countryName, int city) {
+            (String token, String gender, String lastName, String company, String job,
+             String email, String firstName, int country, int city, String code, String phoneNumber) {
         SelectCountryFragment fragment = new SelectCountryFragment();
         Bundle args = new Bundle();
+        args.putString("token", token);
         args.putString("gender", gender);
         args.putString("firstName", firstName);
         args.putString("lastName", lastName);
@@ -55,8 +59,9 @@ public class SelectCountryFragment extends Fragment {
         args.putString("job", job);
         args.putString("company", company);
         args.putInt("country", country);
-        args.putString("countryName", countryName);
         args.putInt("city", city);
+        args.putString("code", code);
+        args.putString("phoneNumber", phoneNumber);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,6 +71,7 @@ public class SelectCountryFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
+            token = getArguments().getString("token");
             gender = getArguments().getString("gender");
             firstName = getArguments().getString("firstName");
             lastName = getArguments().getString("lastName");
@@ -73,8 +79,9 @@ public class SelectCountryFragment extends Fragment {
             job = getArguments().getString("job");
             company = getArguments().getString("company");
             country = getArguments().getInt("country");
-            countryName = getArguments().getString("countryName");
             city = getArguments().getInt("city");
+            phoneNumber = getArguments().getString("phoneNumber");
+            code = getArguments().getString("code", "");
         }
 
         ((AuthenticationActivity) requireActivity()).getViewModel().getUpdateProfileLiveData().observe(requireActivity(), this::handleUpdateProfileData);
@@ -134,37 +141,34 @@ public class SelectCountryFragment extends Fragment {
             nationality = 0;
         });
 
-        fragmentBinding.nextBtn.setOnClickListener(v -> updateProfile());
+        fragmentBinding.nextBtn.setOnClickListener(v -> completeRegistration());
     }
 
-    private void updateProfile() {
+    private void completeRegistration() {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
-        ((AuthenticationActivity) requireActivity()).getViewModel().updateProfile(preferenceManager.getValue(Constants.TOKEN, ""), gender,
-                lastName, company, job, email, firstName, country, city, nationality, preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""));
+        ((AuthenticationActivity) requireActivity()).getViewModel().completeRegistration(token, gender,
+                lastName, company, job, email, firstName, country, city, nationality, preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""), code, phoneNumber);
         request = true;
     }
 
-    private void handleUpdateProfileData(Resource<UpdateProfileData> responseData) {
+    private void handleUpdateProfileData(Resource<CompleteRegistrationData> responseData) {
         fragmentBinding.loader.setVisibility(View.GONE);
         if (request)
             switch (responseData.status) {
                 case SUCCESS:
-                    preferenceManager.putValue(Constants.ID_USER, responseData.data.getResults().getId());
-                    preferenceManager.putValue(Constants.USERNAME, responseData.data.getResults().getFirstName() + " " + responseData.data.getResults().getLastName());
-                    preferenceManager.putValue(Constants.COUNTRY, countryName);
-                    preferenceManager.putValue(Constants.PICTURE, responseData.data.getResults().getPicture());
+                    preferenceManager.putValue(Constants.TOKEN, responseData.data.getResults().getToken());
                     Intent intent = new Intent(requireActivity(), DashboardActivity.class);
                     startActivity(intent);
                     requireActivity().finish();
                     break;
                 case INVALID_TOKEN:
-                    Utilities.showErrorPopupWithCLick(requireContext(), responseData.data.getHeader().getMessage(), v -> {
-                        preferenceManager.clearAll();
+                    Utilities.showServerErrorDialog(requireContext(), responseData.data.getHeader().getMessage(), v -> {
+                        preferenceManager.clearValue(Constants.TOKEN);
                         ((AuthenticationActivity) requireActivity()).showFragment(new MobileRegisterFragment());
                     });
                     break;
                 case ERROR:
-                    Utilities.showErrorPopup(requireContext(), responseData.message);
+                    Utilities.showServerErrorDialog(requireContext(), responseData.message);
                     break;
             }
     }

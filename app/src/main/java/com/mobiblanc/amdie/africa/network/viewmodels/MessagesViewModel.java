@@ -6,11 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.models.messaging.discussions.DiscussionsListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.MessagesListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.sending.SendMessageData;
 import com.mobiblanc.amdie.africa.network.repository.MessagesRepository;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 
 public class MessagesViewModel extends AndroidViewModel {
 

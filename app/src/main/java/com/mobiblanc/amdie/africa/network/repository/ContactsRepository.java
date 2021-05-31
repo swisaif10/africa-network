@@ -2,44 +2,51 @@ package com.mobiblanc.amdie.africa.network.repository;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.datamanager.ApiManager;
-import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
-import com.mobiblanc.amdie.africa.network.models.search.profile.Profile;
-import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
-
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import com.mobiblanc.amdie.africa.network.models.contacts.favourite.AddFavouriteData;
+import com.mobiblanc.amdie.africa.network.models.contacts.filter.ContactsFilterData;
+import com.mobiblanc.amdie.africa.network.models.contacts.list.ContactsListData;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 
 public class ContactsRepository {
-    public void updateMentore(RequestBody token,
-                              MultipartBody.Part pictureProfil,
-                              MultipartBody.Part pictureEntreprise,
-                              RequestBody lang,
-                              RequestBody canal,
-                              RequestBody presentation,
-                              RequestBody siege,
-                              RequestBody secteur,
-                              RequestBody chiffredaffaire,
-                              RequestBody effectif,
-                              RequestBody topics,
-                              RequestBody devise,
-                              RequestBody produit,
-                              MutableLiveData<Resource<UpdateMentoreData>> mutableLiveData) {
-        new ApiManager().updateMentore(token, pictureProfil, pictureEntreprise, lang, canal, presentation, siege, secteur, chiffredaffaire,
-                effectif, topics, devise, produit, mutableLiveData);
+    public void getContactsList(String token,
+                                int page,
+                                String searchValue,
+                                String lang,
+                                MutableLiveData<Resource<ContactsListData>> mutableLiveData) {
+        new ApiManager().getContactsList(token, page, searchValue, lang, mutableLiveData);
     }
 
-    public void getInitMontoring(String token,
-                                 String lang,
-                                 MutableLiveData<Resource<InitMontoringData>> mutableLiveData) {
-        new ApiManager().getInitMontoring(token, lang, mutableLiveData);
+    public void addFavourite(String token,
+                             int receiver,
+                             MutableLiveData<Resource<AddFavouriteData>> mutableLiveData) {
+        new ApiManager().addFavourite(token, receiver, mutableLiveData);
     }
 
-    public void getProfile(String token,
-                           String lang,
-                           MutableLiveData<Resource<Profile>> mutableLiveData) {
-        new ApiManager().getProfile(token, lang, mutableLiveData);
+    public void removeFavourite(String token,
+                                int id,
+                                MutableLiveData<Resource<AddFavouriteData>> mutableLiveData) {
+        new ApiManager().removeFavourite(token, id, mutableLiveData);
+    }
+
+    public void getFavouritesList(String token,
+                                  String lang,
+                                  MutableLiveData<Resource<ContactsListData>> mutableLiveData) {
+        new ApiManager().getFavouritesList(token, lang, mutableLiveData);
+    }
+
+    public void getSuggestionsList(String token,
+                                   int page,
+                                   String searchValue,
+                                   String lang,
+                                   MutableLiveData<Resource<ContactsListData>> mutableLiveData) {
+        new ApiManager().getSuggestionsList(token, page, searchValue, lang, mutableLiveData);
+    }
+
+    public void getContactsFilterForm(String token,
+                                      String lang,
+                                      MutableLiveData<Resource<ContactsFilterData>> mutableLiveData) {
+        new ApiManager().getContactsFilterForm(token, lang, mutableLiveData);
     }
 
 }

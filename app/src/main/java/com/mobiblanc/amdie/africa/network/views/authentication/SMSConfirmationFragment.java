@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.mobiblanc.amdie.africa.network.BuildConfig;
+import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentSmsConfirmationBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
@@ -29,7 +30,7 @@ public class SMSConfirmationFragment extends Fragment {
     private String msisdn;
     private PreferenceManager preferenceManager;
     private Boolean request = false;
-    private Boolean resend;
+    private Boolean resendByEmail = false;
     private Boolean OTPByEMail = false;
 
     public SMSConfirmationFragment() {
@@ -51,7 +52,7 @@ public class SMSConfirmationFragment extends Fragment {
 
         if ((getArguments() != null)) {
             msisdn = getArguments().getString("msisdn");
-            resend = getArguments().getBoolean("resend");
+            resendByEmail = getArguments().getBoolean("resend");
         }
 
         ((AuthenticationActivity) requireActivity()).getViewModel().getCheckSMSLiveData().observe(requireActivity(), this::handleCheckSMSData);
@@ -80,6 +81,7 @@ public class SMSConfirmationFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((AuthenticationActivity) requireActivity()).getViewModel().getCheckSMSLiveData().observe(requireActivity(), this::handleCheckSMSData);
+        ((AuthenticationActivity) requireActivity()).getViewModel().getSendSMSLiveData().observe(requireActivity(), this::handleSendSMSData);
         ((AuthenticationActivity) requireActivity()).getViewModel().getCheckOTPByEmailLiveData().observe(requireActivity(), this::handleCheckOTPData);
         ((AuthenticationActivity) requireActivity()).getViewModel().getSendOTPBYEmailLiveData().observe(requireActivity(), this::handleSendOTPData);
 
@@ -109,8 +111,8 @@ public class SMSConfirmationFragment extends Fragment {
             }
         });
 
-        if (resend)
-            fragmentBinding.resendCodeBtn.setVisibility(View.VISIBLE);
+        if (resendByEmail)
+            fragmentBinding.resendCodeBtn.setText(getString(R.string.resend_code_by_email_btn_label));
 
         fragmentBinding.nextBtn.setOnClickListener(v -> {
             Utilities.hideSoftKeyboard(requireContext(), requireView());
@@ -120,7 +122,12 @@ public class SMSConfirmationFragment extends Fragment {
                 checkSMS();
         });
 
-        fragmentBinding.resendCodeBtn.setOnClickListener(v -> sendOTP());
+        fragmentBinding.resendCodeBtn.setOnClickListener(v -> {
+            if (resendByEmail)
+                sendOTP();
+            else
+                sendSMS();
+        });
     }
 
     private void checkSMS() {
@@ -135,21 +142,38 @@ public class SMSConfirmationFragment extends Fragment {
             request = false;
             switch (responseData.status) {
                 case SUCCESS:
-                    preferenceManager.putValue(Constants.TOKEN, responseData.data.getResults().getToken());
-                    preferenceManager.putValue(Constants.ID_USER, responseData.data.getResults().getId());
-                    preferenceManager.putValue(Constants.USERNAME, responseData.data.getResults().getFirstName() + " " + responseData.data.getResults().getLastName());
-                    preferenceManager.putValue(Constants.COUNTRY, responseData.data.getCountryNameById(responseData.data.getResults().getCountry()));
-                    preferenceManager.putValue(Constants.PICTURE, responseData.data.getResults().getPicture());
-                    if (responseData.data.getResults().getSearch() == 1 || responseData.data.getResults().getSearch() == 0) {
+                    if (responseData.data.getResults().getMonitoring() == 0)
+                        ((AuthenticationActivity) requireActivity()).replaceFragment(CompleteProfileFragment.newInstance(responseData.data.getResults().getToken(), responseData.data, false, "", msisdn), "");
+                    else {
+                        preferenceManager.putValue(Constants.TOKEN, responseData.data.getResults().getToken());
                         startActivity(new Intent(requireActivity(), DashboardActivity.class));
                         requireActivity().finish();
-                    } else
-                        ((AuthenticationActivity) requireActivity()).replaceFragment(CompleteProfileFragment.newInstance(msisdn, responseData.data), "");
+                    }
                     break;
                 case INVALID_TOKEN:
                     break;
                 case ERROR:
-                    Utilities.showErrorPopup(requireContext(), responseData.message);
+                    Utilities.showServerErrorDialog(requireContext(), responseData.message);
+                    break;
+            }
+        }
+    }
+
+    private void sendSMS() {
+        fragmentBinding.loader.setVisibility(View.VISIBLE);
+        ((AuthenticationActivity) requireActivity()).getViewModel().sendSMS(msisdn, preferenceManager.getValue(Constants.LANGUAGE, "fr"), Utilities.getUID(requireContext()));
+        request = true;
+    }
+
+    private void handleSendSMSData(Resource<SendSMSData> responseData) {
+        fragmentBinding.loader.setVisibility(View.GONE);
+        if (request) {
+            request = false;
+            switch (responseData.status) {
+                case SUCCESS:
+                    break;
+                case ERROR:
+                    Utilities.showServerErrorDialog(requireContext(), responseData.message);
                     break;
             }
         }
@@ -168,10 +192,9 @@ public class SMSConfirmationFragment extends Fragment {
             request = false;
             switch (responseData.status) {
                 case SUCCESS:
-                case INVALID_TOKEN:
                     break;
                 case ERROR:
-                    Utilities.showErrorPopup(requireContext(), responseData.message);
+                    Utilities.showServerErrorDialog(requireContext(), responseData.message);
                     break;
             }
         }
@@ -189,21 +212,18 @@ public class SMSConfirmationFragment extends Fragment {
             request = false;
             switch (responseData.status) {
                 case SUCCESS:
-                    preferenceManager.putValue(Constants.TOKEN, responseData.data.getResults().getToken());
-                    preferenceManager.putValue(Constants.ID_USER, responseData.data.getResults().getId());
-                    preferenceManager.putValue(Constants.USERNAME, responseData.data.getResults().getFirstName() + " " + responseData.data.getResults().getLastName());
-                    preferenceManager.putValue(Constants.COUNTRY, responseData.data.getCountryNameById(responseData.data.getResults().getCountry()));
-                    preferenceManager.putValue(Constants.PICTURE, responseData.data.getResults().getPicture());
-                    if (responseData.data.getResults().getSearch() == 1 || responseData.data.getResults().getSearch() == 0) {
+                    if (responseData.data.getResults().getMonitoring() == 0)
+                        ((AuthenticationActivity) requireActivity()).replaceFragment(CompleteProfileFragment.newInstance(responseData.data.getResults().getToken(), responseData.data, false, "", msisdn), "");
+                    else {
+                        preferenceManager.putValue(Constants.TOKEN, responseData.data.getResults().getToken());
                         startActivity(new Intent(requireActivity(), DashboardActivity.class));
                         requireActivity().finish();
-                    } else
-                        ((AuthenticationActivity) requireActivity()).replaceFragment(CompleteProfileFragment.newInstance(msisdn, responseData.data), "");
+                    }
                     break;
                 case INVALID_TOKEN:
                     break;
                 case ERROR:
-                    Utilities.showErrorPopup(requireContext(), responseData.message);
+                    Utilities.showServerErrorDialog(requireContext(), responseData.message);
                     break;
             }
         }

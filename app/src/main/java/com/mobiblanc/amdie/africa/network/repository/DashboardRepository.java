@@ -17,9 +17,10 @@ public class DashboardRepository {
                          String type,
                          String date,
                          Boolean mostLiked,
+                         int offset,
                          String lang,
                          MutableLiveData<Resource<GetFeedData>> mutableLiveData) {
-        new ApiManager().getFeeds(token, sectors, type, date, mostLiked, lang, mutableLiveData);
+        new ApiManager().getFeeds(token, sectors, type, date, mostLiked, offset, lang, mutableLiveData);
     }
 
     public void getMenu(String token,

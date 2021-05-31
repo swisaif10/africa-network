@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.viewmodels.AuthenticationViewModel;
+import com.mobiblanc.amdie.africa.network.views.authentication.mobileregister.MobileRegisterFragment;
 import com.mobiblanc.amdie.africa.network.views.base.BaseActivity;
 
 public class AuthenticationActivity extends BaseActivity {

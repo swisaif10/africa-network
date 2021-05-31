@@ -37,7 +37,7 @@ public interface Utilities {
         return editText.getText().toString().equalsIgnoreCase("");
     }
 
-    static void showErrorPopup(Context context, String message) {
+    static void showServerErrorDialog(Context context, String message) {
 
         if (context == null) {
             return;
@@ -45,7 +45,7 @@ public interface Utilities {
 
         final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.server_error_dialog, null, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_server_error, null, false);
         Button ok = view.findViewById(R.id.okBtn);
         TextView msg = view.findViewById(R.id.message);
         ConstraintLayout container = view.findViewById(R.id.container);
@@ -58,7 +58,7 @@ public interface Utilities {
         dialog.show();
     }
 
-    static void showErrorPopupWithCLick(Context context, String message, View.OnClickListener onClickListener) {
+    static void showServerErrorDialog(Context context, String message, View.OnClickListener onClickListener) {
 
         if (context == null) {
             return;
@@ -66,7 +66,7 @@ public interface Utilities {
 
         final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.server_error_dialog, null, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_server_error, null, false);
         Button ok = view.findViewById(R.id.okBtn);
         TextView msg = view.findViewById(R.id.message);
         ConstraintLayout container = view.findViewById(R.id.container);
@@ -82,7 +82,7 @@ public interface Utilities {
         dialog.show();
     }
 
-    static void showUpdateDialog(Context context, String message, String status, OnDialogButtonsClickListener onDialogButtonsClickListener) {
+    static void showUpdateAppDialog(Context context, String message, String status, OnDialogButtonsClickListener onDialogButtonsClickListener) {
 
         if (context == null) {
             return;
@@ -90,7 +90,7 @@ public interface Utilities {
 
         final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.version_update_dialog, null, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_version_update, null, false);
         Button update = view.findViewById(R.id.updateBtn);
         Button cancel = view.findViewById(R.id.cancelBtn);
         TextView msg = view.findViewById(R.id.message);
@@ -112,7 +112,7 @@ public interface Utilities {
         dialog.show();
     }
 
-    static void showPhotoDialog(Context context, OnDialogButtonsClickListener onDialogButtonsClickListener) {
+    static void showUpdatePictureOptionsDialog(Context context, OnDialogButtonsClickListener onDialogButtonsClickListener) {
 
         if (context == null) {
             return;
@@ -120,18 +120,20 @@ public interface Utilities {
 
         final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_photo, null, false);
-        TextView update = view.findViewById(R.id.photolBtn);
-        TextView cancel = view.findViewById(R.id.galerieBtn);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_update_picture_options, null, false);
+        TextView camera = view.findViewById(R.id.cameraBtn);
+        TextView gallery = view.findViewById(R.id.galleryBtn);
+        ConstraintLayout container = view.findViewById(R.id.container);
 
-        update.setOnClickListener(v -> {
+        camera.setOnClickListener(v -> {
             dialog.dismiss();
             onDialogButtonsClickListener.firstChoice();
         });
-        cancel.setOnClickListener(v -> {
+        gallery.setOnClickListener(v -> {
             dialog.dismiss();
             onDialogButtonsClickListener.secondChoice();
         });
+        container.setOnClickListener(v -> dialog.dismiss());
         dialog.setContentView(view);
         dialog.show();
     }
@@ -146,4 +148,28 @@ public interface Utilities {
         else
             return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
+    static void showNotificationPermissionDialog(Context context, View.OnClickListener onClickListener) {
+
+        if (context == null) {
+            return;
+        }
+
+        final Dialog dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_notification_permission, null, false);
+        Button deny = view.findViewById(R.id.denyBtn);
+        Button settings = view.findViewById(R.id.settingsBtn);
+        ConstraintLayout container = view.findViewById(R.id.container);
+
+        deny.setOnClickListener(v -> dialog.dismiss());
+        settings.setOnClickListener(v -> {
+            dialog.dismiss();
+            onClickListener.onClick(v);
+        });
+        container.setOnClickListener(v -> dialog.dismiss());
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
 }

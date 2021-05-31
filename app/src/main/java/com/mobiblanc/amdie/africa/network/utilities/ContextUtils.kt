@@ -18,8 +18,8 @@ class ContextUtils(base: Context) : ContextWrapper(base) {
             var context = c
             val resources: Resources = context.resources
             val preferenceManager: PreferenceManager = PreferenceManager.Builder(c, MODE_PRIVATE)
-                    .name(BuildConfig.APPLICATION_ID)
-                    .build()
+                .name(BuildConfig.APPLICATION_ID)
+                .build()
             val lang: String = preferenceManager.getValue(Constants.LANGUAGE, "fr")
             val localeToSwitchTo = Locale(lang)
             val configuration: Configuration = resources.configuration

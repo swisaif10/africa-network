@@ -205,6 +205,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
     public static class UnderlayButton {
         private final Context context;
         private final UnderlayButtonClickListener clickListener;
+        private final Rect textBounds = new Rect();
         private int pos;
         private RectF clickRegion;
 
@@ -231,7 +232,9 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
             text.setTextSize(35);
             text.setTypeface(ResourcesCompat.getFont(context, R.font.montserrat_bold));
             c.drawRoundRect(rect, 30, 30, p);
-            c.drawText("Supprimer", rect.left + 60, rect.top + 130, text);
+            text.getTextBounds(context.getString(R.string.delete_btn_label), 0, context.getString(R.string.delete_btn_label).length(), textBounds);
+            //c.drawText("Supprimer", rect.left + 60, rect.top + 130, text);
+            c.drawText(context.getString(R.string.delete_btn_label), rect.left + 60, ((rect.bottom - rect.top) / 2) + textBounds.height(), text);
             clickRegion = rect;
             this.pos = pos;
         }

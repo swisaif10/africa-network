@@ -1,4 +1,6 @@
 <resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="app_name">Africa Network</string>
     <string name="start_btn_label">Commencer</string>
     <string name="next_btn_label">Suivant</string>
@@ -9,6 +11,7 @@
     <string name="sms_confirmation_title">SMS Confirmation</string>
     <string name="sms_confirmation_subtitle">Saisissez le code reçu par SMS</string>
     <string name="resend_code_btn_label">Renvoyer le code</string>
+    <string name="resend_code_by_email_btn_label">Renvoyer le code par email</string>
     <string name="sms_confirmation_description">Vous recevrez un sms de confirmation d’activation sur votre mobile.\nCe code n’engendrera aucun frais</string>
     <string name="choose_country_title">Choisissez votre</string>
     <string name="choose_country_subtitle">espace Africa Network</string>
@@ -24,10 +27,7 @@
     <string name="office_name_hint">Nom de l \'entreprise</string>
     <string name="email_hint">Email</string>
     <string name="complete_profile_title">Inscrivez-vous</string>
-    <string name="complete_profile_subtitle">Compléter votre inscription et Rejoignez-nous</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="complete_profile_subtitle">Compléter votre inscription et\nRejoignez-nous</string>
     <string name="settings_title">Paramètres</string>
     <string name="notification">Activer les notifications</string>
     <string name="presentation_hint">Présentation</string>
@@ -36,24 +36,21 @@
     <string name="activity_hint">Secteur d\'activité</string>
     <string name="headquarters_hint">siége</string>
     <string name="squad_hint">Effectif</string>
-    <string name="product">Produits de l\'entreprise</string>
+    <string name="product_hint">Produits de l\'entreprise</string>
     <string name="turnover_hint">Chiffre d\'affaires</string>
     <string name="email_error_label">Le format de votre adresse email n\'est pas valide</string>
     <string name="devise">Devise</string>
     <string name="add_photo_profile">Ajouter\nphoto de\nprofil</string>
-    <string name="add_photo_entreprise">Ajouter \n photo de \n l’entreprise</string>
-
-    <string name="lbl_set_profile_photo">Ajouter photo de profil</string>
+    <string name="add_photo_company">Ajouter\nphoto de\nl’entreprise</string>
     <string name="lbl_take_camera_picture">Prendre une photo</string>
     <string name="lbl_choose_from_gallery">Choisir une photo</string>
-
     <string name="cgu_text"><![CDATA[<font color="#000000">J’accepte </font><font color="#0C0366"><u>les conditions générales</u></font>]]></string>
     <string name="input_hint">Écrire</string>
     <string name="send_btn_label">Envoyer</string>
     <string name="type_hint">Type</string>
     <string name="date_hint">Date</string>
     <string name="sector_hint">Secteur</string>
-    <string name="most_like_hint">Le plus aimé</string>
+    <string name="most_liked_hint">Le plus aimé</string>
     <string name="filter_btn_hint">Filtrer</string>
     <string name="like_btn_label">J\'aime</string>
     <string name="edit_profile_btn_label">Compléter mon profil</string>
@@ -66,4 +63,21 @@
     <string name="woman_hint">Femme</string>
     <string name="man_hint">Homme</string>
     <string name="mobile_register_description_text">L’adhésion à la plateforme est totalement gratuite</string>
+    <string name="profile_title_label">● Profil</string>
+    <string name="topics_title_hint">Je cherche à</string>
+    <string name="delete_btn_label">Supprimer</string>
+    <string name="linkedin_login_btn_label"><u>S’inscrire avec linkedin</u></string>
+    <string name="later_btn_label">Pas maintenant</string>
+    <string name="update_btn_label">Mettre à jour</string>
+    <string name="feed_layout_title">Feed</string>
+    <string name="settings_menu_title">Paramètres</string>
+    <string name="cgu_menu_title">Conditions générales</string>
+    <string name="message_menu_title">Messages</string>
+    <string name="personal_info_menu_title">Informations personnelles</string>
+    <string name="share_app_menu_title">Partager application</string>
+    <string name="logout_menu_title">Se déconnecter</string>
+    <string name="internet_error_message">Connexion réseau indisponible. Assurez-vous que votre connexion réseau est active et réessayez.</string>
+    <string name="notification_permission_description">Autorisez-vous <b>Africa Network</b> à vous envoyer des notifications ?</string>
+    <string name="deny_btn_label">Refuser</string>
+    <string name="save_btn_label">Enregistrer</string>
 </resources>

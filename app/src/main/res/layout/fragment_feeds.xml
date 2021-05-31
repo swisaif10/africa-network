@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="30dp"
+                tools:context=".views.dashboard.feed.FeedsFragment">
+
+                <TextView
+                    android:id="@+id/typeFilterBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/filter_options_background"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:padding="10dp"
+                    android:text="@string/type_hint"
+                    android:textAlignment="center"
+                    android:textColor="@color/selector_filter_text_color"
+                    app:drawableEndCompat="@drawable/arrow"
+                    app:drawableTint="@color/selector_filter_text_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.45" />
+
+                <TextView
+                    android:id="@+id/dateFilterBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/filter_options_background"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:padding="10dp"
+                    android:text="@string/date_hint"
+                    android:textAlignment="center"
+                    android:textColor="@color/selector_filter_text_color"
+                    app:drawableEndCompat="@drawable/calendar"
+                    app:drawableTint="@color/selector_filter_text_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.45" />
+
+                <TextView
+                    android:id="@+id/sectorFilterBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/filter_options_background"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:padding="10dp"
+                    android:text="@string/sector_hint"
+                    android:textAlignment="center"
+                    android:textColor="@color/selector_filter_text_color"
+                    app:drawableEndCompat="@drawable/ic_arrow"
+                    app:drawableTint="@color/selector_filter_text_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/typeFilterBtn"
+                    app:layout_constraintWidth_percent="0.45" />
+
+                <TextView
+                    android:id="@+id/mostLikedFilterBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/filter_options_background"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:padding="10dp"
+                    android:text="@string/most_liked_hint"
+                    android:textAlignment="center"
+                    android:textColor="@color/selector_filter_text_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dateFilterBtn"
+                    app:layout_constraintWidth_percent="0.45" />
+
+                <LinearLayout
+                    android:id="@+id/buttonsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/sectorFilterBtn">
+
+                    <RelativeLayout
+                        android:id="@+id/resetBtn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/filter_options_background">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/reset"
+                            app:tint="@color/selector_filter_text_color" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/filterBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/selector_filter_btn_background"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:text="@string/filter_btn_hint"
+                            android:textAlignment="center"
+                            android:textColor="@color/selector_filter_btn_text_color" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_filtre"
+                            app:tint="@color/selector_filter_btn_text_color" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/feedsRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/buttonsLayout"
+                    tools:listitem="@layout/feed_item_layout" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/typeFilterRecycler"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/filter_options_background"
+                    android:elevation="5dp"
+                    android:maxHeight="300dp"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="5dp"
+                    android:paddingVertical="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/dateFilterBtn"
+                    app:layout_constraintStart_toStartOf="@id/typeFilterBtn"
+                    app:layout_constraintTop_toBottomOf="@id/typeFilterBtn"
+                    tools:listitem="@layout/filter_item_layout" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sectorFilterRecycler"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/filter_options_background"
+                    android:elevation="5dp"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="5dp"
+                    android:paddingVertical="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/mostLikedFilterBtn"
+                    app:layout_constraintHeight_max="300dp"
+                    app:layout_constraintStart_toStartOf="@id/sectorFilterBtn"
+                    app:layout_constraintTop_toBottomOf="@id/sectorFilterBtn"
+                    tools:listitem="@layout/filter_item_layout" />
+
+                <com.mobiblanc.amdie.africa.network.views.dashboard.feed.filter.CalendarView
+                    android:id="@+id/calendar"
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/dateFilterBtn"
+                    app:layout_constraintStart_toStartOf="@id/dateFilterBtn"
+                    app:layout_constraintTop_toBottomOf="@id/dateFilterBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/loader"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/loader"
+            android:tint="@color/blue4"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

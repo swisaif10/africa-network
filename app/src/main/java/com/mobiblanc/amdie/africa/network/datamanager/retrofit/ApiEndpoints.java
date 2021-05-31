@@ -4,7 +4,7 @@ public interface ApiEndpoints {
     String CHECK_VERSION_URL = "api-be/api/check-version";
     String SEND_SMS_URL = "api-be/api/send/sms";
     String ChECK_SMS_URL = "api-be/api/check/sms";
-    String UPDATE_PROFILE_URL = "api-be/api/update/profile";
+    String COMPLETE_REGISTRATION_URL = "api-be/api/update/profile";
     String SEND_OTP_EMAIL_URL = "api-be/api/send/otp-email";
     String CHECK_OTP_EMAIL_URL = "api-be/api/check/otp";
     String GET_FEEDS_URL = "api-be/api/get/feed";
@@ -21,8 +21,11 @@ public interface ApiEndpoints {
     String REMOVE_CONTACT_FROM_FAVOURITE_URL = "api-be/api/remove/demande";
     String GET_FAVOURITES_LIST_URL = "api-be/api/list/demande";
     String GET_SUGGESTIONS_LIST_URL = "api-be/api/search/top-monitoring";
-
-    String UPDATE_MENTORE_URL = "api-be/api/update/mentore";
-    String GET_INIT_MONTORING_URL = "api-be/api/init/montoring ";
-    String GET_PROFILE = "api-be/api/get/profile";
+    String UPDATE_PROFILE_URL = "api-be/api/update/mentore";
+    String INIT_PROFILE_FORM_URL = "api-be/api/init/montoring ";
+    String GET_PROFILE_DETAILS_URL = "api-be/api/get/profile";
+    String GET_PROFILE_FOR_UPDATE_URL = "api-be/api/get/mentore";
+    String LINKEDIN_AUTHENTICATION_URL = "api-be/api/linkedin/callback";
+    String GET_COUNTRIES_LIST_URL = "api-be/api/countries";
+    String GET_CONTACTS_FILTER_FORM_URL = "api-be/api/search/form";
 }

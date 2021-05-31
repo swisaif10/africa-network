@@ -6,30 +6,33 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.models.contacts.favourite.AddFavouriteData;
+import com.mobiblanc.amdie.africa.network.models.contacts.filter.ContactsFilterData;
 import com.mobiblanc.amdie.africa.network.models.contacts.list.ContactsListData;
-import com.mobiblanc.amdie.africa.network.repository.ContactRepository;
+import com.mobiblanc.amdie.africa.network.repository.ContactsRepository;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 
 public class ContactsViewModel extends AndroidViewModel {
 
-    private final ContactRepository repository;
+    private final ContactsRepository repository;
 
     private final MutableLiveData<Resource<ContactsListData>> contactsListLiveData;
     private final MutableLiveData<Resource<ContactsListData>> favouritesListLiveData;
     private final MutableLiveData<Resource<ContactsListData>> suggestionsListLiveData;
     private final MutableLiveData<Resource<AddFavouriteData>> addFavouriteLiveData;
     private final MutableLiveData<Resource<AddFavouriteData>> removeFavouriteLiveData;
+    private final MutableLiveData<Resource<ContactsFilterData>> contactsFilterLiveData;
 
     public ContactsViewModel(@NonNull Application application) {
         super(application);
 
-        this.repository = new ContactRepository();
+        this.repository = new ContactsRepository();
         contactsListLiveData = new MutableLiveData<>();
         addFavouriteLiveData = new MutableLiveData<>();
         removeFavouriteLiveData = new MutableLiveData<>();
         favouritesListLiveData = new MutableLiveData<>();
         suggestionsListLiveData = new MutableLiveData<>();
+        contactsFilterLiveData = new MutableLiveData<>();
     }
 
     public MutableLiveData<Resource<ContactsListData>> getContactsListLiveData() {
@@ -52,6 +55,10 @@ public class ContactsViewModel extends AndroidViewModel {
         return suggestionsListLiveData;
     }
 
+    public MutableLiveData<Resource<ContactsFilterData>> getContactsFilterLiveData() {
+        return contactsFilterLiveData;
+    }
+
     public void getContactsList(String token, int page, String searchValue, String lang) {
         repository.getContactsList(token, page, searchValue, lang, contactsListLiveData);
     }
@@ -70,5 +77,9 @@ public class ContactsViewModel extends AndroidViewModel {
 
     public void getSuggestionsList(String token, int page, String searchValue, String lang) {
         repository.getSuggestionsList(token, page, searchValue, lang, suggestionsListLiveData);
+    }
+
+    public void getContactsFilterForm(String token, String lang) {
+        repository.getContactsFilterForm(token, lang, contactsFilterLiveData);
     }
 }

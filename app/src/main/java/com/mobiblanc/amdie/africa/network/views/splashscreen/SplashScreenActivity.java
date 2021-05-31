@@ -58,7 +58,7 @@ public class SplashScreenActivity extends BaseActivity {
                         break;
                     case "blocked":
                     case "update":
-                        Utilities.showUpdateDialog(this, responseData.data.getHeader().getMessage(), appStatus, new OnDialogButtonsClickListener() {
+                        Utilities.showUpdateAppDialog(this, responseData.data.getHeader().getMessage(), appStatus, new OnDialogButtonsClickListener() {
                             @Override
                             public void firstChoice() {
                                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(responseData.data.getResponse().getUrl())));
@@ -75,13 +75,12 @@ public class SplashScreenActivity extends BaseActivity {
             case INVALID_TOKEN:
                 break;
             case ERROR:
-                Utilities.showErrorPopup(this, responseData.message);
+                Utilities.showServerErrorDialog(this, responseData.message);
                 break;
         }
     }
 
     private void moveToNextActivity() {
-        System.out.println(preferenceManager.getValue(Constants.LANGUAGE,"fr") + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Intent intent;
         if (preferenceManager.getValue(Constants.FIRST_LAUNCH, true))
             intent = new Intent(SplashScreenActivity.this, ChangeLanguageActivity.class);

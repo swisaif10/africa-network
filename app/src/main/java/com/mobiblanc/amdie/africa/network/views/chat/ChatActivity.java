@@ -3,6 +3,7 @@ package com.mobiblanc.amdie.africa.network.views.chat;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -14,17 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.mobiblanc.amdie.africa.network.BuildConfig;
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.utilities.Constants;
-import com.mobiblanc.amdie.africa.network.utilities.Resource;
-import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.databinding.ActivityChatBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.Message;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.MessagesListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.sending.SendMessageData;
+import com.mobiblanc.amdie.africa.network.utilities.Constants;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
+import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.viewmodels.MessagesViewModel;
 import com.mobiblanc.amdie.africa.network.views.base.BaseActivity;
-import com.mobiblanc.amdie.africa.network.views.dashboard.messages.ChatAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class ChatActivity extends BaseActivity {
                 .name(BuildConfig.APPLICATION_ID)
                 .build();
 
-        handler = new Handler();
+        handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -108,7 +108,8 @@ public class ChatActivity extends BaseActivity {
         });
 
         messages = new ArrayList<>();
-        activityBinding.chatRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        activityBinding.chatRecycler.setLayoutManager(layoutManager);
         chatAdapter = new ChatAdapter(this, messages, id, picture);
         activityBinding.chatRecycler.setAdapter(chatAdapter);
     }
@@ -126,7 +127,7 @@ public class ChatActivity extends BaseActivity {
             case INVALID_TOKEN:
                 break;
             case ERROR:
-                Utilities.showErrorPopup(this, responseData.message);
+                Utilities.showServerErrorDialog(this, responseData.message);
                 break;
         }
     }
@@ -157,13 +158,13 @@ public class ChatActivity extends BaseActivity {
                 activityBinding.chatRecycler.scrollToPosition(chatAdapter.getItemCount() - 1);
                 break;
             case INVALID_TOKEN:
-                Utilities.showErrorPopupWithCLick(this, responseData.data.getHeader().getMessage(), v -> {
-                    preferenceManager.clearAll();
+                Utilities.showServerErrorDialog(this, responseData.data.getHeader().getMessage(), v -> {
+                    preferenceManager.clearValue(Constants.TOKEN);
                     tokenExpired();
                 });
                 break;
             case ERROR:
-                Utilities.showErrorPopup(this, responseData.message);
+                Utilities.showServerErrorDialog(this, responseData.message);
                 break;
         }
     }

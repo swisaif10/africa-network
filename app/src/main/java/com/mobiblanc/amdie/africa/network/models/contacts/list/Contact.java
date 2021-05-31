@@ -2,10 +2,12 @@ package com.mobiblanc.amdie.africa.network.models.contacts.list;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mobiblanc.amdie.africa.network.models.common.Item;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Contact {
+public class Contact implements Serializable {
     @SerializedName("produits")
     private String products;
     @SerializedName("id_client")
@@ -13,7 +15,9 @@ public class Contact {
     @SerializedName("demande_id")
     private int requestId;
     @Expose
-    private String commune;
+    private String city;
+    @Expose
+    private String country;
     @Expose
     private List<Item> topics;
     @SerializedName(("pictureEntreprise"))
@@ -27,15 +31,11 @@ public class Contact {
     @Expose
     private String experiences;
     @Expose
-    private List<Item> devise;
-    @Expose
     private String presentation;
     @SerializedName("effectif")
     private String companySize;
     @SerializedName("pictureProfil")
     private String ProfilePicture;
-    @Expose
-    private String province;
     @Expose
     private List<Item> speaks;
     @SerializedName("chiffredaffaire")
@@ -54,6 +54,10 @@ public class Contact {
     private String status;
     @SerializedName("favoris")
     private Boolean isFavourite;
+    @Expose
+    private String gender;
+    @SerializedName("devise")
+    private List<Item> currency;
 
     public String getProducts() {
         return products;
@@ -71,12 +75,20 @@ public class Contact {
         this.idClient = idClient;
     }
 
-    public String getCommune() {
-        return commune;
+    public String getCity() {
+        return city;
     }
 
-    public void setCommune(String commune) {
-        this.commune = commune;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public List<Item> getTopics() {
@@ -127,14 +139,6 @@ public class Contact {
         this.experiences = experiences;
     }
 
-    public List<Item> getDevise() {
-        return devise;
-    }
-
-    public void setDevise(List<Item> devise) {
-        this.devise = devise;
-    }
-
     public String getPresentation() {
         return presentation;
     }
@@ -157,14 +161,6 @@ public class Contact {
 
     public void setProfilePicture(String profilePicture) {
         ProfilePicture = profilePicture;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
     }
 
     public List<Item> getSpeaks() {
@@ -245,5 +241,21 @@ public class Contact {
 
     public void setRequestId(int requestId) {
         this.requestId = requestId;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public List<Item> getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(List<Item> currency) {
+        this.currency = currency;
     }
 }

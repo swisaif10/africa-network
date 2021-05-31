@@ -11,6 +11,8 @@ public class Result {
     private List<MenuItem> menuItems;
     @Expose
     private String name;
+    @Expose
+    private Profile profile;
 
     public List<MenuItem> getMenuItems() {
         return menuItems;
@@ -26,5 +28,13 @@ public class Result {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

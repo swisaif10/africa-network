@@ -37,7 +37,7 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="130dp">
 
             </androidx.viewpager.widget.ViewPager>
 
@@ -58,7 +58,7 @@
             android:layout_marginHorizontal="60dp"
             android:layout_marginBottom="40dp"
             android:backgroundTint="@color/blue"
-            android:fontFamily="@font/montserrat_semibold"
+            android:fontFamily="@font/montserrat_semi_bold"
             android:text="@string/start_btn_label"
             android:textAllCaps="false"
             android:textSize="15sp"

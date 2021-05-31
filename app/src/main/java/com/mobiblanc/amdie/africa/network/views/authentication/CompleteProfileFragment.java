@@ -21,8 +21,8 @@ import androidx.fragment.app.Fragment;
 import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.databinding.FragmentCompleteProfileBinding;
 import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
-import com.mobiblanc.amdie.africa.network.models.authentication.checksms.City;
-import com.mobiblanc.amdie.africa.network.models.authentication.checksms.Country;
+import com.mobiblanc.amdie.africa.network.models.common.City;
+import com.mobiblanc.amdie.africa.network.models.common.Country;
 import com.mobiblanc.amdie.africa.network.utilities.NumericKeyBoardTransformationMethod;
 import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.views.cgu.CGUActivity;
@@ -30,20 +30,27 @@ import com.mobiblanc.amdie.africa.network.views.cgu.CGUActivity;
 public class CompleteProfileFragment extends Fragment {
 
     private FragmentCompleteProfileBinding fragmentBinding;
+    private String token;
     private CheckSMSData data;
+    private Boolean isLinkedin;
     private Country country;
     private City city;
     private String gender = "";
+    private String code;
+    private String phoneNumber;
 
     public CompleteProfileFragment() {
         // Required empty public constructor
     }
 
-    public static CompleteProfileFragment newInstance(String msisdn, CheckSMSData data) {
+    public static CompleteProfileFragment newInstance(String token, CheckSMSData data, Boolean isLinkedin, String code, String phoneNumber) {
         CompleteProfileFragment fragment = new CompleteProfileFragment();
         Bundle args = new Bundle();
-        args.putString("msisdn", msisdn);
+        args.putString("token", token);
         args.putSerializable("data", data);
+        args.putBoolean("isLinkedin", isLinkedin);
+        args.putString("code", code);
+        args.putString("phoneNumber", phoneNumber);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +59,13 @@ public class CompleteProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null)
+        if (getArguments() != null) {
+            token = getArguments().getString("token");
             data = (CheckSMSData) getArguments().getSerializable("data");
+            isLinkedin = getArguments().getBoolean("isLinkedin");
+            code = getArguments().getString("code", "");
+            phoneNumber = getArguments().getString("phoneNumber");
+        }
     }
 
     @Override
@@ -79,13 +91,13 @@ public class CompleteProfileFragment extends Fragment {
             fragmentBinding.woman.setBackgroundResource(R.drawable.unselected_country_background);
             fragmentBinding.woman.setElevation(elevation);
             fragmentBinding.womanCheck.setImageResource(R.drawable.ic_uncheck_country);
-            fragmentBinding.womanImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.grey), android.graphics.PorterDuff.Mode.MULTIPLY);
+            fragmentBinding.womanImage.setImageTintList(ContextCompat.getColorStateList(requireContext(), R.color.grey));
             fragmentBinding.womanName.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey));
 
             fragmentBinding.man.setBackgroundResource(R.drawable.selected_country_background);
             fragmentBinding.man.setElevation(0f);
             fragmentBinding.manCheck.setImageResource(R.drawable.ic_check_country);
-            fragmentBinding.manImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.blue4), android.graphics.PorterDuff.Mode.MULTIPLY);
+            fragmentBinding.manImage.setImageTintList(ContextCompat.getColorStateList(requireContext(), R.color.blue4));
             fragmentBinding.manName.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue3));
 
             gender = "man";
@@ -97,13 +109,13 @@ public class CompleteProfileFragment extends Fragment {
             fragmentBinding.man.setBackgroundResource(R.drawable.unselected_country_background);
             fragmentBinding.man.setElevation(elevation);
             fragmentBinding.manCheck.setImageResource(R.drawable.ic_uncheck_country);
-            fragmentBinding.manImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.grey), android.graphics.PorterDuff.Mode.MULTIPLY);
+            fragmentBinding.manImage.setImageTintList(ContextCompat.getColorStateList(requireContext(), R.color.grey));
             fragmentBinding.manName.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey));
 
             fragmentBinding.woman.setBackgroundResource(R.drawable.selected_country_background);
             fragmentBinding.woman.setElevation(0f);
             fragmentBinding.womanCheck.setImageResource(R.drawable.ic_check_country);
-            fragmentBinding.womanImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.blue4), android.graphics.PorterDuff.Mode.MULTIPLY);
+            fragmentBinding.womanImage.setImageTintList(ContextCompat.getColorStateList(requireContext(), R.color.blue4));
             fragmentBinding.womanName.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue3));
 
             gender = "woman";
@@ -113,6 +125,8 @@ public class CompleteProfileFragment extends Fragment {
 
         fragmentBinding.container.setOnClickListener(v -> Utilities.hideSoftKeyboard(requireContext(), requireView()));
 
+        if (isLinkedin)
+            fragmentBinding.phoneNumber.setVisibility(View.VISIBLE);
         fragmentBinding.phoneNumber.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         fragmentBinding.phoneNumber.setTransformationMethod(new NumericKeyBoardTransformationMethod());
 
@@ -145,7 +159,6 @@ public class CompleteProfileFragment extends Fragment {
         fragmentBinding.company.addTextChangedListener(textWatcher);
         fragmentBinding.phoneNumber.addTextChangedListener(textWatcher);
         fragmentBinding.email.addTextChangedListener(textWatcher);
-
         fragmentBinding.email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -166,6 +179,9 @@ public class CompleteProfileFragment extends Fragment {
             }
         });
 
+        fragmentBinding.firstName.setText(data.getResults().getFirstName());
+        fragmentBinding.lastName.setText(data.getResults().getLastName());
+        fragmentBinding.email.setText(data.getResults().getEmail());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.custom_dropdown_item_layout, data.getCountriesNames());
         fragmentBinding.country.setAdapter(adapter);
@@ -190,24 +206,39 @@ public class CompleteProfileFragment extends Fragment {
 
         fragmentBinding.city.setOnItemClickListener((parent, view, position, id) -> city = country.getCities().get(position));
 
-        fragmentBinding.nextBtn.setOnClickListener(v -> ((AuthenticationActivity) requireActivity()).replaceFragment(SelectCountryFragment.newInstance(
-                gender, fragmentBinding.lastName.getText().toString(), fragmentBinding.company.getText().toString(),
-                fragmentBinding.job.getText().toString(), fragmentBinding.email.getText().toString(),
-                fragmentBinding.firstName.getText().toString(),
-                country.getId(), country.getName(), city.getId()), ""));
-
+        fragmentBinding.nextBtn.setOnClickListener(v -> {
+            if (!Utilities.isEmpty(fragmentBinding.phoneNumber))
+                phoneNumber = fragmentBinding.phoneNumber.getText().toString();
+            ((AuthenticationActivity) requireActivity()).replaceFragment(SelectCountryFragment.newInstance(token,
+                    gender, fragmentBinding.lastName.getText().toString(), fragmentBinding.company.getText().toString(),
+                    fragmentBinding.job.getText().toString(), fragmentBinding.email.getText().toString(),
+                    fragmentBinding.firstName.getText().toString(),
+                    country.getId(), city.getId(), code, phoneNumber), "");
+        });
     }
 
     private Boolean checkForm() {
-        return !gender.equalsIgnoreCase("") &&
-                !Utilities.isEmpty(fragmentBinding.firstName) &&
-                !Utilities.isEmpty(fragmentBinding.lastName) &&
-                !Utilities.isEmpty(fragmentBinding.country) &&
-                !Utilities.isEmpty(fragmentBinding.city) &&
-                !Utilities.isEmpty(fragmentBinding.job) &&
-                !Utilities.isEmpty(fragmentBinding.company) &&
-                Utilities.isEmailValid(fragmentBinding.email.getText().toString()) &&
-                fragmentBinding.cguCheck.isChecked();
+        if (isLinkedin)
+            return !gender.equalsIgnoreCase("") &&
+                    !Utilities.isEmpty(fragmentBinding.phoneNumber) &&
+                    !Utilities.isEmpty(fragmentBinding.firstName) &&
+                    !Utilities.isEmpty(fragmentBinding.lastName) &&
+                    !Utilities.isEmpty(fragmentBinding.country) &&
+                    !Utilities.isEmpty(fragmentBinding.city) &&
+                    !Utilities.isEmpty(fragmentBinding.job) &&
+                    !Utilities.isEmpty(fragmentBinding.company) &&
+                    Utilities.isEmailValid(fragmentBinding.email.getText().toString()) &&
+                    fragmentBinding.cguCheck.isChecked();
+        else
+            return !gender.equalsIgnoreCase("") &&
+                    !Utilities.isEmpty(fragmentBinding.firstName) &&
+                    !Utilities.isEmpty(fragmentBinding.lastName) &&
+                    !Utilities.isEmpty(fragmentBinding.country) &&
+                    !Utilities.isEmpty(fragmentBinding.city) &&
+                    !Utilities.isEmpty(fragmentBinding.job) &&
+                    !Utilities.isEmpty(fragmentBinding.company) &&
+                    Utilities.isEmailValid(fragmentBinding.email.getText().toString()) &&
+                    fragmentBinding.cguCheck.isChecked();
     }
 
 }

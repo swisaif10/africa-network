@@ -31,6 +31,5 @@ public class Resource<T> {
         return new Resource<>(Status.INVALID_TOKEN, data, null);
     }
 
-
     public enum Status {SUCCESS, ERROR, INVALID_TOKEN}
 }

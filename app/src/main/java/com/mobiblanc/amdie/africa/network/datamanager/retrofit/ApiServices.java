@@ -1,11 +1,12 @@
 package com.mobiblanc.amdie.africa.network.datamanager.retrofit;
 
 import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.models.authentication.completeregistraion.CompleteRegistrationData;
 import com.mobiblanc.amdie.africa.network.models.authentication.sendsms.SendSMSData;
-import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
 import com.mobiblanc.amdie.africa.network.models.cgu.CGUData;
 import com.mobiblanc.amdie.africa.network.models.checkversion.CheckVersionData;
 import com.mobiblanc.amdie.africa.network.models.contacts.favourite.AddFavouriteData;
+import com.mobiblanc.amdie.africa.network.models.contacts.filter.ContactsFilterData;
 import com.mobiblanc.amdie.africa.network.models.contacts.list.ContactsListData;
 import com.mobiblanc.amdie.africa.network.models.feed.GetFeedData;
 import com.mobiblanc.amdie.africa.network.models.like.LikeFeedData;
@@ -14,9 +15,11 @@ import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
 import com.mobiblanc.amdie.africa.network.models.messaging.discussions.DiscussionsListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.MessagesListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.sending.SendMessageData;
-import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
-import com.mobiblanc.amdie.africa.network.models.search.profile.Profile;
-import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
+import com.mobiblanc.amdie.africa.network.models.profile.countries.CountriesListData;
+import com.mobiblanc.amdie.africa.network.models.profile.details.ProfileDetailsData;
+import com.mobiblanc.amdie.africa.network.models.profile.initform.InitProfileFormData;
+import com.mobiblanc.amdie.africa.network.models.profile.update.ProfileDetailsForUpdateData;
+import com.mobiblanc.amdie.africa.network.models.profile.update.UpdateProfileData;
 import com.mobiblanc.amdie.africa.network.models.share.ShareAppData;
 
 import okhttp3.MultipartBody;
@@ -42,6 +45,11 @@ public interface ApiServices {
                               @Field("device_uid") String uid);
 
     @FormUrlEncoded
+    @POST(ApiEndpoints.LINKEDIN_AUTHENTICATION_URL)
+    Call<CheckSMSData> loginWithLinkedin(@Field("code") String code,
+                                         @Field("lang") String lang);
+
+    @FormUrlEncoded
     @POST(ApiEndpoints.ChECK_SMS_URL)
     Call<CheckSMSData> checkSMS(@Field("msisdn") String msisdn,
                                 @Field("code_sms") String code,
@@ -61,18 +69,20 @@ public interface ApiServices {
                                        @Field("lang") String lang);
 
     @FormUrlEncoded
-    @POST(ApiEndpoints.UPDATE_PROFILE_URL)
-    Call<UpdateProfileData> updateProfile(@Field("token") String token,
-                                          @Field("gender") String gender,
-                                          @Field("nom") String lastName,
-                                          @Field("nomentreprise") String company,
-                                          @Field("fonction") String job,
-                                          @Field("email") String email,
-                                          @Field("prenom") String firstName,
-                                          @Field("country") int country,
-                                          @Field("city") int city,
-                                          @Field("nationality") int nationality,
-                                          @Field("firebase_token") String firebaseToken);
+    @POST(ApiEndpoints.COMPLETE_REGISTRATION_URL)
+    Call<CompleteRegistrationData> completeRegistration(@Field("token") String token,
+                                                        @Field("gender") String gender,
+                                                        @Field("nom") String lastName,
+                                                        @Field("nomentreprise") String company,
+                                                        @Field("fonction") String job,
+                                                        @Field("email") String email,
+                                                        @Field("prenom") String firstName,
+                                                        @Field("country") int country,
+                                                        @Field("city") int city,
+                                                        @Field("nationality") int nationality,
+                                                        @Field("firebase_token") String firebaseToken,
+                                                        @Field("code") String code,
+                                                        @Field("telephone") String phoneNumber);
 
     @FormUrlEncoded
     @POST(ApiEndpoints.GET_FEEDS_URL)
@@ -82,6 +92,7 @@ public interface ApiServices {
                                @Field("type") String type,
                                @Field("date") String date,
                                @Field("must_liked") Boolean mostLiked,
+                               @Field("offset") int offset,
                                @Field("lang") String lang);
 
     @FormUrlEncoded
@@ -161,34 +172,45 @@ public interface ApiServices {
                                               @Field("searchValue") String searchValue,
                                               @Field("lang") String lang);
 
-
-    @Multipart
-    @POST(ApiEndpoints.UPDATE_MENTORE_URL)
-    Call<UpdateMentoreData> updatemMentore(@Part("token") RequestBody token,
-                                           @Part MultipartBody.Part pictureProfil,
-                                           @Part MultipartBody.Part pictureEntreprise,
-                                           @Part("lang") RequestBody lang,
-                                           @Part("canal") RequestBody canal,
-                                           @Part("presentation") RequestBody presentation,
-                                           @Part("siege") RequestBody siege,
-                                           @Part("secteur") RequestBody secteur,
-                                           @Part("chiffredaffaire") RequestBody chiffredaffaire,
-                                           @Part("effectif") RequestBody effectif,
-                                           @Part("topics") RequestBody topics,
-                                           @Part("devise") RequestBody devise,
-                                           @Part("produits") RequestBody produit);
-
-
     @FormUrlEncoded
-    @POST(ApiEndpoints.GET_INIT_MONTORING_URL)
-    Call<InitMontoringData> getInit_Montoring(@Field("token") String token,
+    @POST(ApiEndpoints.INIT_PROFILE_FORM_URL)
+    Call<InitProfileFormData> initProfileForm(@Field("token") String token,
                                               @Field("canal") String canal,
                                               @Field("lang") String lang);
 
-    @FormUrlEncoded
-    @POST(ApiEndpoints.GET_PROFILE)
-    Call<Profile> getProfile(@Field("token") String token,
-                             @Field("canal") String canal,
-                             @Field("lang") String lang);
+    @Multipart
+    @POST(ApiEndpoints.UPDATE_PROFILE_URL)
+    Call<UpdateProfileData> updateProfile(@Part("token") RequestBody token,
+                                          @Part MultipartBody.Part profilePicture,
+                                          @Part MultipartBody.Part companyPicture,
+                                          @Part("lang") RequestBody lang,
+                                          @Part("canal") RequestBody canal,
+                                          @Part("presentation") RequestBody presentation,
+                                          @Part("siege") RequestBody headquarter,
+                                          @Part("secteur") RequestBody sector,
+                                          @Part("chiffredaffaire") RequestBody revenues,
+                                          @Part("effectif") RequestBody companySize,
+                                          @Part("topics") RequestBody topics,
+                                          @Part("devise") RequestBody currency,
+                                          @Part("produits") RequestBody products);
 
+    @FormUrlEncoded
+    @POST(ApiEndpoints.GET_PROFILE_DETAILS_URL)
+    Call<ProfileDetailsData> getProfile(@Field("token") String token,
+                                        @Field("lang") String lang);
+
+    @FormUrlEncoded
+    @POST(ApiEndpoints.GET_PROFILE_FOR_UPDATE_URL)
+    Call<ProfileDetailsForUpdateData> getProfileForUpdate(@Field("token") String token,
+                                                          @Field("lang") String lang);
+
+    @FormUrlEncoded
+    @POST(ApiEndpoints.GET_COUNTRIES_LIST_URL)
+    Call<CountriesListData> getCountries(@Field("token") String token,
+                                         @Field("lang") String lang);
+
+    @FormUrlEncoded
+    @POST(ApiEndpoints.GET_CONTACTS_FILTER_FORM_URL)
+    Call<ContactsFilterData> getContactsFilterForm(@Field("token") String token,
+                                                   @Field("lang") String lang);
 }

@@ -3,7 +3,6 @@ package com.mobiblanc.amdie.africa.network.views.home;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.mobiblanc.amdie.africa.network.R;

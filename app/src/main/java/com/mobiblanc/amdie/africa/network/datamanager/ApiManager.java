@@ -1,16 +1,20 @@
 package com.mobiblanc.amdie.africa.network.datamanager;
 
+import android.content.res.Resources;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.mobiblanc.amdie.africa.network.BuildConfig;
+import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.datamanager.retrofit.RetrofitClient;
 import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.models.authentication.completeregistraion.CompleteRegistrationData;
 import com.mobiblanc.amdie.africa.network.models.authentication.sendsms.SendSMSData;
-import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
 import com.mobiblanc.amdie.africa.network.models.cgu.CGUData;
 import com.mobiblanc.amdie.africa.network.models.checkversion.CheckVersionData;
 import com.mobiblanc.amdie.africa.network.models.contacts.favourite.AddFavouriteData;
+import com.mobiblanc.amdie.africa.network.models.contacts.filter.ContactsFilterData;
 import com.mobiblanc.amdie.africa.network.models.contacts.list.ContactsListData;
 import com.mobiblanc.amdie.africa.network.models.feed.GetFeedData;
 import com.mobiblanc.amdie.africa.network.models.like.LikeFeedData;
@@ -19,9 +23,11 @@ import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
 import com.mobiblanc.amdie.africa.network.models.messaging.discussions.DiscussionsListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.messages.MessagesListData;
 import com.mobiblanc.amdie.africa.network.models.messaging.sending.SendMessageData;
-import com.mobiblanc.amdie.africa.network.models.search.init_montoring.InitMontoringData;
-import com.mobiblanc.amdie.africa.network.models.search.profile.Profile;
-import com.mobiblanc.amdie.africa.network.models.search.update_mentore.UpdateMentoreData;
+import com.mobiblanc.amdie.africa.network.models.profile.countries.CountriesListData;
+import com.mobiblanc.amdie.africa.network.models.profile.details.ProfileDetailsData;
+import com.mobiblanc.amdie.africa.network.models.profile.initform.InitProfileFormData;
+import com.mobiblanc.amdie.africa.network.models.profile.update.ProfileDetailsForUpdateData;
+import com.mobiblanc.amdie.africa.network.models.profile.update.UpdateProfileData;
 import com.mobiblanc.amdie.africa.network.models.share.ShareAppData;
 import com.mobiblanc.amdie.africa.network.utilities.Resource;
 
@@ -39,7 +45,7 @@ public class ApiManager {
 
     private void HandleThrowableException(Throwable e, MutableLiveData mutableLiveData) {
         if (e instanceof UnknownHostException || e instanceof ConnectException || e instanceof SocketTimeoutException) {
-            mutableLiveData.setValue(Resource.error("Connexion réseau indisponible. Assurez-vous que votre connexion réseau est active et réessayez.", null));
+            mutableLiveData.setValue(Resource.error(Resources.getSystem().getString(R.string.internet_error_message), null));
         } else {
             mutableLiveData.setValue(Resource.error(e.getMessage(), null));
         }
@@ -82,6 +88,27 @@ public class ApiManager {
 
             @Override
             public void onFailure(@NonNull Call<SendSMSData> call, @NonNull Throwable t) {
+                HandleThrowableException(t, mutableLiveData);
+            }
+        });
+    }
+
+    public void loginWithLinkedin(String code, String lang, MutableLiveData<Resource<CheckSMSData>> mutableLiveData) {
+        Call<CheckSMSData> call = RetrofitClient.getInstance().endpoint().loginWithLinkedin(code, lang);
+        call.enqueue(new Callback<CheckSMSData>() {
+            @Override
+            public void onResponse(@NonNull Call<CheckSMSData> call, @NonNull Response<CheckSMSData> response) {
+                if (response.body() != null)
+                    if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                        mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                    else
+                        mutableLiveData.setValue(Resource.success(response.body()));
+                else
+                    mutableLiveData.setValue(Resource.error("Internal Server Error", null));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CheckSMSData> call, @NonNull Throwable t) {
                 HandleThrowableException(t, mutableLiveData);
             }
         });
@@ -150,22 +177,24 @@ public class ApiManager {
         });
     }
 
-    public void updateProfile(String token,
-                              String gender,
-                              String lastName,
-                              String company,
-                              String job,
-                              String email,
-                              String firstName,
-                              int country,
-                              int city,
-                              int nationality,
-                              String firebaseToken,
-                              MutableLiveData<Resource<UpdateProfileData>> mutableLiveData) {
-        Call<UpdateProfileData> call = RetrofitClient.getInstance().endpoint().updateProfile(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken);
-        call.enqueue(new Callback<UpdateProfileData>() {
+    public void completeRegistration(String token,
+                                     String gender,
+                                     String lastName,
+                                     String company,
+                                     String job,
+                                     String email,
+                                     String firstName,
+                                     int country,
+                                     int city,
+                                     int nationality,
+                                     String firebaseToken,
+                                     String code,
+                                     String phoneNumber,
+                                     MutableLiveData<Resource<CompleteRegistrationData>> mutableLiveData) {
+        Call<CompleteRegistrationData> call = RetrofitClient.getInstance().endpoint().completeRegistration(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber);
+        call.enqueue(new Callback<CompleteRegistrationData>() {
             @Override
-            public void onResponse(@NonNull Call<UpdateProfileData> call, @NonNull Response<UpdateProfileData> response) {
+            public void onResponse(@NonNull Call<CompleteRegistrationData> call, @NonNull Response<CompleteRegistrationData> response) {
                 if (response.body() != null)
                     if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
                         mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
@@ -178,7 +207,7 @@ public class ApiManager {
             }
 
             @Override
-            public void onFailure(@NonNull Call<UpdateProfileData> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<CompleteRegistrationData> call, @NonNull Throwable t) {
                 HandleThrowableException(t, mutableLiveData);
             }
         });
@@ -189,9 +218,10 @@ public class ApiManager {
                          String type,
                          String date,
                          Boolean mostLiked,
+                         int offset,
                          String lang,
                          MutableLiveData<Resource<GetFeedData>> mutableLiveData) {
-        Call<GetFeedData> call = RetrofitClient.getInstance().endpoint().getFeeds(token, "mobile", sectors, type, date, mostLiked, lang);
+        Call<GetFeedData> call = RetrofitClient.getInstance().endpoint().getFeeds(token, "mobile", sectors, type, date, mostLiked, offset, lang);
         call.enqueue(new Callback<GetFeedData>() {
             @Override
             public void onResponse(@NonNull Call<GetFeedData> call, @NonNull Response<GetFeedData> response) {
@@ -545,26 +575,25 @@ public class ApiManager {
         });
     }
 
-
-    public void updateMentore(RequestBody token,
-                              MultipartBody.Part pictureProfil,
-                              MultipartBody.Part pictureEntreprise,
+    public void updateProfile(RequestBody token,
+                              MultipartBody.Part profilePicture,
+                              MultipartBody.Part companyPicture,
                               RequestBody lang,
                               RequestBody canal,
                               RequestBody presentation,
-                              RequestBody siege,
-                              RequestBody secteur,
-                              RequestBody chiffredaffaire,
-                              RequestBody effectif,
+                              RequestBody headquarter,
+                              RequestBody sector,
+                              RequestBody revenues,
+                              RequestBody companySize,
                               RequestBody topics,
-                              RequestBody devise,
-                              RequestBody produit,
-                              MutableLiveData<Resource<UpdateMentoreData>> mutableLiveData) {
-        Call<UpdateMentoreData> call = RetrofitClient.getInstance().endpoint().updatemMentore(token, pictureProfil,
-                pictureEntreprise, lang, canal, presentation, siege, secteur, chiffredaffaire, effectif, topics, devise, produit);
-        call.enqueue(new Callback<UpdateMentoreData>() {
+                              RequestBody currency,
+                              RequestBody products,
+                              MutableLiveData<Resource<UpdateProfileData>> mutableLiveData) {
+        Call<UpdateProfileData> call = RetrofitClient.getInstance().endpoint().updateProfile(token, profilePicture,
+                companyPicture, lang, canal, presentation, headquarter, sector, revenues, companySize, topics, currency, products);
+        call.enqueue(new Callback<UpdateProfileData>() {
             @Override
-            public void onResponse(@NonNull Call<UpdateMentoreData> call, @NonNull Response<UpdateMentoreData> response) {
+            public void onResponse(@NonNull Call<UpdateProfileData> call, @NonNull Response<UpdateProfileData> response) {
                 assert response.body() != null;
                 if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
                     mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
@@ -573,18 +602,18 @@ public class ApiManager {
             }
 
             @Override
-            public void onFailure(@NonNull Call<UpdateMentoreData> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<UpdateProfileData> call, @NonNull Throwable t) {
                 HandleThrowableException(t, mutableLiveData);
             }
         });
     }
 
-    public void getInitMontoring(String token, String lang,
-                                 MutableLiveData<Resource<InitMontoringData>> mutableLiveData) {
-        Call<InitMontoringData> call = RetrofitClient.getInstance().endpoint().getInit_Montoring(token, "mobile", lang);
-        call.enqueue(new Callback<InitMontoringData>() {
+    public void initProfileForm(String token, String lang,
+                                MutableLiveData<Resource<InitProfileFormData>> mutableLiveData) {
+        Call<InitProfileFormData> call = RetrofitClient.getInstance().endpoint().initProfileForm(token, "mobile", lang);
+        call.enqueue(new Callback<InitProfileFormData>() {
             @Override
-            public void onResponse(@NonNull Call<InitMontoringData> call, @NonNull Response<InitMontoringData> response) {
+            public void onResponse(@NonNull Call<InitProfileFormData> call, @NonNull Response<InitProfileFormData> response) {
                 assert response.body() != null;
                 if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
                     mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
@@ -593,18 +622,18 @@ public class ApiManager {
             }
 
             @Override
-            public void onFailure(@NonNull Call<InitMontoringData> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<InitProfileFormData> call, @NonNull Throwable t) {
                 HandleThrowableException(t, mutableLiveData);
             }
         });
     }
 
     public void getProfile(String token, String lang,
-                           MutableLiveData<Resource<Profile>> mutableLiveData) {
-        Call<Profile> call = RetrofitClient.getInstance().endpoint().getProfile(token, "mobile", lang);
-        call.enqueue(new Callback<Profile>() {
+                           MutableLiveData<Resource<ProfileDetailsData>> mutableLiveData) {
+        Call<ProfileDetailsData> call = RetrofitClient.getInstance().endpoint().getProfile(token, lang);
+        call.enqueue(new Callback<ProfileDetailsData>() {
             @Override
-            public void onResponse(@NonNull Call<Profile> call, @NonNull Response<Profile> response) {
+            public void onResponse(@NonNull Call<ProfileDetailsData> call, @NonNull Response<ProfileDetailsData> response) {
                 assert response.body() != null;
                 if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
                     mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
@@ -613,11 +642,69 @@ public class ApiManager {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Profile> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ProfileDetailsData> call, @NonNull Throwable t) {
                 HandleThrowableException(t, mutableLiveData);
             }
         });
     }
 
+    public void getProfileForUpdate(String token, String lang,
+                                    MutableLiveData<Resource<ProfileDetailsForUpdateData>> mutableLiveData) {
+        Call<ProfileDetailsForUpdateData> call = RetrofitClient.getInstance().endpoint().getProfileForUpdate(token, lang);
+        call.enqueue(new Callback<ProfileDetailsForUpdateData>() {
+            @Override
+            public void onResponse(@NonNull Call<ProfileDetailsForUpdateData> call, @NonNull Response<ProfileDetailsForUpdateData> response) {
+                assert response.body() != null;
+                if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                    mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                else
+                    mutableLiveData.setValue(Resource.success(response.body()));
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<ProfileDetailsForUpdateData> call, @NonNull Throwable t) {
+                HandleThrowableException(t, mutableLiveData);
+            }
+        });
+    }
+
+    public void getCountries(String token, String lang,
+                             MutableLiveData<Resource<CountriesListData>> mutableLiveData) {
+        Call<CountriesListData> call = RetrofitClient.getInstance().endpoint().getCountries(token, lang);
+        call.enqueue(new Callback<CountriesListData>() {
+            @Override
+            public void onResponse(@NonNull Call<CountriesListData> call, @NonNull Response<CountriesListData> response) {
+                assert response.body() != null;
+                if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                    mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                else
+                    mutableLiveData.setValue(Resource.success(response.body()));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CountriesListData> call, @NonNull Throwable t) {
+                HandleThrowableException(t, mutableLiveData);
+            }
+        });
+    }
+
+    public void getContactsFilterForm(String token, String lang,
+                                      MutableLiveData<Resource<ContactsFilterData>> mutableLiveData) {
+        Call<ContactsFilterData> call = RetrofitClient.getInstance().endpoint().getContactsFilterForm(token, lang);
+        call.enqueue(new Callback<ContactsFilterData>() {
+            @Override
+            public void onResponse(@NonNull Call<ContactsFilterData> call, @NonNull Response<ContactsFilterData> response) {
+                assert response.body() != null;
+                if (response.body().getHeader().getStatus().equalsIgnoreCase("ko"))
+                    mutableLiveData.setValue(Resource.error(response.body().getHeader().getMessage(), null));
+                else
+                    mutableLiveData.setValue(Resource.success(response.body()));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ContactsFilterData> call, @NonNull Throwable t) {
+                HandleThrowableException(t, mutableLiveData);
+            }
+        });
+    }
 }

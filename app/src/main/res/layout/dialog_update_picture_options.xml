@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#AA000000">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/unselected_country_background"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.80">
+
+        <TextView
+            android:id="@+id/cameraBtn"
+            android:layout_width="246dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/selector_camera_btn_background"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:text="@string/lbl_take_camera_picture"
+            android:textColor="@color/selector_filter_text_color"
+            android:textSize="14sp"
+            app:drawableStartCompat="@drawable/selector_camera_btn_icon" />
+
+        <TextView
+            android:id="@+id/galleryBtn"
+            android:layout_width="246dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/selector_camera_btn_background"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:text="@string/lbl_choose_from_gallery"
+            android:textColor="@color/selector_filter_text_color"
+            android:textSize="14sp"
+            app:drawableStartCompat="@drawable/selector_gallery_btn_icon" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

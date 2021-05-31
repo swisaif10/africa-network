@@ -27,6 +27,7 @@ import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManag
 import com.mobiblanc.amdie.africa.network.models.logout.LogoutData;
 import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
 import com.mobiblanc.amdie.africa.network.models.menu.MenuItem;
+import com.mobiblanc.amdie.africa.network.models.menu.Profile;
 import com.mobiblanc.amdie.africa.network.models.menu.Result;
 import com.mobiblanc.amdie.africa.network.models.share.ShareAppData;
 import com.mobiblanc.amdie.africa.network.utilities.Constants;
@@ -39,7 +40,8 @@ import com.mobiblanc.amdie.africa.network.views.cgu.CGUActivity;
 import com.mobiblanc.amdie.africa.network.views.dashboard.contacts.ContactsFragment;
 import com.mobiblanc.amdie.africa.network.views.dashboard.feed.FeedsFragment;
 import com.mobiblanc.amdie.africa.network.views.dashboard.messages.MessagesListFragment;
-import com.mobiblanc.amdie.africa.network.views.dashboard.profile.SearchFragment;
+import com.mobiblanc.amdie.africa.network.views.dashboard.profile.ProfileFragment;
+import com.mobiblanc.amdie.africa.network.views.personalinforamtion.PersonalInformationActivity;
 import com.mobiblanc.amdie.africa.network.views.settings.SettingsActivity;
 
 import java.util.ArrayList;
@@ -47,11 +49,11 @@ import java.util.List;
 
 public class DashboardActivity extends BaseActivity {
 
-    ArrayList<Fragment> fragments;
     private ActivityDashboardBinding activityBinding;
     private DashboardViewModel viewModel;
     private PreferenceManager preferenceManager;
     private List<MenuItem> menuList;
+    private ArrayList<Fragment> fragments;
 
     public DashboardViewModel getViewModel() {
         return viewModel;
@@ -70,8 +72,6 @@ public class DashboardActivity extends BaseActivity {
         preferenceManager = new PreferenceManager.Builder(this, Context.MODE_PRIVATE)
                 .name(BuildConfig.APPLICATION_ID)
                 .build();
-
-        initNavigationView();
 
         getMenu();
     }
@@ -100,25 +100,27 @@ public class DashboardActivity extends BaseActivity {
                     if (result.getName().equals("Menu")) {
                         menuList = result.getMenuItems();
                         initTab();
+                        initNavigationView(result.getProfile());
                     }
                 }
                 break;
             case INVALID_TOKEN:
-                Utilities.showErrorPopupWithCLick(this, responseData.data.getHeader().getMessage(), v -> {
-                    preferenceManager.clearAll();
+                Utilities.showServerErrorDialog(this, responseData.data.getHeader().getMessage(), v -> {
+                    preferenceManager.clearValue(Constants.TOKEN);
+
                     tokenExpired();
                 });
                 break;
             case ERROR:
-                Utilities.showErrorPopup(this, responseData.message);
+                Utilities.showServerErrorDialog(this, responseData.message);
                 break;
         }
     }
 
     private void initTab() {
+        activityBinding.editProfileBtn.setOnClickListener(v -> replaceFragment(ProfileFragment.newInstance(true), ""));
 
         fragments = new ArrayList<>();
-
         for (int i = 0; i < menuList.size(); i++) {
             TabLayout.Tab tab = activityBinding.tabLayout.newTab();
             View view = tab.getCustomView() == null ? LayoutInflater.from(activityBinding.tabLayout.getContext()).inflate(R.layout.tab_item_layout, null) : tab.getCustomView();
@@ -134,7 +136,7 @@ public class DashboardActivity extends BaseActivity {
                     fragments.add(new FeedsFragment());
                     break;
                 case "action_recherche":
-                    fragments.add(new SearchFragment());
+                    fragments.add(ProfileFragment.newInstance(false));
                     break;
                 case "action_relation":
                     fragments.add(new ContactsFragment());
@@ -142,7 +144,6 @@ public class DashboardActivity extends BaseActivity {
                 case "action_message":
                     fragments.add(new MessagesListFragment());
                     break;
-
             }
             activityBinding.tabLayout.addTab(tab);
         }
@@ -167,7 +168,6 @@ public class DashboardActivity extends BaseActivity {
                 activityBinding.title.setText(menuList.get(position).getName());
             }
         });
-
         activityBinding.tabLayout.getTabAt(0).select();
     }
 
@@ -179,7 +179,7 @@ public class DashboardActivity extends BaseActivity {
         return -1;
     }
 
-    private void initNavigationView() {
+    private void initNavigationView(Profile profile) {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -195,23 +195,26 @@ public class DashboardActivity extends BaseActivity {
 
         View headerView = navigationView.getHeaderView(0);
         TextView username = headerView.findViewById(R.id.username);
-        username.setText(preferenceManager.getValue(Constants.USERNAME, ""));
+        username.setText(profile.getFullName());
         TextView country = headerView.findViewById(R.id.country);
-        country.setText(preferenceManager.getValue(Constants.COUNTRY, ""));
+        country.setText(profile.getCountry());
         ImageView picture = headerView.findViewById(R.id.picture);
-        Glide.with(this).load(preferenceManager.getValue(Constants.PICTURE, "")).placeholder(R.drawable.user).into(picture);
+        if (profile.getGender().equalsIgnoreCase("man"))
+            Glide.with(this).load(profile.getPicture()).placeholder(R.drawable.men_avatar).into(picture);
+        else
+            Glide.with(this).load(profile.getPicture()).placeholder(R.drawable.women_avatar).into(picture);
 
         Menu menu = navigationView.getMenu();
-        menu.add(0, 0, 0, "Paramètres").setIcon(R.drawable.ic_parametre);
-        menu.add(0, 1, 1, "Conditions générales").setIcon(R.drawable.ic_docs);
-        menu.add(0, 2, 2, "Messages").setIcon(R.drawable.ic_messages);
-        menu.add(0, 3, 3, "Partager application").setIcon(R.drawable.ic_share_1);
-        menu.add(0, 4, 4, "Se déconnecter").setIcon(R.drawable.ic_logout);
+        menu.add(0, 0, 0, getString(R.string.settings_menu_title)).setIcon(R.drawable.ic_parametre);
+        menu.add(0, 1, 1, getString(R.string.cgu_menu_title)).setIcon(R.drawable.ic_docs);
+        menu.add(0, 2, 2, getString(R.string.message_menu_title)).setIcon(R.drawable.ic_messages);
+        menu.add(0, 3, 3, getString(R.string.personal_info_menu_title)).setIcon(R.drawable.ic_secteur);
+        menu.add(0, 4, 4, getString(R.string.share_app_menu_title)).setIcon(R.drawable.ic_share_1);
+        menu.add(0, 5, 5, getString(R.string.logout_menu_title)).setIcon(R.drawable.ic_logout);
 
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case 0:
-                    drawer.closeDrawer(GravityCompat.START);
                     startActivity(new Intent(DashboardActivity.this, SettingsActivity.class));
                     break;
                 case 1:
@@ -225,9 +228,12 @@ public class DashboardActivity extends BaseActivity {
                     activityBinding.title.setText(item.getTitle());
                     break;
                 case 3:
-                    getShareLink();
+                    startActivity(new Intent(DashboardActivity.this, PersonalInformationActivity.class));
                     break;
                 case 4:
+                    getShareLink();
+                    break;
+                case 5:
                     logout();
                     break;
             }
@@ -250,13 +256,14 @@ public class DashboardActivity extends BaseActivity {
                 startActivity(Intent.createChooser(shareIntent, "Share via"));
                 break;
             case INVALID_TOKEN:
-                Utilities.showErrorPopupWithCLick(this, responseData.data.getHeader().getMessage(), v -> {
-                    preferenceManager.clearAll();
+                Utilities.showServerErrorDialog(this, responseData.data.getHeader().getMessage(), v -> {
+                    preferenceManager.clearValue(Constants.TOKEN);
+
                     tokenExpired();
                 });
                 break;
             case ERROR:
-                Utilities.showErrorPopup(this, responseData.message);
+                Utilities.showServerErrorDialog(this, responseData.message);
                 break;
         }
     }
@@ -277,7 +284,7 @@ public class DashboardActivity extends BaseActivity {
             case INVALID_TOKEN:
                 break;
             case ERROR:
-                Utilities.showErrorPopup(this, responseData.message);
+                Utilities.showServerErrorDialog(this, responseData.message);
                 break;
         }
     }
@@ -291,4 +298,7 @@ public class DashboardActivity extends BaseActivity {
         }
     }
 
+    public void showHideEditBtn(int visibility) {
+        activityBinding.editProfileBtn.setVisibility(visibility);
+    }
 }

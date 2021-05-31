@@ -13,14 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mobiblanc.amdie.africa.network.R;
-import com.mobiblanc.amdie.africa.network.utilities.GlideApp;
 import com.mobiblanc.amdie.africa.network.models.countries.Country;
+import com.mobiblanc.amdie.africa.network.utilities.GlideApp;
 
 import java.util.List;
 
 public class CountriesAdapter extends ArrayAdapter {
 
-    private Activity activity;
+    private final Activity activity;
 
     public CountriesAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull List<Country> countries, Activity activity) {
         super(context, resource, textViewResourceId, countries);
@@ -36,15 +36,15 @@ public class CountriesAdapter extends ArrayAdapter {
         }
 
         Country country = (Country) getItem(position);
-        ImageView flag = (ImageView) convertView.findViewById(R.id.flag);
+        ImageView flag = convertView.findViewById(R.id.flag);
 
         GlideApp.with(activity)
                 .load(country.getFlag())
                 .into(flag);
 
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.name);
+        TextView txtTitle = convertView.findViewById(R.id.name);
         txtTitle.setText(String.format("%s (%s)", country.getTranslations().getFr(), country.getAlpha2Code()));
-        TextView code = (TextView) convertView.findViewById(R.id.code);
+        TextView code = convertView.findViewById(R.id.code);
         code.setText(String.format("+%s", country.getCallingCodes().get(0)));
         return convertView;
     }

@@ -11,6 +11,8 @@ public class MessagesListData implements Serializable {
     private Header header;
     @Expose
     private List<Message> results;
+    @Expose
+    private int offset;
 
     public Header getHeader() {
         return header;
@@ -26,5 +28,13 @@ public class MessagesListData implements Serializable {
 
     public void setResults(List<Message> results) {
         this.results = results;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 }

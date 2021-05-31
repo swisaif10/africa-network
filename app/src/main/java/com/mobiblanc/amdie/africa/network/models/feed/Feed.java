@@ -1,6 +1,7 @@
 package com.mobiblanc.amdie.africa.network.models.feed;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Feed {
     @Expose
@@ -21,6 +22,8 @@ public class Feed {
     private String body;
     @Expose
     private int liked;
+    @SerializedName("pdf_url")
+    private String url;
 
     public String getDate() {
         return date;
@@ -92,5 +95,13 @@ public class Feed {
 
     public void setLiked(int liked) {
         this.liked = liked;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

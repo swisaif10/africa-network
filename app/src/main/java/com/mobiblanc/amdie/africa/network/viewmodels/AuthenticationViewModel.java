@@ -6,20 +6,21 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.utilities.Resource;
 import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
+import com.mobiblanc.amdie.africa.network.models.authentication.completeregistraion.CompleteRegistrationData;
 import com.mobiblanc.amdie.africa.network.models.authentication.sendsms.SendSMSData;
-import com.mobiblanc.amdie.africa.network.models.authentication.updateprofile.UpdateProfileData;
 import com.mobiblanc.amdie.africa.network.repository.AuthenticationRepository;
+import com.mobiblanc.amdie.africa.network.utilities.Resource;
 
 public class AuthenticationViewModel extends AndroidViewModel {
 
     private final AuthenticationRepository repository;
     private final MutableLiveData<Resource<SendSMSData>> sendSMSLiveData;
     private final MutableLiveData<Resource<SendSMSData>> sendOTPBYEmailLiveData;
+    private final MutableLiveData<Resource<CheckSMSData>> LoginWithLinkedInLiveData;
     private final MutableLiveData<Resource<CheckSMSData>> checkSMSLiveData;
     private final MutableLiveData<Resource<CheckSMSData>> checkOTPByEmailLiveData;
-    private final MutableLiveData<Resource<UpdateProfileData>> updateProfileLiveData;
+    private final MutableLiveData<Resource<CompleteRegistrationData>> updateProfileLiveData;
 
     public AuthenticationViewModel(@NonNull Application application) {
         super(application);
@@ -30,6 +31,7 @@ public class AuthenticationViewModel extends AndroidViewModel {
         updateProfileLiveData = new MutableLiveData<>();
         sendOTPBYEmailLiveData = new MutableLiveData<>();
         checkOTPByEmailLiveData = new MutableLiveData<>();
+        LoginWithLinkedInLiveData = new MutableLiveData<>();
     }
 
     public MutableLiveData<Resource<SendSMSData>> getSendSMSLiveData() {
@@ -40,7 +42,7 @@ public class AuthenticationViewModel extends AndroidViewModel {
         return checkSMSLiveData;
     }
 
-    public MutableLiveData<Resource<UpdateProfileData>> getUpdateProfileLiveData() {
+    public MutableLiveData<Resource<CompleteRegistrationData>> getUpdateProfileLiveData() {
         return updateProfileLiveData;
     }
 
@@ -52,6 +54,10 @@ public class AuthenticationViewModel extends AndroidViewModel {
         return checkOTPByEmailLiveData;
     }
 
+    public MutableLiveData<Resource<CheckSMSData>> getLoginWithLinkedInLiveData() {
+        return LoginWithLinkedInLiveData;
+    }
+
     public void sendSMS(String msisdn, String lang, String uid) {
         repository.sendSMS(msisdn, lang, uid, sendSMSLiveData);
     }
@@ -60,25 +66,31 @@ public class AuthenticationViewModel extends AndroidViewModel {
         repository.checkSMS(msisdn, code, firebaseToken, lang, checkSMSLiveData);
     }
 
+    public void loginWithLinkedin(String code, String lang) {
+        repository.loginWithLinkedin(code, lang, LoginWithLinkedInLiveData);
+    }
+
     public void sendOTPByEmail(String msisdn, String lang, String uid) {
-        repository.sendOTPByEmail(msisdn, lang, uid, sendSMSLiveData);
+        repository.sendOTPByEmail(msisdn, lang, uid, sendOTPBYEmailLiveData);
     }
 
     public void checkOTPByEmail(String msisdn, String code, String firebaseToken, String lang) {
-        repository.checkOTPByEmail(msisdn, code, firebaseToken, lang, checkSMSLiveData);
+        repository.checkOTPByEmail(msisdn, code, firebaseToken, lang, checkOTPByEmailLiveData);
     }
 
-    public void updateProfile(String token,
-                              String gender,
-                              String lastName,
-                              String company,
-                              String job,
-                              String email,
-                              String firstName,
-                              int country,
-                              int city,
-                              int nationality,
-                              String firebaseToken) {
-        repository.updateProfile(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, updateProfileLiveData);
+    public void completeRegistration(String token,
+                                     String gender,
+                                     String lastName,
+                                     String company,
+                                     String job,
+                                     String email,
+                                     String firstName,
+                                     int country,
+                                     int city,
+                                     int nationality,
+                                     String firebaseToken,
+                                     String code,
+                                     String phoneNumber) {
+        repository.completeRegistration(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber, updateProfileLiveData);
     }
 }

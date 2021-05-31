@@ -23,10 +23,12 @@
             tools:src="@drawable/ustda" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/addToFavouritesBtn"
             app:layout_constraintStart_toEndOf="@+id/icon"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -34,7 +36,6 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:fontFamily="@font/montserrat_medium"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
@@ -45,8 +46,7 @@
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/montserrat_semibold"
+                android:fontFamily="@font/montserrat_semi_bold"
                 android:includeFontPadding="false"
                 android:textColor="#88889C"
                 android:textSize="10sp"
