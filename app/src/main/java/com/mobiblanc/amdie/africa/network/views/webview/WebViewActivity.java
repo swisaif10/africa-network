@@ -1,7 +1,6 @@
 package com.mobiblanc.amdie.africa.network.views.webview;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

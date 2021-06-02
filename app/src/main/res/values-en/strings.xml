@@ -80,4 +80,5 @@
     <string name="notification_permission_description">Do you allow <b>Africa Network</b> to send you notifications ?</string>
     <string name="deny_btn_label">Deny</string>
     <string name="save_btn_label">Save</string>
+    <string name="filter_dialog_title">Mise en relation</string>
 </resources>

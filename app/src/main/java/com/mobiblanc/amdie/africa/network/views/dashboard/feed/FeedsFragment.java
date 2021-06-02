@@ -128,7 +128,7 @@ public class FeedsFragment extends Fragment implements OnFilterCheckedChangeList
     }
 
     @Override
-    public void onFilterChecked(Object object) {
+    public void onFilterChecked(Object object, String type) {
         if (object instanceof Type)
             selectedTypes.add((Type) object);
         else
@@ -136,7 +136,7 @@ public class FeedsFragment extends Fragment implements OnFilterCheckedChangeList
     }
 
     @Override
-    public void onFilterUnchecked(Object object) {
+    public void onFilterUnchecked(Object object, String type) {
         if (object instanceof Type)
             selectedTypes.remove(object);
         else

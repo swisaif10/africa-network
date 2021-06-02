@@ -11,10 +11,11 @@ import com.mobiblanc.amdie.africa.network.utilities.Resource;
 public class ContactsRepository {
     public void getContactsList(String token,
                                 int page,
-                                String searchValue,
+                                String countryId,
+                                String sectorId,
                                 String lang,
                                 MutableLiveData<Resource<ContactsListData>> mutableLiveData) {
-        new ApiManager().getContactsList(token, page, searchValue, lang, mutableLiveData);
+        new ApiManager().getContactsList(token, page, countryId, sectorId, lang, mutableLiveData);
     }
 
     public void addFavourite(String token,

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.mobiblanc.amdie.africa.network.models.authentication.Results;
 import com.mobiblanc.amdie.africa.network.models.common.Country;
 import com.mobiblanc.amdie.africa.network.models.common.Header;
+import com.mobiblanc.amdie.africa.network.models.common.Item;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class CheckSMSData implements Serializable {
     @SerializedName("Liste_countries")
     private List<Country> countries;
     private List<Form> forms;
+    @SerializedName("fonctions")
+    private List<Item> jobs;
 
     public Header getHeader() {
         return header;
@@ -53,10 +56,26 @@ public class CheckSMSData implements Serializable {
         this.countries = countries;
     }
 
+    public List<Item> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Item> jobs) {
+        this.jobs = jobs;
+    }
+
     public List<String> getCountriesNames() {
         List<String> names = new ArrayList<>();
         for (Country country : countries) {
             names.add(country.getName());
+        }
+        return names;
+    }
+
+    public List<String> getJobsNames() {
+        List<String> names = new ArrayList<>();
+        for (Item item : jobs) {
+            names.add(item.getName());
         }
         return names;
     }

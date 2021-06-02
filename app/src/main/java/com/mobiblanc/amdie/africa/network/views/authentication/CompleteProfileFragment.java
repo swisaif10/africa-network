@@ -23,6 +23,7 @@ import com.mobiblanc.amdie.africa.network.databinding.FragmentCompleteProfileBin
 import com.mobiblanc.amdie.africa.network.models.authentication.checksms.CheckSMSData;
 import com.mobiblanc.amdie.africa.network.models.common.City;
 import com.mobiblanc.amdie.africa.network.models.common.Country;
+import com.mobiblanc.amdie.africa.network.models.common.Item;
 import com.mobiblanc.amdie.africa.network.utilities.NumericKeyBoardTransformationMethod;
 import com.mobiblanc.amdie.africa.network.utilities.Utilities;
 import com.mobiblanc.amdie.africa.network.views.cgu.CGUActivity;
@@ -35,6 +36,7 @@ public class CompleteProfileFragment extends Fragment {
     private Boolean isLinkedin;
     private Country country;
     private City city;
+    private Item job;
     private String gender = "";
     private String code;
     private String phoneNumber;
@@ -155,7 +157,7 @@ public class CompleteProfileFragment extends Fragment {
         fragmentBinding.lastName.addTextChangedListener(textWatcher);
         fragmentBinding.city.addTextChangedListener(textWatcher);
         fragmentBinding.country.addTextChangedListener(textWatcher);
-        fragmentBinding.job.addTextChangedListener(textWatcher);
+        fragmentBinding.othersJob.addTextChangedListener(textWatcher);
         fragmentBinding.company.addTextChangedListener(textWatcher);
         fragmentBinding.phoneNumber.addTextChangedListener(textWatcher);
         fragmentBinding.email.addTextChangedListener(textWatcher);
@@ -206,12 +208,31 @@ public class CompleteProfileFragment extends Fragment {
 
         fragmentBinding.city.setOnItemClickListener((parent, view, position, id) -> city = country.getCities().get(position));
 
+        ArrayAdapter<String> jobsAdapter = new ArrayAdapter<>(requireContext(), R.layout.custom_dropdown_item_layout, data.getJobsNames());
+        fragmentBinding.job.setAdapter(jobsAdapter);
+        fragmentBinding.job.setOnTouchListener((v, event) -> {
+            Utilities.hideSoftKeyboard(requireContext(), requireView());
+            fragmentBinding.job.showDropDown();
+            return false;
+        });
+
+        fragmentBinding.job.setOnItemClickListener((parent, view, position, id) -> {
+            job = data.getJobs().get(position);
+            if (job.getName().equalsIgnoreCase("Autre") || job.getName().equalsIgnoreCase("Other")) {
+                fragmentBinding.othersJob.setText("");
+                fragmentBinding.othersJob.setVisibility(View.VISIBLE);
+            } else {
+                fragmentBinding.othersJob.setVisibility(View.GONE);
+                fragmentBinding.othersJob.setText(job.getName());
+            }
+        });
+
         fragmentBinding.nextBtn.setOnClickListener(v -> {
             if (!Utilities.isEmpty(fragmentBinding.phoneNumber))
                 phoneNumber = fragmentBinding.phoneNumber.getText().toString();
             ((AuthenticationActivity) requireActivity()).replaceFragment(SelectCountryFragment.newInstance(token,
                     gender, fragmentBinding.lastName.getText().toString(), fragmentBinding.company.getText().toString(),
-                    fragmentBinding.job.getText().toString(), fragmentBinding.email.getText().toString(),
+                    fragmentBinding.othersJob.getText().toString(), fragmentBinding.email.getText().toString(),
                     fragmentBinding.firstName.getText().toString(),
                     country.getId(), city.getId(), code, phoneNumber), "");
         });
@@ -225,7 +246,7 @@ public class CompleteProfileFragment extends Fragment {
                     !Utilities.isEmpty(fragmentBinding.lastName) &&
                     !Utilities.isEmpty(fragmentBinding.country) &&
                     !Utilities.isEmpty(fragmentBinding.city) &&
-                    !Utilities.isEmpty(fragmentBinding.job) &&
+                    !Utilities.isEmpty(fragmentBinding.othersJob) &&
                     !Utilities.isEmpty(fragmentBinding.company) &&
                     Utilities.isEmailValid(fragmentBinding.email.getText().toString()) &&
                     fragmentBinding.cguCheck.isChecked();
@@ -235,7 +256,7 @@ public class CompleteProfileFragment extends Fragment {
                     !Utilities.isEmpty(fragmentBinding.lastName) &&
                     !Utilities.isEmpty(fragmentBinding.country) &&
                     !Utilities.isEmpty(fragmentBinding.city) &&
-                    !Utilities.isEmpty(fragmentBinding.job) &&
+                    !Utilities.isEmpty(fragmentBinding.othersJob) &&
                     !Utilities.isEmpty(fragmentBinding.company) &&
                     Utilities.isEmailValid(fragmentBinding.email.getText().toString()) &&
                     fragmentBinding.cguCheck.isChecked();

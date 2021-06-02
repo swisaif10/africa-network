@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +22,7 @@ import com.mobiblanc.amdie.africa.network.databinding.FragmentContactsBinding;
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.listeners.OnContactSelectedListener;
 import com.mobiblanc.amdie.africa.network.listeners.OnFilterCheckedChangeListener;
+import com.mobiblanc.amdie.africa.network.models.common.Item;
 import com.mobiblanc.amdie.africa.network.models.contacts.favourite.AddFavouriteData;
 import com.mobiblanc.amdie.africa.network.models.contacts.filter.ContactsFilterData;
 import com.mobiblanc.amdie.africa.network.models.contacts.filter.Results;
@@ -58,6 +58,9 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
     private boolean isLoading = false;
     private String searchValue = "";
     private boolean isScroll = false;
+    private String countryId = "";
+    private String sectorId = "";
+    private Boolean isFiltered = false;
 
     public ContactsFragment() {
         // Required empty public constructor
@@ -126,13 +129,19 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
     }
 
     @Override
-    public void onFilterChecked(Object object) {
-
+    public void onFilterChecked(Object object, String type) {
+        if (type.equalsIgnoreCase("country"))
+            countryId = String.valueOf(((Item) object).getId());
+        else
+            sectorId = String.valueOf(((Item) object).getId());
     }
 
     @Override
-    public void onFilterUnchecked(Object object) {
-
+    public void onFilterUnchecked(Object object, String type) {
+        if (type.equalsIgnoreCase("country"))
+            countryId = "";
+        else
+            sectorId = "";
     }
 
     private void init() {
@@ -148,8 +157,14 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
 
             fragmentBinding.contactsLayout.setVisibility(View.VISIBLE);
             fragmentBinding.favouritesRecycler.setVisibility(View.GONE);
+            fragmentBinding.searchLayout.setVisibility(View.GONE);
             fragmentBinding.suggestionsRecycler.setVisibility(View.GONE);
 
+            fragmentBinding.searchInput.setText("");
+            searchValue = "";
+            countryId = "";
+            sectorId = "";
+            isFiltered = false;
             resetScroll(false);
             getContactsList();
         });
@@ -162,6 +177,7 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
 
             fragmentBinding.contactsLayout.setVisibility(View.GONE);
             fragmentBinding.favouritesRecycler.setVisibility(View.VISIBLE);
+            fragmentBinding.searchLayout.setVisibility(View.GONE);
             fragmentBinding.suggestionsRecycler.setVisibility(View.GONE);
 
             resetScroll(false);
@@ -176,13 +192,17 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
 
             fragmentBinding.contactsLayout.setVisibility(View.GONE);
             fragmentBinding.favouritesRecycler.setVisibility(View.GONE);
+            fragmentBinding.searchLayout.setVisibility(View.VISIBLE);
             fragmentBinding.suggestionsRecycler.setVisibility(View.VISIBLE);
 
+            fragmentBinding.searchInput.setText("");
+            searchValue = "";
             resetScroll(true);
             getSuggestionsList();
         });
 
         fragmentBinding.searchBtn.setOnClickListener(v -> {
+            fragmentBinding.loader.setVisibility(View.VISIBLE);
             searchValue = fragmentBinding.searchInput.getText().toString();
             if (!searchValue.equalsIgnoreCase("")) {
                 Utilities.hideSoftKeyboard(requireContext(), requireView());
@@ -191,6 +211,21 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
                 else
                     getContactsList();
             }
+        });
+
+        fragmentBinding.resetBtn.setOnClickListener(v -> {
+            fragmentBinding.loader.setVisibility(View.VISIBLE);
+            countryId = "";
+            sectorId = "";
+            resetScroll(false);
+            getContactsList();
+        });
+
+        fragmentBinding.filterBtn.setOnClickListener(v -> {
+            fragmentBinding.loader.setVisibility(View.VISIBLE);
+            isFiltered = true;
+            resetScroll(false);
+            getContactsList();
         });
 
         fragmentBinding.body.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> Utilities.hideSoftKeyboard(requireContext(), requireView()));
@@ -213,8 +248,8 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
         fragmentBinding.favouritesRecycler.setNestedScrollingEnabled(false);
         fragmentBinding.suggestionsRecycler.setNestedScrollingEnabled(false);
 
-        fragmentBinding.body.getViewTreeObserver().addOnScrollChangedListener((ViewTreeObserver.OnScrollChangedListener) () -> {
-            View child = (View) fragmentBinding.body.getChildAt(fragmentBinding.body.getChildCount() - 1);
+        fragmentBinding.body.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            View child = fragmentBinding.body.getChildAt(fragmentBinding.body.getChildCount() - 1);
             int diff = (child.getBottom() - (fragmentBinding.body.getHeight() + fragmentBinding.body.getScrollY()));
             if ((fragmentBinding.contactsRecycler.getVisibility() == View.VISIBLE || fragmentBinding.suggestionsRecycler.getVisibility() == View.VISIBLE) && !isLoading && !isLastPage)
                 if (diff == 0) {
@@ -230,14 +265,15 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
     }
 
     private void getContactsList() {
-        viewModel.getContactsList(preferenceManager.getValue(Constants.TOKEN, ""), currentPage, searchValue, preferenceManager.getValue(Constants.LANGUAGE, "fr"));
+        viewModel.getContactsList(preferenceManager.getValue(Constants.TOKEN, ""), currentPage, countryId, sectorId, preferenceManager.getValue(Constants.LANGUAGE, "fr"));
     }
 
     private void handleContactsListData(Resource<ContactsListData> responseData) {
         fragmentBinding.loader.setVisibility(View.GONE);
         switch (responseData.status) {
             case SUCCESS:
-                getContactsFilterForm();
+                if (!isFiltered)
+                    getContactsFilterForm();
                 switch (responseData.data.getHeader().getSearch()) {
                     case -1:
                         fragmentBinding.placeholder.setVisibility(View.VISIBLE);
@@ -308,7 +344,7 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
 
     private void initFilter(Results results) {
         fragmentBinding.countryFilterRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        fragmentBinding.countryFilterRecycler.setAdapter(new ContactsFilterAdapter(results.getCountries(), this));
+        fragmentBinding.countryFilterRecycler.setAdapter(new ContactsFilterAdapter(results.getCountries(), this, "country"));
         fragmentBinding.countryFilterBtn.setOnClickListener(v -> {
             if (fragmentBinding.countryFilterRecycler.getVisibility() == View.VISIBLE) {
                 fragmentBinding.countryFilterRecycler.setVisibility(View.GONE);
@@ -322,7 +358,7 @@ public class ContactsFragment extends Fragment implements OnContactSelectedListe
         });
 
         fragmentBinding.sectorFilterRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        fragmentBinding.sectorFilterRecycler.setAdapter(new ContactsFilterAdapter(results.getSectors(), this));
+        fragmentBinding.sectorFilterRecycler.setAdapter(new ContactsFilterAdapter(results.getSectors(), this, "sector"));
         fragmentBinding.sectorFilterBtn.setOnClickListener(v -> {
             if (fragmentBinding.sectorFilterRecycler.getVisibility() == View.VISIBLE) {
                 fragmentBinding.sectorFilterRecycler.setVisibility(View.GONE);

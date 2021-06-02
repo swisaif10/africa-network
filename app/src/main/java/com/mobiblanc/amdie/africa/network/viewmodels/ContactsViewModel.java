@@ -59,8 +59,8 @@ public class ContactsViewModel extends AndroidViewModel {
         return contactsFilterLiveData;
     }
 
-    public void getContactsList(String token, int page, String searchValue, String lang) {
-        repository.getContactsList(token, page, searchValue, lang, contactsListLiveData);
+    public void getContactsList(String token, int page, String countryId, String sectorId, String lang) {
+        repository.getContactsList(token, page, countryId, sectorId, lang, contactsListLiveData);
     }
 
     public void addFavourite(String token, int receiver) {

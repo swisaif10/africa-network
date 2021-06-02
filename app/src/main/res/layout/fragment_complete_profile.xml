@@ -227,8 +227,28 @@
                     android:theme="@style/editTextTheme"
                     android:visibility="gone" />
 
-                <EditText
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:completionThreshold="0"
+                    android:cursorVisible="false"
+                    android:drawableStart="@drawable/ic_fonction"
+                    android:drawableEnd="@drawable/ic_arrow"
+                    android:drawablePadding="10dp"
+                    android:dropDownHeight="270dp"
+                    android:focusableInTouchMode="false"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="@string/job_hint"
+                    android:inputType="textVisiblePassword"
+                    android:overScrollMode="never"
+                    android:paddingBottom="20dp"
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme" />
+
+                <EditText
+                    android:id="@+id/othersJob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -238,7 +258,8 @@
                     android:hint="@string/job_hint"
                     android:paddingBottom="20dp"
                     android:textSize="14sp"
-                    android:theme="@style/editTextTheme" />
+                    android:theme="@style/editTextTheme"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/company"

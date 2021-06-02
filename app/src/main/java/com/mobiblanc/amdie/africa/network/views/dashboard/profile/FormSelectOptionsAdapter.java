@@ -21,7 +21,7 @@ public class FormSelectOptionsAdapter extends RecyclerView.Adapter<FormSelectOpt
     private final List<Item> selectedOptions;
     private final String name;
     private int nbOptionsChecked = 0;
-    private int mLowestPosition = -1;
+    private int lowestPosition = -1;
     private Boolean clicked = false;
 
     public FormSelectOptionsAdapter(String name, List<Item> referenceObjectValues, int max, OnFormOptionsSelectedListener onFormOptionsSelectedListener) {
@@ -43,9 +43,9 @@ public class FormSelectOptionsAdapter extends RecyclerView.Adapter<FormSelectOpt
 
     @Override
     public void onBindViewHolder(@NonNull FormSelectOptionsAdapter.ViewHolder holder, int position) {
-        if (clicked || position > mLowestPosition) {
+        if (clicked || position > lowestPosition) {
             holder.bind(position);
-            mLowestPosition = position;
+            lowestPosition = position;
             clicked = false;
         }
     }

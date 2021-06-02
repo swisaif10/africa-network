@@ -53,6 +53,7 @@ public class MobileRegisterFragment extends Fragment {
     private PreferenceManager preferenceManager;
     private Boolean request = false;
     private String code;
+    private String phoneNumber;
 
     public MobileRegisterFragment() {
         // Required empty public constructor
@@ -97,11 +98,6 @@ public class MobileRegisterFragment extends Fragment {
             fragmentBinding.country.showDropDown();
             return false;
         });
-
-        fragmentBinding.country.setOnItemClickListener((parent, view, position, id) -> {
-
-        });
-
 
         fragmentBinding.container.setOnClickListener(v -> Utilities.hideSoftKeyboard(requireContext(), requireView()));
         fragmentBinding.phoneNumber.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
@@ -176,7 +172,8 @@ public class MobileRegisterFragment extends Fragment {
 
     private void sendSMS() {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
-        ((AuthenticationActivity) requireActivity()).getViewModel().sendSMS(fragmentBinding.phoneNumber.getText().toString(), preferenceManager.getValue(Constants.LANGUAGE, "fr"), Utilities.getUID(requireContext()));
+        phoneNumber = fragmentBinding.country.getText().toString().replace("+", "") + " " + fragmentBinding.phoneNumber.getText().toString();
+        ((AuthenticationActivity) requireActivity()).getViewModel().sendSMS(phoneNumber, preferenceManager.getValue(Constants.LANGUAGE, "fr"), Utilities.getUID(requireContext()));
         request = true;
     }
 
@@ -186,7 +183,7 @@ public class MobileRegisterFragment extends Fragment {
             request = false;
             switch (responseData.status) {
                 case SUCCESS:
-                    ((AuthenticationActivity) requireActivity()).replaceFragment(SMSConfirmationFragment.newInstance(fragmentBinding.phoneNumber.getText().toString(), responseData.data.getResults().getResendByEmail()), "");
+                    ((AuthenticationActivity) requireActivity()).replaceFragment(SMSConfirmationFragment.newInstance(phoneNumber, responseData.data.getResults().getResendByEmail()), "");
                     break;
                 case INVALID_TOKEN:
                     break;

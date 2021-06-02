@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mobiblanc.amdie.africa.network.models.feed.GetFeedData;
-import com.mobiblanc.amdie.africa.network.models.like.LikeFeedData;
 import com.mobiblanc.amdie.africa.network.models.logout.LogoutData;
 import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
 import com.mobiblanc.amdie.africa.network.models.share.ShareAppData;

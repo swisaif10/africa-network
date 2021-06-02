@@ -80,4 +80,5 @@
     <string name="notification_permission_description">Autorisez-vous <b>Africa Network</b> à vous envoyer des notifications ?</string>
     <string name="deny_btn_label">Refuser</string>
     <string name="save_btn_label">Enregistrer</string>
+    <string name="filter_dialog_title">Mise en relation</string>
 </resources>

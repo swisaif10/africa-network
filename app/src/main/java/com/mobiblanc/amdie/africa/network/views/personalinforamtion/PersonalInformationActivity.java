@@ -19,6 +19,7 @@ import com.mobiblanc.amdie.africa.network.databinding.ActivityPersonalInformatio
 import com.mobiblanc.amdie.africa.network.datamanager.sharedpref.PreferenceManager;
 import com.mobiblanc.amdie.africa.network.models.authentication.completeregistraion.CompleteRegistrationData;
 import com.mobiblanc.amdie.africa.network.models.common.Country;
+import com.mobiblanc.amdie.africa.network.models.common.Item;
 import com.mobiblanc.amdie.africa.network.models.profile.countries.CountriesListData;
 import com.mobiblanc.amdie.africa.network.models.profile.details.ProfileDetailsData;
 import com.mobiblanc.amdie.africa.network.models.profile.details.Results;
@@ -39,6 +40,7 @@ public class PersonalInformationActivity extends BaseActivity {
     private Country country;
     private int countryId;
     private int cityId;
+    private Item job;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class PersonalInformationActivity extends BaseActivity {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void init() {
         activityBinding.backBtn.setOnClickListener(v -> finish());
         activityBinding.container.setOnClickListener(v -> Utilities.hideSoftKeyboard(this, activityBinding.getRoot()));
@@ -139,7 +142,7 @@ public class PersonalInformationActivity extends BaseActivity {
         activityBinding.lastName.addTextChangedListener(textWatcher);
         activityBinding.city.addTextChangedListener(textWatcher);
         activityBinding.country.addTextChangedListener(textWatcher);
-        activityBinding.job.addTextChangedListener(textWatcher);
+        activityBinding.othersJob.addTextChangedListener(textWatcher);
         activityBinding.company.addTextChangedListener(textWatcher);
         activityBinding.email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -174,6 +177,25 @@ public class PersonalInformationActivity extends BaseActivity {
         activityBinding.email.setText(results.getEmail());
         countryId = results.getCountryId();
         cityId = results.getCityId();
+
+        ArrayAdapter<String> jobsAdapter = new ArrayAdapter<>(this, R.layout.custom_dropdown_item_layout, results.getJobsNames());
+        activityBinding.job.setAdapter(jobsAdapter);
+        activityBinding.job.setOnTouchListener((v, event) -> {
+            Utilities.hideSoftKeyboard(this, activityBinding.getRoot());
+            activityBinding.job.showDropDown();
+            return false;
+        });
+
+        activityBinding.job.setOnItemClickListener((parent, view, position, id) -> {
+            job = results.getJobs().get(position);
+            if (job.getName().equalsIgnoreCase("Autre") || job.getName().equalsIgnoreCase("Other")) {
+                activityBinding.othersJob.setText("");
+                activityBinding.othersJob.setVisibility(View.VISIBLE);
+            } else {
+                activityBinding.othersJob.setVisibility(View.GONE);
+                activityBinding.othersJob.setText(job.getName());
+            }
+        });
 
         activityBinding.nextBtn.setOnClickListener(v -> updatePersonalInformation());
     }
@@ -232,7 +254,7 @@ public class PersonalInformationActivity extends BaseActivity {
                 !Utilities.isEmpty(activityBinding.lastName) &&
                 !Utilities.isEmpty(activityBinding.country) &&
                 !Utilities.isEmpty(activityBinding.city) &&
-                !Utilities.isEmpty(activityBinding.job) &&
+                !Utilities.isEmpty(activityBinding.othersJob) &&
                 !Utilities.isEmpty(activityBinding.company) &&
                 Utilities.isEmailValid(activityBinding.email.getText().toString());
     }
@@ -241,7 +263,7 @@ public class PersonalInformationActivity extends BaseActivity {
         activityBinding.loader.setVisibility(View.VISIBLE);
         viewModel.updatePersonalInformation(preferenceManager.getValue(Constants.TOKEN, ""), gender,
                 activityBinding.lastName.getText().toString(), activityBinding.company.getText().toString(),
-                activityBinding.job.getText().toString(), activityBinding.email.getText().toString(),
+                activityBinding.othersJob.getText().toString(), activityBinding.email.getText().toString(),
                 activityBinding.firstName.getText().toString(), countryId, cityId, results.getMonitoring(),
                 preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""), "", results.getPhoneNumber());
     }

@@ -6,7 +6,7 @@ import com.mobiblanc.amdie.africa.network.models.common.Item;
 
 import java.util.List;
 
-public class Results{
+public class Results {
     @SerializedName("secteurs")
     private List<Item> sectors;
     @Expose

@@ -58,10 +58,10 @@ public class TypeFilterAdapter extends RecyclerView.Adapter<TypeFilterAdapter.Vi
             itemBinding.getRoot().setOnClickListener(v -> {
                 if (type.getChecked()) {
                     type.setChecked(false);
-                    onFilterCheckedChangeListener.onFilterUnchecked(type);
+                    onFilterCheckedChangeListener.onFilterUnchecked(type, "");
                 } else {
                     type.setChecked(true);
-                    onFilterCheckedChangeListener.onFilterChecked(type);
+                    onFilterCheckedChangeListener.onFilterChecked(type, "");
                 }
                 notifyDataSetChanged();
             });

@@ -144,7 +144,8 @@ public interface ApiServices {
     Call<ContactsListData> getContactsList(@Field("token") String token,
                                            @Field("canal") String canal,
                                            @Field("page") int page,
-                                           @Field("searchValue") String searchValue,
+                                           @Field("country_id") String countryId,
+                                           @Field("secteur_id") String sectorId,
                                            @Field("lang") String lang);
 
     @FormUrlEncoded

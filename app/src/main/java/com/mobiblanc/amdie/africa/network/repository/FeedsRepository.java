@@ -5,9 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.mobiblanc.amdie.africa.network.datamanager.ApiManager;
 import com.mobiblanc.amdie.africa.network.models.feed.GetFeedData;
 import com.mobiblanc.amdie.africa.network.models.like.LikeFeedData;
-import com.mobiblanc.amdie.africa.network.models.logout.LogoutData;
-import com.mobiblanc.amdie.africa.network.models.menu.MenuData;
-import com.mobiblanc.amdie.africa.network.models.share.ShareAppData;
 import com.mobiblanc.amdie.africa.network.utilities.Resource;
 
 public class FeedsRepository {

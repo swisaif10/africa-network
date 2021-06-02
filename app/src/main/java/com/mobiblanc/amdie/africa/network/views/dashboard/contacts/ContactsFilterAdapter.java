@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mobiblanc.amdie.africa.network.databinding.FilterItemLayoutBinding;
 import com.mobiblanc.amdie.africa.network.listeners.OnFilterCheckedChangeListener;
 import com.mobiblanc.amdie.africa.network.models.common.Item;
-import com.mobiblanc.amdie.africa.network.models.feed.Sector;
 
 import java.util.List;
 
@@ -17,10 +16,13 @@ public class ContactsFilterAdapter extends RecyclerView.Adapter<ContactsFilterAd
 
     private final List<Item> items;
     private final OnFilterCheckedChangeListener onFilterCheckedChangeListener;
+    private final String type;
+    private int lastSelectedPosition = -1;
 
-    public ContactsFilterAdapter(List<Item> items, OnFilterCheckedChangeListener onFilterCheckedChangeListener) {
+    public ContactsFilterAdapter(List<Item> items, OnFilterCheckedChangeListener onFilterCheckedChangeListener, String type) {
         this.items = items;
         this.onFilterCheckedChangeListener = onFilterCheckedChangeListener;
+        this.type = type;
     }
 
     @NonNull
@@ -34,7 +36,7 @@ public class ContactsFilterAdapter extends RecyclerView.Adapter<ContactsFilterAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(items.get(position));
+        holder.bind(position);
     }
 
     @Override
@@ -52,13 +54,29 @@ public class ContactsFilterAdapter extends RecyclerView.Adapter<ContactsFilterAd
             this.itemBinding = itemBinding;
         }
 
-        private void bind(Item item) {
+        private void bind(int pos) {
+            itemBinding.title.setText(items.get(pos).getName());
+            itemBinding.checkbox.setChecked(items.get(pos).getSelected());
 
-            itemBinding.title.setText(item.getName());
-            itemBinding.checkbox.setChecked(item.getSelected());
-
-            itemBinding.getRoot().setOnClickListener(v -> {
-
+            itemBinding.container.setOnClickListener(v -> {
+                if (lastSelectedPosition == -1) {
+                    items.get(pos).setSelected(true);
+                    lastSelectedPosition = pos;
+                    notifyItemChanged(pos);
+                    onFilterCheckedChangeListener.onFilterChecked(items.get(pos), type);
+                } else if (items.get(pos).getSelected()) {
+                    items.get(pos).setSelected(false);
+                    lastSelectedPosition = -1;
+                    notifyItemChanged(pos);
+                } else {
+                    items.get(lastSelectedPosition).setSelected(false);
+                    items.get(pos).setSelected(true);
+                    onFilterCheckedChangeListener.onFilterChecked(items.get(pos), type);
+                    onFilterCheckedChangeListener.onFilterUnchecked(items.get(lastSelectedPosition), "");
+                    notifyItemChanged(pos);
+                    notifyItemChanged(lastSelectedPosition);
+                    lastSelectedPosition = pos;
+                }
             });
         }
     }

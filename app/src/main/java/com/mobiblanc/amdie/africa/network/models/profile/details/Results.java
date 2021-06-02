@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.mobiblanc.amdie.africa.network.models.common.Item;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Results implements Serializable {
@@ -61,6 +62,8 @@ public class Results implements Serializable {
     private int countryId;
     @SerializedName("city_id")
     private int cityId;
+    @SerializedName("fonctions_list")
+    private List<Item> jobs;
 
     public String getBirthday() {
         return birthday;
@@ -268,5 +271,21 @@ public class Results implements Serializable {
 
     public void setCityId(int cityId) {
         this.cityId = cityId;
+    }
+
+    public List<Item> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Item> jobs) {
+        this.jobs = jobs;
+    }
+
+    public List<String> getJobsNames() {
+        List<String> names = new ArrayList<>();
+        for (Item item : jobs) {
+            names.add(item.getName());
+        }
+        return names;
     }
 }

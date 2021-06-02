@@ -60,11 +60,11 @@ public class SectorFilterAdapter extends RecyclerView.Adapter<SectorFilterAdapte
                 if (sector.getChecked()) {
                     sector.setChecked(false);
                     notifyDataSetChanged();
-                    onFilterCheckedChangeListener.onFilterUnchecked(sector);
+                    onFilterCheckedChangeListener.onFilterUnchecked(sector, "");
                 } else {
                     sector.setChecked(true);
                     notifyDataSetChanged();
-                    onFilterCheckedChangeListener.onFilterChecked(sector);
+                    onFilterCheckedChangeListener.onFilterChecked(sector, "");
                 }
             });
         }

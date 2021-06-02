@@ -448,10 +448,11 @@ public class ApiManager {
 
     public void getContactsList(String token,
                                 int page,
-                                String searchValue,
+                                String countryId,
+                                String sectorId,
                                 String lang,
                                 MutableLiveData<Resource<ContactsListData>> mutableLiveData) {
-        Call<ContactsListData> call = RetrofitClient.getInstance().endpoint().getContactsList(token, "mobile", page, searchValue, lang);
+        Call<ContactsListData> call = RetrofitClient.getInstance().endpoint().getContactsList(token, "mobile", page, countryId, sectorId, lang);
         call.enqueue(new Callback<ContactsListData>() {
             @Override
             public void onResponse(@NonNull Call<ContactsListData> call, @NonNull Response<ContactsListData> response) {
