@@ -121,7 +121,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             itemBinding.description.setText(Html.fromHtml(feed.getBody()));
             Glide.with(context).load(feed.getImage()).fitCenter().into(itemBinding.image);
             itemBinding.pdf.setText(feed.getUrl());
-            if (!feed.getUrl().equalsIgnoreCase("#")) {
+            if (feed.getUrl() != null && !feed.getUrl().equalsIgnoreCase("#")) {
                 itemBinding.pdf.setVisibility(View.VISIBLE);
                 itemBinding.image.setOnClickListener(v -> onItemSelectedListener.onItemSelectedListener(feed, true));
             }

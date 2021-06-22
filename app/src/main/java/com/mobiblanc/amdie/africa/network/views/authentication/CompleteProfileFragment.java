@@ -36,7 +36,7 @@ public class CompleteProfileFragment extends Fragment {
     private Boolean isLinkedin;
     private Country country;
     private City city;
-    private Item job;
+    private String job;
     private String gender = "";
     private String code;
     private String phoneNumber;
@@ -217,14 +217,15 @@ public class CompleteProfileFragment extends Fragment {
         });
 
         fragmentBinding.job.setOnItemClickListener((parent, view, position, id) -> {
-            job = data.getJobs().get(position);
-            if (job.getName().equalsIgnoreCase("Autre") || job.getName().equalsIgnoreCase("Other")) {
+            Item item = data.getJobs().get(position);
+            if (item.getName().equalsIgnoreCase("Autre") || item.getName().equalsIgnoreCase("Other")) {
                 fragmentBinding.othersJob.setText("");
                 fragmentBinding.othersJob.setVisibility(View.VISIBLE);
             } else {
                 fragmentBinding.othersJob.setVisibility(View.GONE);
-                fragmentBinding.othersJob.setText(job.getName());
+                fragmentBinding.othersJob.setText("");
             }
+            job = String.valueOf(item.getId());
         });
 
         fragmentBinding.nextBtn.setOnClickListener(v -> {
@@ -232,9 +233,9 @@ public class CompleteProfileFragment extends Fragment {
                 phoneNumber = fragmentBinding.phoneNumber.getText().toString();
             ((AuthenticationActivity) requireActivity()).replaceFragment(SelectCountryFragment.newInstance(token,
                     gender, fragmentBinding.lastName.getText().toString(), fragmentBinding.company.getText().toString(),
-                    fragmentBinding.othersJob.getText().toString(), fragmentBinding.email.getText().toString(),
+                    job, fragmentBinding.email.getText().toString(),
                     fragmentBinding.firstName.getText().toString(),
-                    country.getId(), city.getId(), code, phoneNumber), "");
+                    country.getId(), city.getId(), code, phoneNumber, fragmentBinding.job.getText().toString()), "");
         });
     }
 
@@ -246,7 +247,10 @@ public class CompleteProfileFragment extends Fragment {
                     !Utilities.isEmpty(fragmentBinding.lastName) &&
                     !Utilities.isEmpty(fragmentBinding.country) &&
                     !Utilities.isEmpty(fragmentBinding.city) &&
-                    !Utilities.isEmpty(fragmentBinding.othersJob) &&
+                    (((fragmentBinding.job.getText().toString().equalsIgnoreCase("Autre")
+                            || fragmentBinding.job.getText().toString().equalsIgnoreCase("Other"))
+                            && !Utilities.isEmpty(fragmentBinding.othersJob)) || (!fragmentBinding.job.getText().toString().equalsIgnoreCase("Autre")
+                            && !fragmentBinding.job.getText().toString().equalsIgnoreCase("Other") && !Utilities.isEmpty(fragmentBinding.job))) &&
                     !Utilities.isEmpty(fragmentBinding.company) &&
                     Utilities.isEmailValid(fragmentBinding.email.getText().toString()) &&
                     fragmentBinding.cguCheck.isChecked();
@@ -256,10 +260,12 @@ public class CompleteProfileFragment extends Fragment {
                     !Utilities.isEmpty(fragmentBinding.lastName) &&
                     !Utilities.isEmpty(fragmentBinding.country) &&
                     !Utilities.isEmpty(fragmentBinding.city) &&
-                    !Utilities.isEmpty(fragmentBinding.othersJob) &&
+                    (((fragmentBinding.job.getText().toString().equalsIgnoreCase("Autre")
+                            || fragmentBinding.job.getText().toString().equalsIgnoreCase("Other"))
+                            && !Utilities.isEmpty(fragmentBinding.othersJob)) || (!fragmentBinding.job.getText().toString().equalsIgnoreCase("Autre")
+                            && !fragmentBinding.job.getText().toString().equalsIgnoreCase("Other") && !Utilities.isEmpty(fragmentBinding.job))) &&
                     !Utilities.isEmpty(fragmentBinding.company) &&
                     Utilities.isEmailValid(fragmentBinding.email.getText().toString()) &&
                     fragmentBinding.cguCheck.isChecked();
     }
-
 }

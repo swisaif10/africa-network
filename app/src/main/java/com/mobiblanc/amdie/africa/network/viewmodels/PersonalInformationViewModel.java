@@ -62,7 +62,8 @@ public class PersonalInformationViewModel extends AndroidViewModel {
                                           int nationality,
                                           String firebaseToken,
                                           String code,
-                                          String phoneNumber) {
-        repository.updatePersonalInformation(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber, updatePersonalInformationLiveData);
+                                          String phoneNumber,
+                                          String otherJob) {
+        repository.updatePersonalInformation(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber, otherJob, updatePersonalInformationLiveData);
     }
 }

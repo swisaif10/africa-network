@@ -90,7 +90,8 @@ public class AuthenticationViewModel extends AndroidViewModel {
                                      int nationality,
                                      String firebaseToken,
                                      String code,
-                                     String phoneNumber) {
-        repository.completeRegistration(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber, updateProfileLiveData);
+                                     String phoneNumber,
+                                     String otherJob) {
+        repository.completeRegistration(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber, otherJob, updateProfileLiveData);
     }
 }

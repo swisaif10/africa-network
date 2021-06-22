@@ -37,6 +37,7 @@ public class SelectCountryFragment extends Fragment {
     private String company;
     private String code;
     private String phoneNumber;
+    private String otherJob;
     private int country;
     private int city;
     private int nationality = 1;
@@ -48,7 +49,7 @@ public class SelectCountryFragment extends Fragment {
 
     public static SelectCountryFragment newInstance
             (String token, String gender, String lastName, String company, String job,
-             String email, String firstName, int country, int city, String code, String phoneNumber) {
+             String email, String firstName, int country, int city, String code, String phoneNumber, String otherJob) {
         SelectCountryFragment fragment = new SelectCountryFragment();
         Bundle args = new Bundle();
         args.putString("token", token);
@@ -62,6 +63,7 @@ public class SelectCountryFragment extends Fragment {
         args.putInt("city", city);
         args.putString("code", code);
         args.putString("phoneNumber", phoneNumber);
+        args.putString("otherJob", otherJob);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,6 +84,7 @@ public class SelectCountryFragment extends Fragment {
             city = getArguments().getInt("city");
             phoneNumber = getArguments().getString("phoneNumber");
             code = getArguments().getString("code", "");
+            otherJob = getArguments().getString("otherJob");
         }
 
         ((AuthenticationActivity) requireActivity()).getViewModel().getUpdateProfileLiveData().observe(requireActivity(), this::handleUpdateProfileData);
@@ -147,7 +150,7 @@ public class SelectCountryFragment extends Fragment {
     private void completeRegistration() {
         fragmentBinding.loader.setVisibility(View.VISIBLE);
         ((AuthenticationActivity) requireActivity()).getViewModel().completeRegistration(token, gender,
-                lastName, company, job, email, firstName, country, city, nationality, preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""), code, phoneNumber);
+                lastName, company, job, email, firstName, country, city, nationality, preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""), code, phoneNumber, otherJob);
         request = true;
     }
 

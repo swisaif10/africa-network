@@ -190,8 +190,9 @@ public class ApiManager {
                                      String firebaseToken,
                                      String code,
                                      String phoneNumber,
+                                     String otherJob,
                                      MutableLiveData<Resource<CompleteRegistrationData>> mutableLiveData) {
-        Call<CompleteRegistrationData> call = RetrofitClient.getInstance().endpoint().completeRegistration(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber);
+        Call<CompleteRegistrationData> call = RetrofitClient.getInstance().endpoint().completeRegistration(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber, otherJob);
         call.enqueue(new Callback<CompleteRegistrationData>() {
             @Override
             public void onResponse(@NonNull Call<CompleteRegistrationData> call, @NonNull Response<CompleteRegistrationData> response) {

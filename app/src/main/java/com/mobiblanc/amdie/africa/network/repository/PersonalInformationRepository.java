@@ -35,7 +35,8 @@ public class PersonalInformationRepository {
                                           String firebaseToken,
                                           String code,
                                           String phoneNumber,
+                                          String otherJob,
                                           MutableLiveData<Resource<CompleteRegistrationData>> mutableLiveData) {
-        new ApiManager().completeRegistration(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber, mutableLiveData);
+        new ApiManager().completeRegistration(token, gender, lastName, company, job, email, firstName, country, city, nationality, firebaseToken, code, phoneNumber, otherJob, mutableLiveData);
     }
 }

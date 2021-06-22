@@ -40,7 +40,7 @@ public class PersonalInformationActivity extends BaseActivity {
     private Country country;
     private int countryId;
     private int cityId;
-    private Item job;
+    private String job;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,14 +187,15 @@ public class PersonalInformationActivity extends BaseActivity {
         });
 
         activityBinding.job.setOnItemClickListener((parent, view, position, id) -> {
-            job = results.getJobs().get(position);
-            if (job.getName().equalsIgnoreCase("Autre") || job.getName().equalsIgnoreCase("Other")) {
+            Item item = results.getJobs().get(position);
+            if (item.getName().equalsIgnoreCase("Autre") || item.getName().equalsIgnoreCase("Other")) {
                 activityBinding.othersJob.setText("");
                 activityBinding.othersJob.setVisibility(View.VISIBLE);
             } else {
                 activityBinding.othersJob.setVisibility(View.GONE);
-                activityBinding.othersJob.setText(job.getName());
+                activityBinding.othersJob.setText("");
             }
+            job = String.valueOf(item.getId());
         });
 
         activityBinding.nextBtn.setOnClickListener(v -> updatePersonalInformation());
@@ -254,7 +255,10 @@ public class PersonalInformationActivity extends BaseActivity {
                 !Utilities.isEmpty(activityBinding.lastName) &&
                 !Utilities.isEmpty(activityBinding.country) &&
                 !Utilities.isEmpty(activityBinding.city) &&
-                !Utilities.isEmpty(activityBinding.othersJob) &&
+                (((activityBinding.job.getText().toString().equalsIgnoreCase("Autre")
+                        || activityBinding.job.getText().toString().equalsIgnoreCase("Other"))
+                        && !Utilities.isEmpty(activityBinding.othersJob)) || (!activityBinding.job.getText().toString().equalsIgnoreCase("Autre")
+                        && !activityBinding.job.getText().toString().equalsIgnoreCase("Other") && !Utilities.isEmpty(activityBinding.job))) &&
                 !Utilities.isEmpty(activityBinding.company) &&
                 Utilities.isEmailValid(activityBinding.email.getText().toString());
     }
@@ -263,9 +267,9 @@ public class PersonalInformationActivity extends BaseActivity {
         activityBinding.loader.setVisibility(View.VISIBLE);
         viewModel.updatePersonalInformation(preferenceManager.getValue(Constants.TOKEN, ""), gender,
                 activityBinding.lastName.getText().toString(), activityBinding.company.getText().toString(),
-                activityBinding.othersJob.getText().toString(), activityBinding.email.getText().toString(),
+                job, activityBinding.email.getText().toString(),
                 activityBinding.firstName.getText().toString(), countryId, cityId, results.getMonitoring(),
-                preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""), "", results.getPhoneNumber());
+                preferenceManager.getValue(Constants.FIREBASE_TOKEN, ""), "", results.getPhoneNumber(), activityBinding.othersJob.getText().toString());
     }
 
     private void handleUpdatePersonalInformationData(Resource<CompleteRegistrationData> responseData) {
