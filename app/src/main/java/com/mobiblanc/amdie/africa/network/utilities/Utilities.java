@@ -171,5 +171,4 @@ public interface Utilities {
         dialog.setContentView(view);
         dialog.show();
     }
-
 }

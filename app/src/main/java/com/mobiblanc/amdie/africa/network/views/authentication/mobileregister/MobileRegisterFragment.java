@@ -140,7 +140,8 @@ public class MobileRegisterFragment extends Fragment {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     String url = request.getUrl().toString();
-                    if (url.contains("http://africa.amdie.mobiblanc.com/callback_linkedin?code=")) {
+                    //http://africa.amdie.mobiblanc.com/callback_linkedin?code=
+                    if (url.contains("http://africanetwork.morocconow.com/callback_linkedin?code=")) {
                         fragmentBinding.webViewLayout.setVisibility(View.GONE);
                         code = url.substring(url.indexOf("=") + 1);
                         loginWithLinkedin();
@@ -153,10 +154,10 @@ public class MobileRegisterFragment extends Fragment {
                     super.onPageFinished(view, url);
                 }
             });
-            fragmentBinding.webView.loadUrl(Constants.LINKEDIN_URL);
+            fragmentBinding.webView.loadUrl(Constants.LINKEDIN_PROD_URL);
 
             try {
-                URI uri = new URI(Constants.LINKEDIN_URL);
+                URI uri = new URI(Constants.LINKEDIN_PROD_URL);
                 String domain = uri.getHost();
                 fragmentBinding.webViewUrl.setText(domain);
             } catch (URISyntaxException e) {

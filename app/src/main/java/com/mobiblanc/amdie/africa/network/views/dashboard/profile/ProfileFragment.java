@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
@@ -78,6 +80,8 @@ public class ProfileFragment extends Fragment implements OnFormOptionsSelectedLi
     private String selectedPictureType;
     private Uri profilePictureUri;
     private Uri companyPictureUri;
+    private ActivityResultLauncher<Intent> cameraActivityResultLauncher;
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -107,6 +111,43 @@ public class ProfileFragment extends Fragment implements OnFormOptionsSelectedLi
 
         if (getArguments() != null)
             update = getArguments().getBoolean("update");
+
+        cameraActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Bundle extras = result.getData().getExtras();
+                        Bitmap imageBitmap;
+                        imageBitmap = (Bitmap) extras.get("data");
+                        profilePictureUri = getImageUri(imageBitmap);
+                        switch (selectedPictureType) {
+                            case "profile":
+                                fragmentBinding.profilePicture.setImageBitmap(imageBitmap);
+                                break;
+                            case "company":
+                                fragmentBinding.companyPicture.setImageBitmap(imageBitmap);
+                                break;
+                        }
+                    }
+                });
+
+        galleryActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Uri selectedImage;
+                        selectedImage = result.getData().getData();
+                        companyPictureUri = selectedImage;
+                        switch (selectedPictureType) {
+                            case "profile":
+                                fragmentBinding.profilePicture.setImageURI(selectedImage);
+                                break;
+                            case "company":
+                                fragmentBinding.companyPicture.setImageURI(selectedImage);
+                                break;
+                        }
+                    }
+                });
     }
 
     @Override
@@ -121,45 +162,6 @@ public class ProfileFragment extends Fragment implements OnFormOptionsSelectedLi
         super.onViewCreated(view, savedInstanceState);
         initProfileForm();
         init();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap;
-            Uri selectedImage;
-            switch (selectedPictureType) {
-                case "profile":
-                    switch (requestCode) {
-                        case REQUEST_CODE_CAMERA:
-                            imageBitmap = (Bitmap) extras.get("data");
-                            profilePictureUri = getImageUri(imageBitmap);
-                            fragmentBinding.profilePicture.setImageBitmap(imageBitmap);
-                            break;
-                        case REQUEST_CODE_GALLERY:
-                            selectedImage = data.getData();
-                            profilePictureUri = selectedImage;
-                            fragmentBinding.profilePicture.setImageURI(selectedImage);
-                            break;
-                    }
-                    break;
-                case "company":
-                    switch (requestCode) {
-                        case REQUEST_CODE_CAMERA:
-                            imageBitmap = (Bitmap) extras.get("data");
-                            companyPictureUri = getImageUri(imageBitmap);
-                            fragmentBinding.companyPicture.setImageBitmap(imageBitmap);
-                            break;
-                        case REQUEST_CODE_GALLERY:
-                            selectedImage = data.getData();
-                            companyPictureUri = selectedImage;
-                            fragmentBinding.companyPicture.setImageURI(selectedImage);
-                            break;
-                    }
-                    break;
-            }
-        }
     }
 
     @Override
@@ -387,7 +389,7 @@ public class ProfileFragment extends Fragment implements OnFormOptionsSelectedLi
             public void firstChoice() {
                 try {
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePictureIntent, REQUEST_CODE_CAMERA);
+                    cameraActivityResultLauncher.launch(takePictureIntent);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -395,9 +397,13 @@ public class ProfileFragment extends Fragment implements OnFormOptionsSelectedLi
 
             @Override
             public void secondChoice() {
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto, REQUEST_CODE_GALLERY);
+                try {
+                    Intent choosePhotoIntent = new Intent(Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    galleryActivityResultLauncher.launch(choosePhotoIntent);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
