@@ -19,7 +19,7 @@
         android:theme="@style/Theme.AfricaNetwork"
         tools:replace="android:supportsRtl,android:allowBackup"
         tools:targetApi="n">
-        <activity android:name=".views.webview.WebViewActivity"></activity>
+        <activity android:name=".views.webview.WebViewActivity"/>
         <activity android:name=".views.personalinforamtion.PersonalInformationActivity" />
         <activity android:name=".views.dashboard.contacts.details.ContactDetailsActivity" />
         <activity android:name=".views.cgu.CGUActivity" />
