@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.mobiblanc.amdie.africa.network.R;
 import com.mobiblanc.amdie.africa.network.databinding.ActivityWebViewBinding;
+import com.mobiblanc.amdie.africa.network.utilities.MyWebViewClient;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -30,6 +31,7 @@ public class WebViewActivity extends AppCompatActivity {
     private void init() {
         activityBinding.closeWebViewBtn.setOnClickListener(v -> finish());
         activityBinding.webView.getSettings().setJavaScriptEnabled(true);
+        activityBinding.webView.setWebViewClient(new MyWebViewClient());
         activityBinding.webView.loadUrl("https://docs.google.com/viewer?embedded=true&url=" + url);
 
         try {

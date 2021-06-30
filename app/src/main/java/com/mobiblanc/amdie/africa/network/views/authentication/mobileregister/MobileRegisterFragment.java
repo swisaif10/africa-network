@@ -1,9 +1,11 @@
 package com.mobiblanc.amdie.africa.network.views.authentication.mobileregister;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -11,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -152,6 +155,16 @@ public class MobileRegisterFragment extends Fragment {
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
+                }
+
+                @Override
+                public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setMessage("Attention");
+                    builder.setPositiveButton("Ok", (dialog, which) -> handler.proceed());
+                    builder.setNegativeButton("Cancel", (dialog, which) -> handler.cancel());
+                    final AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
             fragmentBinding.webView.loadUrl(Constants.LINKEDIN_PROD_URL);
