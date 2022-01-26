@@ -37,4 +37,5 @@ public class HomeActivity extends BaseActivity {
         activityBinding.startBtn.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AuthenticationActivity.class)));
     }
 
+
 }
