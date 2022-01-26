@@ -232,6 +232,7 @@ public class ApiManager {
                     mutableLiveData.setValue(Resource.success(response.body()));
             }
 
+
             @Override
             public void onFailure(@NonNull Call<Profile> call, @NonNull Throwable t) {
                 HandleThrowableException(t, mutableLiveData);
